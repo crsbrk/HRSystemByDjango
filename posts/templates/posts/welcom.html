@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <title>分组网人力考核系统</title>
+    </head>
+    <body>
+      <header class ="container center-align">
+        <h1>分组网人力考核系统</h1>
+      </header>
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="{% static 'css/all.css' %}">
+      <!-- Bootstrap -->
+      <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+      <!-- Custom -->
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+      <!-- Lightbox -->
+      <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+      <!-- Top Bar -->
+      {% include 'partials/_topbar.html' %}
+
+      <!-- NavBar -->
+      {% include 'partials/_navbar.html' %}
+
+      <br>
+      <div class="container">
+
+    <!-- ! header page-->
+    <div class="content-body">
+      <div class="tp-banner-container">
+        <div class="tp-banner-slider">
+          <ul>
+            <li data-masterspeed="700" data-slotamount="7" data-transition="fade">
+              <img src="{% static 'welcom/rs-plugin/assets/loader.gif' %}" data-bgfit="cover" data-bgposition="center 70%"
+              data-lazyload="{% static 'welcom/pic/slider/main/slide-1.jpg' %}" alt="" data-bgparallax="10">
+              <div data-x="['left','left','center','center']" data-hoffset="0" data-y="center" data-voffset="-5%"
+              data-width="['470px','350px','250px','200px']" data-transform_in="x:-150px;opacity:0;s:1500;e:Power3.easeInOut;"
+              data-transform_out="x:150px;opacity:0;s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" data-start="400"
+              class="tp-caption sl-content">
+                <div class="sl-title-top"></div>
+                <div class="sl-title">大物移云智 <br /> <br /><span>
+eMBB  ：高带宽
+uRLLC：低时延
+mMTC：大连接</span></div>
+                <p> </p><a href="#" class="cws-button gray">Learn more</a>
+              </div>
+            </li>
+            <li data-masterspeed="700" data-slotamount="7" data-transition="fade">
+              <img src="{% static 'welcom/rs-plugin/assets/loader.gif' %}" data-bgfit="cover" data-bgposition="center 70%"
+              data-lazyload="{% static 'img/slide-1.jpg' %}" alt="" data-bgparallax="10">
+              <div data-x="['left','left','center','center']" data-hoffset="0" data-y="center" data-voffset="-5%"
+              data-width="['470px','350px','250px','200px']" data-transform_in="x:-150px;opacity:0;s:1500;e:Power3.easeInOut;"
+              data-transform_out="x:150px;opacity:0;s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;"
+              data-start="400" class="tp-caption sl-content">
+                <div class="sl-title-top"> </div>
+                <div class="sl-title"> <span>传承、担当、求索 </span></div>
+                <p></p><a href="#" class="cws-button gray">Learn more</a>
+              </div>
+            </li>
+            <li data-masterspeed="700" data-transition="fade" class="without-overlay">
+              <img src="{% static 'welcom/rs-plugin/assets/loader.gif' %}"
+              data-lazyload="{% static 'img/slide-1.jpg' %}" data-bgposition="center 67%" alt="" data-kenburns="on"
+              data-duration="30000" data-ease="Linear.easeNone" data-scalestart="100" data-scaleend="120"
+              data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0" data-offsetend="0 0" data-bgparallax="10">
+              <div data-x="['right','right','center','center']" data-hoffset="0" data-y="center" data-voffset="-5%"
+              data-width="['470px','350px','250px','200px']" data-transform_in="x:150px;opacity:0;s:1500;e:Power3.easeInOut;"
+              data-transform_out="x:-150px;opacity:0;s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;"
+              data-start="400" class="tp-caption sl-content align-right">
+                <div class="sl-title-top text-white"> </div>
+                <div class="sl-title text-white"> <span></span></div>
+                <p class="text-white"> </p><a href="#" class="cws-button white"> </a>
+              </div>
+            </li>
+            <li data-masterspeed="700" data-transition="fade" class="without-overlay"><img src="rs-plugin/assets/loader.gif"
+              data-lazyload="{% static 'img/slide-3.jpg' %}" data-bgposition="center 67%" alt="" data-kenburns="on"
+              data-duration="30000" data-ease="Linear.easeNone" data-scalestart="100" data-scaleend="120" data-rotatestart="0"
+              data-rotateend="0" data-offsetstart="0 0" data-offsetend="0 0" data-bgparallax="10">
+              <div data-x="['right','right','center','center']" data-hoffset="0" data-y="center" data-voffset="-5%"
+              data-width="['470px','350px','250px','200px']" data-transform_in="x:150px;opacity:0;s:1500;e:Power3.easeInOut;"
+              data-transform_out="x:-150px;opacity:0;s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;"
+              data-start="400" class="tp-caption sl-content align-right">
+                <div class="sl-title-top text-white"></div>
+                <div class="sl-title text-white"> <span> </span></div>
+                <p class="text-white"> </p><a href="#" class="cws-button white"> </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+
+      <br>
+
+
+    </div>
+
+  </div>
+    <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+
+
+
+      <link rel="stylesheet" href="{% static 'welcom/css/reset.css' %}" >
+
+      <link rel="stylesheet" href="{% static 'welcom/css/font-awesome.css' %}">
+      <link rel="stylesheet" href="{% static 'welcom/css/owl.carousel.css' %}">
+      <link rel="stylesheet" href="{% static 'welcom/css/jquery.fancybox.css' %}">
+      <link rel="stylesheet" href="{% static 'welcom/fonts/fi/flaticon.css' %}">
+      <link rel="stylesheet" href="{% static 'welcom/css/main.css' %}">
+      <link rel="stylesheet" href="{% static 'welcom/css/indent.css' %}">
+      <link rel="stylesheet" href="{% static 'welcom/rs-plugin/css/settings.css' %}">
+      <link rel="stylesheet" href="{% static 'welcom/rs-plugin/css/layers.css' %}">
+      <link rel="stylesheet" href="{% static 'welcom/rs-plugin/css/navigation.css' %}">
+    <!--<script src="https://www.youtube.com/player_api"></script>-->
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/owl.carousel.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/jquery.sticky.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/TweenMax.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/cws_parallax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/jquery.fancybox.pack.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/jquery.fancybox-media.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/isotope.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/masonry.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/rs-plugin/js/jquery.themepunch.tools.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/rs-plugin/js/jquery.themepunch.revolution.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/rs-plugin/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/rs-plugin/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/rs-plugin/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/rs-plugin/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/rs-plugin/js/extensions/revolution.extension.video.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/rs-plugin/js/extensions/revolution.extension.actions.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/rs-plugin/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/rs-plugin/js/extensions/revolution.extension.migration.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/jquery.validate.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/jquery.form.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/bg-video/cws_self_vimeo_bg.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/bg-video/jquery.vimeo.api.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/bg-video/cws_YT_bg.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/jquery.tweet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'welcom/js/retina.min.js' %}"></script>
+  </body>
+</html>

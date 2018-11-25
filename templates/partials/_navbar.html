@@ -1,0 +1,65 @@
+{% load static %}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/">
+    <img src="{% static 'img/yunwei.png' %}" class="logo" alt="">
+  </a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li
+      {% if 'welcom' in request.path %}
+        class="nav-item active mr-3"
+      {% else %}
+        class="nav-item mr-3"
+      {% endif %}
+      >
+        <a class="nav-link" href="/">首页 <span class="sr-only">(current)</span></a>
+      </li>
+      <li style="list-style-type:none;"
+      {% if 'orders' in request.path %}
+        class="nav-item active mr-3"
+      {% else %}
+        class="nav-item mr-3"
+      {% endif %}
+      >
+        <a class="nav-link" href="/orders">工单类</a>
+      </li>
+      <li
+      {% if 'cutovers/' in request.path %}
+        class="nav-item active mr-3"
+      {% else %}
+        class="nav-item mr-3"
+      {% endif %}
+      >
+        <a class="nav-link" href="/cutovers">割接类</a>
+      </li>
+      <li
+      {% if 'posts/' in request.path %}
+        class="nav-item active mr-3"
+      {% else %}
+        class="nav-item mr-3"
+      {% endif %}
+      >
+        <a class="nav-link" href="/posts">项目类</a>
+      </li>
+      <li
+      {% if 'bonuses/' in request.path %}
+        class="nav-item active mr-3"
+      {% else %}
+        class="nav-item mr-3"
+      {% endif %}
+      >
+        <a class="nav-link" href="/bonuses">特殊加分项</a>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="搜索" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+    </form>
+  </div>
+</nav>

@@ -1,0 +1,10 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+<h3 class="center-align red lighten-3">{{title}}<h3>
+  <ul class=list-group>
+    {% for bonus in bonuses %}
+      <li class ="list-group-item"><a href="/bonuses/details/{{bonus.id}}">{{bonus.title}}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

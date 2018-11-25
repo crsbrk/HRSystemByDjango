@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>分组网人力考核系统</title>
+  </head>
+  <body>
+    <header class ="container center-align">
+      <br>
+      <h1>分组网人力考核系统</h1>
+
+    </header>
+
+                <!-- Font Awesome -->
+                <link rel="stylesheet" href="{% static 'css/all.css' %}">
+                <!-- Bootstrap -->
+                <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+                <!-- Custom -->
+                <link rel="stylesheet" href="{% static 'css/style.css' %}">
+                <!-- Lightbox -->
+                <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+                <link rel="stylesheet" href="{% static 'welcom/css/main.css' %}">
+
+    <!-- Top Bar -->
+    {% include 'partials/_topbar.html' %}
+
+    <!-- NavBar -->
+    {% include 'partials/_navbar.html' %}
+    <br>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+      <br>
+
+
+    </div>
+    <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+
+    <script src="{% static 'js/lightbox.min.js' %} "></script>
+    <script src="{% static 'js/main.js' %} "></script>
+  </body>
+</html>

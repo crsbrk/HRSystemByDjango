@@ -1,0 +1,10 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+<h3 class="center-align red lighten-3">{{title}}<h3>
+  <ul style="list-style-type:none;" class=list-group>
+    {% for post in posts %}
+      <li style="list-style-type:none;" class ="list-group-item"><a href="/posts/details/{{post.id}}">{{post.title}}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
