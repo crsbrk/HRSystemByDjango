@@ -30,7 +30,7 @@ class Posts(models.Model):
     pj_leader = models.CharField('项目负责人',choices=WORKERS_NAMES,max_length=200)
     workload_allot = models.FloatField('比例',default=0.0)
     pj_participant1 = models.CharField('完成人员1',choices=WORKERS_NAMES,max_length=200, blank=True)
-    workload_allot1 = models.FloatField('比例1',default=0.0)
+    workload_allot1 = models.DecimalField('比例1',max_digits=2,decimal_places=2,default=0.0)
     pj_participant2 = models.CharField('完成人员2',choices=WORKERS_NAMES,max_length=200, blank=True)
     workload_allot2= models.FloatField('比例2',default=0.0)
     pj_participant3 = models.CharField('完成人员3',choices=WORKERS_NAMES,max_length=200,blank=True)
