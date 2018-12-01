@@ -1,0 +1,132 @@
+
+{% load static %}
+
+
+<!--第一步：引入Javascript / CSS （CDN）-->
+<!-- DataTables CSS -->
+<!-- <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.css"> -->
+<link rel="stylesheet" type="text/css" href="{% static 'datatables/css/jquery.dataTables.css' %}">
+<!-- jQuery -->
+<!-- <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script> -->
+<script type="text/javascript" charset="utf8" src="{% static 'welcom/js/jquery.min.js' %}"></script>
+
+<!-- DataTables -->
+<!-- <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script> -->
+<script type="text/javascript" charset="utf8" src="{% static 'datatables/js/jquery.dataTables.js' %}"></script>
+
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>分组网人力考核系统</title>
+  </head>
+  <body>
+    <header class ="container center-align">
+      <br>
+      <h1>分组网人力考核系统</h1>
+
+    </header>
+
+                <!-- Font Awesome -->
+                <link rel="stylesheet" href="{% static 'css/all.css' %}">
+                <!-- Bootstrap -->
+                <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+                <!-- Custom -->
+                <link rel="stylesheet" href="{% static 'css/style.css' %}">
+                <!-- Lightbox -->
+                <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+                <link rel="stylesheet" href="{% static 'welcom/css/main.css' %}">
+
+
+    <!-- Top Bar -->
+    {% include 'partials/_topbar.html' %}
+
+    <!-- NavBar -->
+    {% include 'partials/_navbar.html' %}
+
+    <br>
+    <div class="container">
+      <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">季度</th>
+      <th scope="col">姓名</th>
+      <th scope="col">总分</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for season in season4 %}
+
+    <tr>
+      <th scope="row">2018第四季度</th>
+      <td>{{season.id}}</td>
+      <td>{{season.s4}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="right-align">
+  2018年第四季度绩效排名情况
+</div>
+    <br>
+    <div class="container">
+
+      <br>
+      <table id="table_id" class="display">
+      <thead>
+          <tr>
+
+              <th>月份</th>
+              <th>姓名</th>
+              <th>工单分数</th>
+              <th>割接分数</th>
+              <th>项目分数</th>
+              <th>特殊加分</th>
+              <th>当月总分</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+
+            {% for key, value in sumScores.items %}
+              <td>{{value.sum_month}}</td>
+              <td>{{value.sum_name}}</td>
+              <td>{{value.sum_orders}}</td>
+              <td>{{value.sum_cutovers}}</td>
+              <td>{{value.sum_posts}}</td>
+              <td>{{value.sum_bonuses}}</td>
+              <td>{{value.sum_all}}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+
+
+    </div>
+
+    </div>
+  </body>
+</html>
+
+
+<script>
+
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+
+</script>
+
+
+<!-- Footer -->
+{% include 'partials/_footer.html' %}
+
+<script src="{% static 'js/lightbox.min.js' %} "></script>
+<script src="{% static 'js/main.js' %} "></script>

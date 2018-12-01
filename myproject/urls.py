@@ -25,5 +25,5 @@ urlpatterns = [
     path('bonuses/', include('bonuses.urls')),
     path('orders/', include('orders.urls')),
     path('welcom/', include('posts.urls')),
-
+    path('scores/', include('scores.urls')),
 ]

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["192.168.50.69","127.0.0.1","localhost"]
 # Application definition
 
 INSTALLED_APPS = [
+    'scores.apps.ScoresConfig',
     'posts.apps.PostsConfig',
     'bonuses.apps.BonusesConfig',
     'cutovers.apps.CutoversConfig',
@@ -125,7 +126,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
