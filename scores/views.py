@@ -63,7 +63,7 @@ GROUP BY worker_name
 ) AS SEASON4
 ORDER BY s4 desc''')
 
-    updateScoreOfWorkers(2018,10)
+    updateScoreOfWorkers(2018,11)
     print(scoreOfAllWorkers)
     print(sumScores)
     context = {
@@ -83,6 +83,9 @@ def updateScoreOfWorkers(myYear, myMonth):
     global CUTOVER_SCORE_FLAG
     global ORDERS_SCORE_FLAG
     global BONUSES_SCORE_FLAG
+
+    #set scoreOfAllWorkers to 0
+    initScoreOfAllWorkers()
 
     try:
         posts =  Posts.objects.filter(deadline_at__year = myYear, deadline_at__month = myMonth)
@@ -146,7 +149,7 @@ def countScores(myScores, flag):
 
     for myScore in myScores:
         #count the socre of each worker
-        print('this is score',myScore.pj_leader)
+        #print('this is score',myScore.pj_leader)
         if flag != CUTOVER_SCORE_FLAG:
             pj_leader_score = myScore.workload_allot * myScore.pj_score
             pj_participant1_score = myScore.workload_allot1 * myScore.pj_score
@@ -186,4 +189,14 @@ def countScores(myScores, flag):
             pj_leader_score = 1
             if myScore.pj_leader != '':
                 scoreOfAllWorkers[myScore.pj_leader]['cutovers'] += pj_leader_score
+    return
+
+
+def initScoreOfAllWorkers():
+    global scoreOfAllWorkers
+    for k,v in scoreOfAllWorkers.items():
+        v['posts'] = 0
+        v['cutovers'] = 0
+        v['orders'] = 0
+        v['bonuses'] = 0
     return
