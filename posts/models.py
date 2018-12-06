@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 # Create your models here.
@@ -27,17 +28,17 @@ class Posts(models.Model):
 
 
     pj_score = models.IntegerField('项目加分',default=0)
-    pj_leader = models.CharField('项目负责人',choices=WORKERS_NAMES,max_length=200)
-    workload_allot = models.FloatField('比例',default=0.0)
-    pj_participant1 = models.CharField('完成人员1',choices=WORKERS_NAMES,max_length=200, blank=True)
-    workload_allot1 = models.DecimalField('比例1',max_digits=2,decimal_places=2,default=0.0)
-    pj_participant2 = models.CharField('完成人员2',choices=WORKERS_NAMES,max_length=200, blank=True)
-    workload_allot2= models.FloatField('比例2',default=0.0)
-    pj_participant3 = models.CharField('完成人员3',choices=WORKERS_NAMES,max_length=200,blank=True)
-    workload_allot3 = models.FloatField('比例3',default=0.0)
+    pj_leader = models.CharField('完成人员1',choices=WORKERS_NAMES,max_length=200)
+    workload_allot = models.FloatField('比例1',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
+    pj_participant1 = models.CharField('完成人员2',choices=WORKERS_NAMES,max_length=200, blank=True)
+    workload_allot1 = models.FloatField('比例2',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
+    pj_participant2 = models.CharField('完成人员3',choices=WORKERS_NAMES,max_length=200, blank=True)
+    workload_allot2= models.FloatField('比例3',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
+    pj_participant3 = models.CharField('完成人员4',choices=WORKERS_NAMES,max_length=200,blank=True)
+    workload_allot3 = models.FloatField('比例4',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
 
     deadline_at = models.DateTimeField('计划完成日期',default=datetime.now, blank=True)
-    pj_progress = models.FloatField('当前进度',default=0.0)
+    pj_progress = models.DecimalField('当前进度',max_digits=2,decimal_places=2,default=0.0)
     is_delayed = models.BooleanField('超时',default=False)
     created_at = models.DateTimeField('开始日期',default=datetime.now, blank=True)
     body = models.TextField('备注', default='', blank=True)#body is comment

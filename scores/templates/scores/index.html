@@ -18,7 +18,7 @@
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
 
     <head>
       <!-- Required meta tags -->
@@ -27,10 +27,18 @@
 
     <title>分组网人力考核系统</title>
   </head>
+  <section  class="breadcrumbs">
+        <div class="container">
+          <div class="text-left breadcrumbs-item">
+            <h1>分组网人力考核系统</h1>
+          </div>
+        </div>
+  </section>
+
   <body>
     <header class ="container center-align">
-      <br>
-      <h1>分组网人力考核系统</h1>
+
+
 
     </header>
 
@@ -51,8 +59,17 @@
     <!-- NavBar -->
     {% include 'partials/_navbar.html' %}
 
-    <br>
+
+
+
     <div class="container">
+      <br>
+            <div class="container">
+              <div class="text-center breadcrumbs-item">
+                  <h3>2018年第四季度绩效排名情况</h3>
+              </div>
+            </div>
+
       <table class="table table-striped">
   <thead>
     <tr>
@@ -72,10 +89,12 @@
     {% endfor %}
   </tbody>
 </table>
-<div class="right-align">
-  2018年第四季度绩效排名情况
+<br><br>
+<div class="container">
+  <div class="text-center breadcrumbs-item">
+      <h3>2018年全年人员考核记录</h3>
+  </div>
 </div>
-    <br>
     <div class="container">
 
       <br>
@@ -110,8 +129,7 @@
 
 
     </div>
-
-    </div>
+</div>
   </body>
 </html>
 
@@ -124,7 +142,7 @@ $(document).ready( function () {
 
 </script>
 
-
+<br>
 <!-- Footer -->
 {% include 'partials/_footer.html' %}
 
