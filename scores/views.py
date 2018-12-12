@@ -62,10 +62,13 @@ where score_year_month in('2018-11','2018-10','2018-12')
 GROUP BY worker_name
 ) AS SEASON4
 ORDER BY s4 desc''')
-
+    updateScoreOfWorkers(2018,10)
+    #print(scoreOfAllWorkers)
     updateScoreOfWorkers(2018,11)
-    print(scoreOfAllWorkers)
-    print(sumScores)
+    #print(scoreOfAllWorkers)
+    updateScoreOfWorkers(2018,12)
+    #print(scoreOfAllWorkers)
+    #print(sumScores)
     context = {
          'title':'分数',
          'scores':scores,
@@ -79,6 +82,7 @@ ORDER BY s4 desc''')
 #update wokers scores
 def updateScoreOfWorkers(myYear, myMonth):
     global scoreOfAllWorkers
+
     global POST_SCORE_FLAG
     global CUTOVER_SCORE_FLAG
     global ORDERS_SCORE_FLAG
@@ -105,13 +109,14 @@ def updateScoreOfWorkers(myYear, myMonth):
     if posts is not None:
         countScores(posts,POST_SCORE_FLAG)
     if orders is not None:
+        print("orders is not none")
         countScores(orders,ORDERS_SCORE_FLAG)
     if bonuses is not None:
         countScores(bonuses,BONUSES_SCORE_FLAG)
     if cutovers is not None:
         countScores(cutovers,CUTOVER_SCORE_FLAG)
 
-    print(scoreOfAllWorkers)
+    #print(scoreOfAllWorkers)
 
     for aWorker in scoreOfAllWorkers:
         try:
@@ -167,8 +172,10 @@ def countScores(myScores, flag):
                     scoreOfAllWorkers[myScore.pj_participant3]['posts'] += pj_participant3_score
 
             if flag == ORDERS_SCORE_FLAG:
+                print("this is orders socre flag")
+                print(pj_leader_score)
                 if myScore.pj_leader != '':
-                    scoreOfAllWorkers[myScore.pj_leader]['orders'] = pj_leader_score
+                    scoreOfAllWorkers[myScore.pj_leader]['orders'] += pj_leader_score
                 if myScore.pj_participant1 != '':
                     scoreOfAllWorkers[myScore.pj_participant1]['orders'] += pj_participant1_score
                 if myScore.pj_participant2 != '':
@@ -186,7 +193,7 @@ def countScores(myScores, flag):
                 if myScore.pj_participant3 != '':
                     scoreOfAllWorkers[myScore.pj_participant3]['bonuses'] += pj_participant3_score
         else:
-            pj_leader_score = 2
+            pj_leader_score = 3
             if myScore.pj_leader != '':
                 scoreOfAllWorkers[myScore.pj_leader]['cutovers'] += pj_leader_score
     return
