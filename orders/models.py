@@ -13,6 +13,9 @@ class Orders(models.Model):
         ('内容计费', '内容计费'),
         ('DNS', 'DNS'),
         ('PCRF', 'PCRF'),
+        ('国际漫游', '国际漫游'),
+        ('SGSN局数据', 'SGSN局数据'),
+        ('SAEGW局数据', 'SAEGW局数据'),
         ('其他', '其他'),
     )
     WORKERS_NAMES = (

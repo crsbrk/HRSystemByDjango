@@ -186,7 +186,7 @@ def countScores(myScores, flag):
                 if myScore.pj_participant3 != '':
                     scoreOfAllWorkers[myScore.pj_participant3]['bonuses'] += pj_participant3_score
         else:
-            pj_leader_score = 1
+            pj_leader_score = 2
             if myScore.pj_leader != '':
                 scoreOfAllWorkers[myScore.pj_leader]['cutovers'] += pj_leader_score
     return

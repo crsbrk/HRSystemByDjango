@@ -38,7 +38,7 @@ class Posts(models.Model):
     workload_allot3 = models.FloatField('比例4',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
 
     deadline_at = models.DateTimeField('计划完成日期',default=datetime.now, blank=True)
-    pj_progress = models.DecimalField('当前进度',max_digits=2,decimal_places=2,default=0.0)
+    pj_progress = models.FloatField('当前进度',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
     is_delayed = models.BooleanField('超时',default=False)
     created_at = models.DateTimeField('开始日期',default=datetime.now, blank=True)
     body = models.TextField('备注', default='', blank=True)#body is comment
