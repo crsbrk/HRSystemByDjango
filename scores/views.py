@@ -46,15 +46,15 @@ def index(request):
         sumScore={}
         sumScore['sum_name'] = score.worker_name
         sumScore['sum_month'] = score.score_year_month
-        sumScore['sum_posts'] = score.score_posts
-        sumScore['sum_cutovers'] = score.score_cutovers
-        sumScore['sum_orders'] = score.score_orders
-        sumScore['sum_bonuses'] = score.score_bonuses
-        sumScore['sum_all'] = score.score_posts + score.score_cutovers+ score.score_orders+score.score_bonuses
+        sumScore['sum_posts'] = round(score.score_posts,2)
+        sumScore['sum_cutovers'] = round(score.score_cutovers,2)
+        sumScore['sum_orders'] = round(score.score_orders,2)
+        sumScore['sum_bonuses'] = round(score.score_bonuses,2)
+        sumScore['sum_all'] = round(score.score_posts + score.score_cutovers+ score.score_orders+score.score_bonuses,2)
         sumScores[i]=sumScore
         i +=1
 
-    season4 = Scores.objects.raw('''select name as id,a+b+c+d s4
+    season4 = Scores.objects.raw('''select name as id,round((a+b+c+d),2) s4
 from (
 SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d
 from scores_scores
@@ -109,7 +109,7 @@ def updateScoreOfWorkers(myYear, myMonth):
     if posts is not None:
         countScores(posts,POST_SCORE_FLAG)
     if orders is not None:
-        print("orders is not none")
+        #print("orders is not none")
         countScores(orders,ORDERS_SCORE_FLAG)
     if bonuses is not None:
         countScores(bonuses,BONUSES_SCORE_FLAG)
@@ -156,10 +156,10 @@ def countScores(myScores, flag):
         #count the socre of each worker
         #print('this is score',myScore.pj_leader)
         if flag != CUTOVER_SCORE_FLAG:
-            pj_leader_score = myScore.workload_allot * myScore.pj_score
-            pj_participant1_score = myScore.workload_allot1 * myScore.pj_score
-            pj_participant2_score = myScore.workload_allot2 * myScore.pj_score
-            pj_participant3_score = myScore.workload_allot3 * myScore.pj_score
+            pj_leader_score = round(myScore.workload_allot * myScore.pj_score,2)
+            pj_participant1_score = round(myScore.workload_allot1 * myScore.pj_score,2)
+            pj_participant2_score = round(myScore.workload_allot2 * myScore.pj_score,2)
+            pj_participant3_score = round(myScore.workload_allot3 * myScore.pj_score,2)
 
             if flag == POST_SCORE_FLAG :
                 if myScore.pj_leader != '':
