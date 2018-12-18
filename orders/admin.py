@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import Orders
 
 class OrdersAdmin(admin.ModelAdmin):
-    list_display = ('orders_num','title','pj_score','is_finished','orders_type','deadline_at','pj_leader','workload_allot','pj_participant1','workload_allot1','pj_participant2','workload_allot2','pj_participant3','workload_allot3')
+    list_display = ('orders_num','title','pj_score','is_finished','is_delayed','orders_type','deadline_at','pj_leader','workload_allot','pj_participant1','workload_allot1','pj_participant2','workload_allot2','pj_participant3','workload_allot3')
     list_per_page = 10
     list_filter = ('orders_type',)
     list_editable =('orders_type',)

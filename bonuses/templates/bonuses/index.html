@@ -7,4 +7,64 @@
       <li class ="list-group-item"><a href="/bonuses/details/{{bonus.id}}">{{bonus.title}}</a></li>
     {% endfor %}
   </ul>
+
+  <br>
+
+  <div class="row">
+     <div class="col-md-12">
+         <ul class="pagination">
+             {% if bonuses.has_previous %}
+             <li  class="page-item">
+                 <a href="?page=1" class="page-link">&laquo; 首页</a>
+              </li>
+            <li class="page-item">
+                 <a href="?page={{ bonuses.previous_page_number }}" class="page-link">上一页</a>
+            </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link">&laquo; 首页</a>
+              </li>
+              <li class ="page-item disabled" >
+                  <a class="page-link">1</a>
+              </li>
+             {% endif %}
+
+
+             {% if bonuses.has_previous %}
+             <li class ="page-item">
+                <a href="?page={{bonuses.previous_page_number}}" class="page-link">{{bonuses.previous_page_number}}</a>
+             </li>
+
+               <li class ="page-item">
+                  <a  class="page-link active">{{bonuses.number}}</a>
+               </li>
+               {% endif%}
+                 <!-- Page {{ bonuses.number }} of {{ bonuses.paginator.num_pages }}. -->
+                 {% if bonuses.has_next %}
+                 <li class ="page-item">
+                     <a href="?page={{ bonuses.next_page_number }}" class="page-link">{{bonuses.next_page_number}}</a>
+                     </li>
+                 {% endif %}
+
+             {% if bonuses.has_next %}
+
+             <li class ="page-item">
+                 <a href="?page={{ bonuses.next_page_number }}" class="page-link">下一页</a>
+                 </li>
+                 <li  class="page-item">
+                   <a href="?page={{ bonuses.paginator.num_pages }}" class="page-link">最后一页 &raquo;</a>
+                 </li>
+              {% else %}
+                   <li class="page-item disabled">
+                     <a class="page-link">最后一页 &raquo;</a>
+                   </li>
+             {% endif %}
+
+         </ul>
+     </div>
+    </div>
+
+
+
+
 {% endblock %}

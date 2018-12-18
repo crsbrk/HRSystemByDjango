@@ -39,7 +39,7 @@ class Posts(models.Model):
 
     deadline_at = models.DateTimeField('计划完成日期',default=datetime.now, blank=True)
     pj_progress = models.FloatField('当前进度',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
-    is_delayed = models.BooleanField('超时',default=False)
+    is_delayed = models.BooleanField('未超时',default=True)
     created_at = models.DateTimeField('开始日期',default=datetime.now, blank=True)
     body = models.TextField('备注', default='', blank=True)#body is comment
 
