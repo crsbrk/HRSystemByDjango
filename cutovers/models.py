@@ -28,7 +28,7 @@ class Cutovers(models.Model):
 
 
     deadline_at = models.DateTimeField('割接日期',default=datetime.now)
-    is_delayed = models.BooleanField('完成',default=False)
+    is_not_delayed = models.BooleanField('完成',default=False)
 
     body = models.TextField('备注', default='', blank=True)#body is comment
 

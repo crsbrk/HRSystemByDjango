@@ -34,7 +34,7 @@ class Bonuses(models.Model):
     workload_allot3 = models.FloatField('比例4',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
 
 
-    is_delayed = models.BooleanField('未在别处加分',default=True)
+    is_not_delayed = models.BooleanField('未在别处加分',default=True)
     created_at = models.DateTimeField('开始日期',default=datetime.now, blank=True)
     body = models.TextField('备注', default='', blank=True)#body is comment
 

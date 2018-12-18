@@ -48,7 +48,7 @@ class Orders(models.Model):
     workload_allot3 = models.FloatField('比例4',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
     orders_type = models.CharField('工单类型:',max_length=24,choices=ORDER_TYPES,default='物联网')
     deadline_at = models.DateTimeField('工单完成日期',default=datetime.now, blank=True)
-    is_delayed = models.BooleanField('未超时',default=False)
+    is_not_delayed = models.BooleanField('未超时',default=True)
     is_finished = models.BooleanField('完成',default=False)
     created_at = models.DateTimeField('登记日期',default=datetime.now, blank=True)
     body = models.TextField('备注', default='', blank=True)#body is comment
