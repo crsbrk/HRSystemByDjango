@@ -8,7 +8,7 @@ def index(request):
     #return HttpResponse('hello django')
     #orders = Orders.objects.all()[:10]
     orders = Orders.objects.all()
-    paginator = Paginator(orders, 25) # Show 25 contacts per page
+    paginator = Paginator(orders, 15) # Show 25 contacts per page
 
     page = request.GET.get('page')
     listings = paginator.get_page(page)

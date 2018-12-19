@@ -1,46 +1,98 @@
 {% extends 'layout.html'%}
 
 {% block content %}
+
 <h3 class="center-align red lighten-3">{{post.title}}<h3>
-<div class="card">
-  <div class="card-content">
-    {{post.body}}
 
-  </div>
-  <div class="card-action">
-    项目开始日期：  {{post.created_at}}
-  </div>
-  <div class="card-action">
-    计划完成日期：  {{post.deadline_at}}
-  </div>
-  <div class="card-action">
-  项目加分：  {{post.pj_score}}
-  </div>
-  <div class="card-action">
-  当前进度：  {{post.pj_progress}}
-  </div>
-  <div class="card-action">
-  项目超时：  {{post.is_delayed}}
-  </div>
-  <div class="card-action">
-  项目负责人：  {{post.pj_leader}}    (比例：  {{post.workload_allot}})
-  </div>
+    <div class="card">
 
-  <div class="card-action">
-  完成人员一：  {{post.pj_participant1}}   (比例：  {{post.workload_allot1}})
-  </div>
-
-  <div class="card-action">
-  完成人员二：  {{post.pj_participant2}}  (比例：  {{post.workload_allot1}})
-  </div>
-
-  <div class="card-action">
-  完成人员三：  {{post.pj_participant3}}  (比例：  {{post.workload_allot3}})
-  </div>
+      <div class="card-action">
+        <table class="table table-bordered" style="text-align:center;">
+          <tr>
+            <th >
+              项目名称
+            </th>
+            <th>
+              {{post.title}}
+            </th>
+          </tr>
 
 
-</div>
-<br>
-<a href="/posts" class = "btn btn-primary btn-lg">返回</a>
-<br>
-{% endblock %}
+          <tr>
+            <td>
+              项目开始日期
+            </td>
+            <td>
+              {{post.created_at}}
+            </td>
+          </tr>
+
+          <tr>
+
+
+            <td> 计划完成日期</td>
+            <td> {{post.deadline_at}}</td>
+
+          </tr>
+          <tr>
+
+            <td>项目加分</td>
+            <td> {{post.pj_score}}</td>
+          </tr>
+          <tr>
+
+            <td>当前进度</td>
+            <td> {{post.pj_progress}}
+            </td>
+          </tr>
+
+
+          <tr>
+
+            <td>项目超时 </td>
+            <td> {{post.is_not_delayed}} </td>
+          </tr>
+
+
+          <tr>
+
+            <td>项目负责人 </td>
+            <td> {{post.pj_leader}} (比例： {{post.workload_allot}}) </td>
+          </tr>
+
+
+          <tr>
+
+            <td>完成人员一 </td>
+            <td> {{post.pj_participant1}} (比例： {{post.workload_allot1}}) </td>
+          </tr>
+
+
+          <tr>
+
+            <td>完成人员二</td>
+            <td> {{post.pj_participant2}} (比例： {{post.workload_allot2}}) </td>
+          </tr>
+
+
+
+          <tr>
+
+            <td>完成人员三</td>
+            <td> {{post.pj_participant3}} (比例： {{post.workload_allot3}}) </td>
+          </tr>
+
+
+          <tr>
+            <td>备注</td>
+            <td> {{post.body|linebreaksbr}}</td>
+          </tr>
+
+
+        </table>
+      </div>
+    </div>
+    <br>
+    <a href="/posts" class="btn btn-primary btn-lg">返回</a>
+    <br>
+    {% endblock %}

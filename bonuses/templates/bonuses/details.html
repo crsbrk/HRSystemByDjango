@@ -3,13 +3,43 @@
 {% block content %}
 <h3 class="center-align red lighten-3">{{bonus.title}}<h3>
 <div class="card">
-  <div class="card-content">
-    {{bonus.body}}
-
-  </div>
-
+  <table class="table table-bordered" style="text-align:center;">
+      <tr>
+        <td>特殊加分项名称</td>
+        <td>{{bonus.title}}</td>
+      </tr>
+      <tr>
+        <td>加分分数</td>
+        <td>{{bonus.pj_score}}</td>
+      </tr>
+      <tr>
+        <td>未在别处加分</td>
+        <td>{{bonus.is_not_delayed}}</td>
+      </tr>
+      <tr>
+        <td>开始日期</td>
+        <td>{{bonus.created_at}}</td>
+      </tr>
+      <td>完成人员1</td>
+      <td>{{bonus.pj_leader}} 比例：{{bonus.workload_allot}}</td>
+      <tr>
+        <td>完成人员2</td>
+        <td>{{bonus.pj_participant1}} 比例：{{bonus.workload_allot1}}</td>
+        <tr>
+          <td>完成人员3</td>
+          <td>{{bonus.pj_participant2}}比例： {{bonus.workload_allot2}}</td>
+          <tr>
+            <td>完成人员4</td>
+            <td>{{bonus.pj_participant3}}比例： {{bonus.workload_allot3}}</td>
+            <tr>
+        <td >备注</td>
+        <td >  {{bonus.body|linebreaksbr}}</td>
+      </tr>
+  </table>
 
 </div>
+
+
 <br>
 <a href="/bonuses" class = "btn btn-primary btn-lg">返回</a>
 <br>

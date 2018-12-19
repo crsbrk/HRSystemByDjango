@@ -3,9 +3,35 @@
 {% block content %}
 <h3 class="center-align red lighten-3">{{title}}<h3>
   <ul class=list-group>
+    <table class="table table-bordered ">
+      <tr>
+        <th>
+          <li>加分项目名称</li>
+        </th>
+        <th>分数</th>
+        <th>未在别处加分</th>
+        <th>开始日期</th>
+
+      </tr>
+      <tbody>
+        <tr>
+
+
     {% for bonus in bonuses %}
-      <li class ="list-group-item"><a href="/bonuses/details/{{bonus.id}}">{{bonus.title}}</a></li>
+              <td style="text-align: left;">
+      <li ><a href="/bonuses/details/{{bonus.id}}">{{bonus.title}}</a></li>
+</td>
+<td style="text-align: left;">{{bonus.pj_score}}</td>
+<td style="text-align: left;">{{bonus.is_not_delayed}}</td>
+<td style="text-align: left;">{{bonus.created_at}}</td>
+
+
+</tr>
     {% endfor %}
+
+  </tbody>
+
+  </table>
   </ul>
 
   <br>
