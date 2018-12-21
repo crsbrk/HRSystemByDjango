@@ -32,8 +32,22 @@
               <li><a href="/orders/details/{{order.id}}">{{order.title}}</a></li>
             </td>
             <!-- <td style="text-align: left;">{{order.orders_num}}</td> -->
-            <td style="text-align: left;">{{order.is_not_delayed}}</td>
-            <td style="text-align: left;">{{order.is_finished}}</td>
+            <td style="text-align: center;">
+              {% if order.is_not_delayed %}
+              <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
+              {% else %}
+              <i class="fas fa-window-close" style="color: red;"></i>
+
+              {% endif %}
+            </td>
+            <td style="text-align: center;">
+              {% if order.is_finished %}
+              <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
+              {% else %}
+              <i class="fas fa-window-close" style="color: red;"></i>
+
+              {% endif %}
+            </td>
             <td style="text-align: left;">{{order.pj_score}}</td>
             <td style="text-align: left;">{{order.orders_type}}</td>
             <td style="text-align: left;">{{order.deadline_at}}</td>

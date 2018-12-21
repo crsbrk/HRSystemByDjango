@@ -31,7 +31,14 @@
         <td style="text-align: left;">{{post.pj_score}}</td>
         <td style="text-align: left;">{{post.deadline_at}}</td>
         <td style="text-align: left;">{{post.pj_progress}}</td>
-        <td style="text-align: left;">{{post.is_not_delayed}}</td>
+        <td style="text-align: center;">
+          {% if post.is_not_delayed %}
+          <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
+          {% else %}
+          <i class="fas fa-window-close" style="color: red;"></i>
+
+          {% endif %}
+        </td>
 
         </tr>
         {% endfor %}

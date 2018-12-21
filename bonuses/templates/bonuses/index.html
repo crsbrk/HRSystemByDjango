@@ -9,7 +9,7 @@
           <li>加分项目名称</li>
         </th>
         <th>分数</th>
-        <th>未在别处加分</th>
+        <th>未加分</th>
         <th>开始日期</th>
 
       </tr>
@@ -22,7 +22,14 @@
       <li ><a href="/bonuses/details/{{bonus.id}}">{{bonus.title}}</a></li>
 </td>
 <td style="text-align: left;">{{bonus.pj_score}}</td>
-<td style="text-align: left;">{{bonus.is_not_delayed}}</td>
+<td style="text-align: center;">
+  {% if bonus.is_not_delayed %}
+  <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
+  {% else %}
+  <i class="fas fa-window-close" style="color: red;"></i>
+
+  {% endif %}
+</td>
 <td style="text-align: left;">{{bonus.created_at}}</td>
 
 

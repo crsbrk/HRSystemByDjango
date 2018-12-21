@@ -51,8 +51,16 @@
 
           <tr>
 
-            <td>项目超时 </td>
-            <td> {{post.is_not_delayed}} </td>
+            <td>未超时 </td>
+            <td>
+              {% if post.is_not_delayed %}
+              <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
+              {% else %}
+              <i class="fas fa-window-close" style="color: red;"></i>
+
+              {% endif %}
+             </td>
+
           </tr>
 
 

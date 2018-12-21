@@ -25,7 +25,15 @@
           <td style="text-align: left;">{{cutover.cutover_num}}</td>
           <td style="text-align: left;">3</td>
           <td style="text-align: left;">{{cutover.pj_leader}}</td>
-          <td style="text-align: left;">{{cutover.is_not_delayed}}</td>
+          <td style="text-align: center;">
+            {% if cutover.is_not_delayed %}
+            <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
+            {% else %}
+            <i class="fas fa-window-close" style="color: red;"></i>
+
+            {% endif %}
+
+          </td>
           <td style="text-align: left;">{{cutover.deadline_at}}</td>
 </tr>
           {% endfor %}
