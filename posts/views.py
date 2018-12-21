@@ -6,7 +6,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 def index(request):
     #return HttpResponse('hello django')
     #posts = Posts.objects.all()[:10]
-    posts = Posts.objects.all()
+    posts = Posts.objects.all().order_by('-deadline_at')
     paginator = Paginator(posts, 25) # Show 25 contacts per page
 
     page = request.GET.get('page')

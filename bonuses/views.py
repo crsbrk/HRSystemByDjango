@@ -6,7 +6,7 @@ from .models import Bonuses
 # Create your views here.
 def index(request):
     #return HttpResponse('hello django')
-    bonuses = Bonuses.objects.all()#[:10]
+    bonuses = Bonuses.objects.all().order_by('-created_at')#[:10]
     paginator = Paginator(bonuses, 25) # Show 25 contacts per page
 
     page = request.GET.get('page')

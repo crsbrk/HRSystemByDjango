@@ -6,7 +6,7 @@ from .models import Cutovers
 # Create your views here.
 def index(request):
     #return HttpResponse('hello django')
-    cutovers = Cutovers.objects.all()#[:10]
+    cutovers = Cutovers.objects.all().order_by('-deadline_at')#[:10]
     paginator = Paginator(cutovers, 25) # Show 25 contacts per page
 
     page = request.GET.get('page')

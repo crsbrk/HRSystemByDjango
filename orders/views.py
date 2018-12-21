@@ -7,7 +7,7 @@ from .models import Orders
 def index(request):
     #return HttpResponse('hello django')
     #orders = Orders.objects.all()[:10]
-    orders = Orders.objects.all()
+    orders = Orders.objects.all().order_by('-deadline_at')
     paginator = Paginator(orders, 15) # Show 25 contacts per page
 
     page = request.GET.get('page')
