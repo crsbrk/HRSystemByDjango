@@ -9,9 +9,9 @@
       <tr  >
           <th><li>项目名称</li></th>
           <th>分数</th>
-          <th>到期时间</th>
-          <th>进度</th>
           <th>按时完成</th>
+          <th>进度</th>
+          <th>到期时间</th>
         </tr>
 
 
@@ -29,8 +29,6 @@
 
         </td>
         <td style="text-align: left;">{{post.pj_score}}</td>
-        <td style="text-align: left;">{{post.deadline_at}}</td>
-        <td style="text-align: left;">{{post.pj_progress}}</td>
         <td style="text-align: center;">
           {% if post.is_not_delayed %}
           <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
@@ -39,7 +37,9 @@
 
           {% endif %}
         </td>
+        <td style="text-align: left;">{{post.pj_progress}}</td>
 
+  <td style="text-align: left;">{{post.deadline_at}}</td>
         </tr>
         {% endfor %}
       </tbody>
