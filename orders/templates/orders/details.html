@@ -52,16 +52,16 @@
           {% endif %}</td>
       </tr>
       <td>完成人员1</td>
-      <td>{{order.pj_leader}} 比例：{{order.workload_allot}}</td>
+      <td>{{order.pj_leader}} 比例：{% widthratio order.workload_allot 1 100 %}%</td>
       <tr>
         <td>完成人员2</td>
-        <td>{{order.pj_participant1}} 比例：{{order.workload_allot1}}</td>
+        <td>{{order.pj_participant1}} 比例：{% widthratio order.workload_allot1 1 100 %}%</td>
         <tr>
           <td>完成人员3</td>
-          <td>{{order.pj_participant2}}比例： {{order.workload_allot2}}</td>
+          <td>{{order.pj_participant2}}比例： {% widthratio order.workload_allot2 1 100 %}%</td>
           <tr>
             <td>完成人员4</td>
-            <td>{{order.pj_participant3}}比例： {{order.workload_allot3}}</td>
+            <td>{{order.pj_participant3}}比例： {% widthratio order.workload_allot3 1 100 %}%</td>
             <tr>
         <td >备注</td>
         <td >  {{order.body|linebreaksbr}}</td>

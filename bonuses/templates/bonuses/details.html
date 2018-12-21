@@ -21,16 +21,16 @@
         <td>{{bonus.created_at}}</td>
       </tr>
       <td>完成人员1</td>
-      <td>{{bonus.pj_leader}} 比例：{{bonus.workload_allot}}</td>
+      <td>{{bonus.pj_leader}} 比例：{% widthratio bonus.workload_allot 1 100%}%</td>
       <tr>
         <td>完成人员2</td>
-        <td>{{bonus.pj_participant1}} 比例：{{bonus.workload_allot1}}</td>
+        <td>{{bonus.pj_participant1}} 比例：{% widthratio bonus.workload_allot1 1 100%}%</td>
         <tr>
           <td>完成人员3</td>
-          <td>{{bonus.pj_participant2}}比例： {{bonus.workload_allot2}}</td>
+          <td>{{bonus.pj_participant2}}比例： {% widthratio bonus.workload_allot2 1 100 %}%</td>
           <tr>
             <td>完成人员4</td>
-            <td>{{bonus.pj_participant3}}比例： {{bonus.workload_allot3}}</td>
+            <td>{{bonus.pj_participant3}}比例： {% widthratio bonus.workload_allot3 1 100 %}%</td>
             <tr>
         <td >备注</td>
         <td >  {{bonus.body|linebreaksbr}}</td>

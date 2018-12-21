@@ -37,8 +37,8 @@
 
           {% endif %}
         </td>
-        <td style="text-align: left;">{{post.pj_progress}}</td>
 
+        <td style="text-align: left;">{% widthratio post.pj_progress 1 100 %}% </td>
   <td style="text-align: left;">{{post.deadline_at}}</td>
         </tr>
         {% endfor %}

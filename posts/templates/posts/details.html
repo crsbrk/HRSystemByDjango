@@ -44,7 +44,7 @@
           <tr>
 
             <td>当前进度</td>
-            <td> {{post.pj_progress}}
+            <td> {% widthratio post.pj_progress 1 100 %}%
             </td>
           </tr>
 
@@ -67,21 +67,21 @@
           <tr>
 
             <td>项目负责人 </td>
-            <td> {{post.pj_leader}} (比例： {{post.workload_allot}}) </td>
+            <td> {{post.pj_leader}} 比例： {% widthratio post.workload_allot 1 100 %}% </td>
           </tr>
 
 
           <tr>
 
             <td>完成人员一 </td>
-            <td> {{post.pj_participant1}} (比例： {{post.workload_allot1}}) </td>
+            <td> {{post.pj_participant1}} 比例： {% widthratio post.workload_allot1 1 100 %}% </td>
           </tr>
 
 
           <tr>
 
             <td>完成人员二</td>
-            <td> {{post.pj_participant2}} (比例： {{post.workload_allot2}}) </td>
+            <td> {{post.pj_participant2}} 比例： {% widthratio post.workload_allot2 1 100 %}% </td>
           </tr>
 
 
@@ -89,7 +89,7 @@
           <tr>
 
             <td>完成人员三</td>
-            <td> {{post.pj_participant3}} (比例： {{post.workload_allot3}}) </td>
+            <td> {{post.pj_participant3}} 比例： {% widthratio post.workload_allot3 1 100 %}% </td>
           </tr>
 
 
