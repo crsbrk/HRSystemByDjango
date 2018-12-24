@@ -57,7 +57,7 @@ class Orders(models.Model):
     orders_type = models.CharField(
         '工单类型:', max_length=24, choices=ORDER_TYPES, default='物联网')
     deadline_at = models.DateTimeField(
-        '工单完成日期', default=datetime.now, blank=True)
+        '工单到期日期', default=datetime.now, blank=True)
     is_not_delayed = models.BooleanField('未超时', default=True)
     is_finished = models.BooleanField('完成', default=False)
     created_at = models.DateTimeField('登记日期', default=datetime.now, blank=True)
