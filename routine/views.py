@@ -13,7 +13,7 @@ def index(request):
     page = request.GET.get('page')
     listings = paginator.get_page(page)
     context = {
-         'title': '故障处理',
+         'title': '日常工作',
          'routines': listings
 
     }
