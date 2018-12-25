@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'bonuses.apps.BonusesConfig',
     'cutovers.apps.CutoversConfig',
     'orders.apps.OrdersConfig',
+    'faulty.apps.FaultyConfig',
+    'routine.apps.RoutineConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

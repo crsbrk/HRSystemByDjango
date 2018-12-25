@@ -1,26 +1,10 @@
 from django.db import models
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from templates.constant_files import WORKERS_NAMES
 # Create your models here.
 class Bonuses(models.Model):
-    WORKERS_NAMES = (
-        ('陈立栋', '陈立栋'),
-        ('常晓波', '常晓波'),
-        ('刘江', '刘江'),
-		('刘雷', '刘雷'),
-		('刘峰', '刘峰'),
-		('冯庆', '冯庆'),
-		('郭少钏', '郭少钏'),
-		('于秋思', '于秋思'),
-		('苏飓', '苏飓'),
-        ('苏伟衡', '苏伟衡'),
-        ('杨晓', '杨晓'),
-		('霍晓歌', '霍晓歌'),
-		('李晓昕', '李晓昕'),
-		('韦国锐', '韦国锐'),
-		('张晨', '张晨'),
-	)
+
     #title is bonus name
     title = models.CharField('加分项目名称',max_length=200)
     pj_score = models.IntegerField('项目加分',default=0)

@@ -1,0 +1,106 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+<h3 class="center-align red lighten-3">{{title}}<h3>
+  <ul class=list-group>
+    <table class="table table-bordered ">
+      <tr>
+        <th >
+          <li>故障名称</li>
+        </th>
+        <th>分数</th>
+        <th>处理完成</th>
+        <th>开始日期</th>
+
+      </tr>
+      <tbody>
+        <tr>
+
+
+    {% for routine in routines %}
+              <td style="text-align: left;">
+      <li ><a href="/routine/details/{{routine.id}}">{{routine.title}}</a></li>
+</td>
+<td style="text-align: left;">{{routine.pj_score}}</td>
+<td style="text-align: center;">
+  {% if routine.is_not_delayed %}
+  <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
+  {% else %}
+  <i class="fas fa-window-close" style="color: red;"></i>
+
+  {% endif %}
+</td>
+<td style="text-align: left;">{{routine.created_at}}</td>
+
+
+</tr>
+    {% endfor %}
+
+  </tbody>
+
+  </table>
+  </ul>
+
+  <br>
+
+  <div class="row">
+     <div class="col-md-12">
+         <ul class="pagination">
+             {% if routines.has_previous %}
+             <li  class="page-item">
+                 <a href="?page=1" class="page-link">&laquo; 首页</a>
+              </li>
+            <li class="page-item">
+                 <a href="?page={{ routines.previous_page_number }}" class="page-link">上一页</a>
+            </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link">&laquo; 首页</a>
+              </li>
+              <li class ="page-item disabled" >
+                  <a class="page-link">1</a>
+              </li>
+             {% endif %}
+
+
+             {% if routines.has_previous %}
+             <li class ="page-item">
+                <a href="?page={{routines.previous_page_number}}" class="page-link">{{routines.previous_page_number}}</a>
+             </li>
+
+               <li class ="page-item">
+                  <a  class="page-link active">{{routines.number}}</a>
+               </li>
+               {% endif%}
+                 <!-- Page {{ routines.number }} of {{ routines.paginator.num_pages }}. -->
+                 {% if routines.has_next %}
+                 <li class ="page-item">
+                     <a href="?page={{ routines.next_page_number }}" class="page-link">{{routines.next_page_number}}</a>
+                     </li>
+                 {% endif %}
+
+             {% if routines.has_next %}
+
+             <li class ="page-item">
+                 <a href="?page={{ routines.next_page_number }}" class="page-link">下一页</a>
+                 </li>
+                 <li  class="page-item">
+                   <a href="?page={{ routines.paginator.num_pages }}" class="page-link">最后一页 &raquo;</a>
+                 </li>
+              {% else %}
+                   <li class="page-item disabled">
+                     <a class="page-link">最后一页 &raquo;</a>
+                   </li>
+             {% endif %}
+             <li class="page-item disabled">
+               <a class="page-link">第{{routines.number}}页，共{{ routines.paginator.num_pages }}页 </a>
+             </li>
+
+         </ul>
+     </div>
+    </div>
+
+
+
+
+{% endblock %}

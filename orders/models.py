@@ -1,43 +1,16 @@
 from django.db import models
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from templates.constant_files import WORKERS_NAMES,ORDER_TYPES
 
 # Create your models here.
 class Orders(models.Model):
     #title is project name
 
-    ORDER_TYPES = (
-        ('行业', '行业'),
-        ('物联网', '物联网'),
-        ('内容计费', '内容计费'),
-        ('DNS', 'DNS'),
-        ('PCRF', 'PCRF'),
-        ('国际漫游', '国际漫游'),
-        ('SGSN/MME局数据', 'SGSN/MME局数据'),
-        ('SGW/PGW局数据', 'SGW/PGW局数据'),
-        ('其他', '其他'),
-    )
-    WORKERS_NAMES = (
-        ('陈立栋', '陈立栋'),
-        ('常晓波', '常晓波'),
-        ('刘江', '刘江'),
-        ('刘雷', '刘雷'),
-        ('刘峰', '刘峰'),
-        ('冯庆', '冯庆'),
-        ('郭少钏', '郭少钏'),
-        ('于秋思', '于秋思'),
-        ('苏飓', '苏飓'),
-        ('苏伟衡', '苏伟衡'),
-        ('杨晓', '杨晓'),
-        ('霍晓歌', '霍晓歌'),
-        ('李晓昕', '李晓昕'),
-        ('韦国锐', '韦国锐'),
-        ('张晨', '张晨'),
-        )
+
     orders_num = models.CharField('工单编号', max_length=200)
     title = models.CharField('工单名称', max_length=200)
-    pj_score = models.IntegerField('工单加分', default=0)
+    pj_score = models.IntegerField('工单加分', default=1)
     pj_leader = models.CharField(
         '完成人员1', choices=WORKERS_NAMES, max_length=200)
     workload_allot = models.FloatField(

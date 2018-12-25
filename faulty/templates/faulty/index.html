@@ -1,0 +1,106 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+<h3 class="center-align red lighten-3">{{title}}<h3>
+    <ul class=list-group>
+      <table class="table table-bordered ">
+        <tr>
+          <th>
+            <li>故障名称</li>
+          </th>
+          <th>分数</th>
+          <th>处理完成</th>
+          <th>开始日期</th>
+
+        </tr>
+        <tbody>
+          <tr>
+
+
+            {% for fault in faults %}
+            <td style="text-align: left;">
+              <li><a href="/faulty/details/{{fault.id}}">{{fault.title}}</a></li>
+            </td>
+            <td style="text-align: left;">{{fault.pj_score}}</td>
+            <td style="text-align: center;">
+              {% if fault.is_not_delayed %}
+              <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
+              {% else %}
+              <i class="fas fa-window-close" style="color: red;"></i>
+
+              {% endif %}
+            </td>
+            <td style="text-align: left;">{{fault.created_at}}</td>
+
+
+          </tr>
+          {% endfor %}
+
+        </tbody>
+
+      </table>
+    </ul>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="pagination">
+          {% if faults.has_previous %}
+          <li class="page-item">
+            <a href="?page=1" class="page-link">&laquo; 首页</a>
+          </li>
+          <li class="page-item">
+            <a href="?page={{ faults.previous_page_number }}" class="page-link">上一页</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link">&laquo; 首页</a>
+          </li>
+          <li class="page-item disabled">
+            <a class="page-link">1</a>
+          </li>
+          {% endif %}
+
+
+          {% if faults.has_previous %}
+          <li class="page-item">
+            <a href="?page={{faults.previous_page_number}}" class="page-link">{{faults.previous_page_number}}</a>
+          </li>
+
+          <li class="page-item">
+            <a class="page-link active">{{faults.number}}</a>
+          </li>
+          {% endif%}
+          <!-- Page {{ faults.number }} of {{ faults.paginator.num_pages }}. -->
+          {% if faults.has_next %}
+          <li class="page-item">
+            <a href="?page={{ faults.next_page_number }}" class="page-link">{{faults.next_page_number}}</a>
+          </li>
+          {% endif %}
+
+          {% if faults.has_next %}
+
+          <li class="page-item">
+            <a href="?page={{ faults.next_page_number }}" class="page-link">下一页</a>
+          </li>
+          <li class="page-item">
+            <a href="?page={{ faults.paginator.num_pages }}" class="page-link">最后一页 &raquo;</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link">最后一页 &raquo;</a>
+          </li>
+          {% endif %}
+          <li class="page-item disabled">
+            <a class="page-link">第{{faults.number}}页，共{{ faults.paginator.num_pages }}页 </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+
+
+
+    {% endblock %}

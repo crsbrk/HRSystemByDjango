@@ -109,6 +109,8 @@
             <th>割接分数</th>
             <th>项目分数</th>
             <th>特殊加分</th>
+            <th>日常工作</th>
+            <th>故障处理</th>
             <th>当月总分</th>
           </tr>
         </thead>
@@ -122,22 +124,22 @@
             <td>{{value.sum_cutovers}}</td>
             <td>{{value.sum_posts}}</td>
             <td>{{value.sum_bonuses}}</td>
+            <td>{{value.sum_routine}}</td>
+            <td>{{value.sum_faulty}}</td>
             <td>{{value.sum_all}}</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
 
-      <br>
+      <br>      <br>
       <div class="alert alert-light" role="alert">
 
         <h4>加分标准:</h4>
 
         <p>
-          割接：3分/次;
-          工单：1分/单;
-          项目：最多20分;
-          特殊加分：自定义。
+工单1分，割接3分（按次），项目10分起，最多25分（完成需超一个月，月初立项），
+例行日常工作（报表，备份，分析，维保，季度台帐更新）每个2分，故障投诉1到2分，特殊加分（大家填报，主管调整）
         </p>
       </div>
     </div>

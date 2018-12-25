@@ -46,6 +46,28 @@
       >
         <a class="nav-link" href="/posts">项目类</a>
       </li>
+
+
+      <li
+      {% if 'routine/' in request.path %}
+        class="nav-item active mr-3"
+      {% else %}
+        class="nav-item mr-3"
+      {% endif %}
+      >
+        <a class="nav-link" href="/routine">日常工作</a>
+      </li>
+
+      <li
+      {% if 'faulty/' in request.path %}
+        class="nav-item active mr-3"
+      {% else %}
+        class="nav-item mr-3"
+      {% endif %}
+      >
+        <a class="nav-link" href="/faulty">故障处理</a>
+      </li>
+
       <li
       {% if 'bonuses/' in request.path %}
         class="nav-item active mr-3"
@@ -55,6 +77,11 @@
       >
         <a class="nav-link" href="/bonuses">特殊加分项</a>
       </li>
+
+
+
+
+
       <li
       {% if 'scores/' in request.path %}
         class="nav-item active mr-3"

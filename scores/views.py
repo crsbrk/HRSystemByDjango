@@ -4,29 +4,33 @@ from posts.models import Posts
 from cutovers.models import Cutovers
 from orders.models import Orders
 from bonuses.models import Bonuses
-from django.db.models import Sum
+from routine.models import Routine
+from faulty.models import Faulty
+
 
 POST_SCORE_FLAG = 1
 CUTOVER_SCORE_FLAG = 2
 ORDERS_SCORE_FLAG = 3
 BONUSES_SCORE_FLAG = 4
+FAULTY_SCORE_FLAG = 5
+ROUTINE_SCORE_FLAG = 6
 
 scoreOfAllWorkers = {
-    '陈立栋': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '常晓波': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '刘江': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '刘雷': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '刘峰': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '冯庆': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '郭少钏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '于秋思': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '苏飓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '苏伟衡': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '杨晓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '霍晓歌': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '李晓昕': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '韦国锐': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
-    '张晨': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0},
+    '陈立栋': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '常晓波': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '刘江': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '刘雷': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '刘峰': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '冯庆': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '郭少钏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '于秋思': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '苏飓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '苏伟衡': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '杨晓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '霍晓歌': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '李晓昕': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '韦国锐': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '张晨': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
 }
 
 
@@ -48,14 +52,18 @@ def index(request):
         sumScore['sum_cutovers'] = round(score.score_cutovers, 2)
         sumScore['sum_orders'] = round(score.score_orders, 2)
         sumScore['sum_bonuses'] = round(score.score_bonuses, 2)
+        sumScore['sum_routine'] = round(score.score_routine, 2)
+        sumScore['sum_faulty'] = round(score.score_faulty, 2)
         sumScore['sum_all'] = round(
-            score.score_posts + score.score_cutovers + score.score_orders + score.score_bonuses, 2)
+            score.score_posts + score.score_cutovers + score.score_orders + score.score_bonuses + score.score_routine + score.score_faulty, 2)
+        #print(sumScore['sum_all'])
         sumScores[i] = sumScore
         i += 1
-
-    season4 = Scores.objects.raw('''select name as id,round((a+b+c+d),2) s4
+#s4 means forth season 
+    season4 = Scores.objects.raw('''select name as id,round((a+b+c+d+e+f),2) s4
 from (
-SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d
+SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d,
+sum(score_faulty) e, sum(score_routine)f
 from scores_scores
 where score_year_month in('2018-11','2018-10','2018-12')
 GROUP BY worker_name
@@ -88,7 +96,8 @@ def updateScoreOfWorkers(myYear, myMonth):
     global CUTOVER_SCORE_FLAG
     global ORDERS_SCORE_FLAG
     global BONUSES_SCORE_FLAG
-
+    global FAULTY_SCORE_FLAG
+    global ROUTINE_SCORE_FLAG
     # set scoreOfAllWorkers to 0
     initScoreOfAllWorkers()
 
@@ -101,6 +110,10 @@ def updateScoreOfWorkers(myYear, myMonth):
             deadline_at__year=myYear, deadline_at__month=myMonth)
         bonuses = Bonuses.objects.filter(
             created_at__year=myYear, created_at__month=myMonth)
+        faulty = Faulty.objects.filter(
+            created_at__year=myYear, created_at__month=myMonth)
+        routine = Routine.objects.filter(
+            created_at__year=myYear, created_at__month=myMonth)
 
     except Posts.DoesNotExist:
         posts = None
@@ -110,6 +123,10 @@ def updateScoreOfWorkers(myYear, myMonth):
         orders = None
     except Bonuses.DoesNotExist:
         bonuses = None
+    except Faulty.DoesNotExist:
+        faulty = None
+    except Routine.DoesNotExist:
+        routine = None
 
     if posts is not None:
         countScores(posts, POST_SCORE_FLAG)
@@ -120,6 +137,10 @@ def updateScoreOfWorkers(myYear, myMonth):
         countScores(bonuses, BONUSES_SCORE_FLAG)
     if cutovers is not None:
         countScores(cutovers, CUTOVER_SCORE_FLAG)
+    if faulty is not None:
+        countScores(faulty, FAULTY_SCORE_FLAG)
+    if routine is not None:
+        countScores(routine, ROUTINE_SCORE_FLAG)
 
     # print(scoreOfAllWorkers)
 
@@ -132,6 +153,8 @@ def updateScoreOfWorkers(myYear, myMonth):
             obj.score_orders = scoreOfAllWorkers[aWorker]['orders']
             obj.score_cutovers = scoreOfAllWorkers[aWorker]['cutovers']
             obj.score_bonuses = scoreOfAllWorkers[aWorker]['bonuses']
+            obj.score_faulty = scoreOfAllWorkers[aWorker]['faulty']
+            obj.score_routine = scoreOfAllWorkers[aWorker]['routine']
             obj.save()
         except Scores.DoesNotExist:
             obj = Scores(worker_name=aWorker,
@@ -139,6 +162,8 @@ def updateScoreOfWorkers(myYear, myMonth):
                          score_orders=scoreOfAllWorkers[aWorker]['orders'],
                          score_cutovers=scoreOfAllWorkers[aWorker]['cutovers'],
                          score_bonuses=scoreOfAllWorkers[aWorker]['bonuses'],
+                         score_routine=scoreOfAllWorkers[aWorker]['routine'],
+                         score_faulty=scoreOfAllWorkers[aWorker]['faulty'],
                          score_year_month=str(myYear) + '-' + str(myMonth))
             obj.save()
 
@@ -158,6 +183,8 @@ def countScores(myScores, flag):
     global CUTOVER_SCORE_FLAG
     global ORDERS_SCORE_FLAG
     global BONUSES_SCORE_FLAG
+    global ROUTINE_SCORE_FLAG
+    global FAULTY_SCORE_FLAG
 
     for myScore in myScores:
         # count the socre of each worker
@@ -184,7 +211,7 @@ def countScores(myScores, flag):
 
             if flag == ORDERS_SCORE_FLAG:
                 #print("this is orders socre flag")
-                #print(pj_leader_score)
+                # print(pj_leader_score)
                 if myScore.pj_leader != '':
                     scoreOfAllWorkers[myScore.pj_leader]['orders'] += pj_leader_score
                 if myScore.pj_participant1 != '':
@@ -203,6 +230,26 @@ def countScores(myScores, flag):
                     scoreOfAllWorkers[myScore.pj_participant2]['bonuses'] += pj_participant2_score
                 if myScore.pj_participant3 != '':
                     scoreOfAllWorkers[myScore.pj_participant3]['bonuses'] += pj_participant3_score
+
+            if flag == ROUTINE_SCORE_FLAG:
+                if myScore.pj_leader != '':
+                    scoreOfAllWorkers[myScore.pj_leader]['routine'] += pj_leader_score
+                if myScore.pj_participant1 != '':
+                    scoreOfAllWorkers[myScore.pj_participant1]['routine'] += pj_participant1_score
+                if myScore.pj_participant2 != '':
+                    scoreOfAllWorkers[myScore.pj_participant2]['routine'] += pj_participant2_score
+                if myScore.pj_participant3 != '':
+                    scoreOfAllWorkers[myScore.pj_participant3]['routine'] += pj_participant3_score
+
+            if flag == FAULTY_SCORE_FLAG:
+                if myScore.pj_leader != '':
+                    scoreOfAllWorkers[myScore.pj_leader]['faulty'] += pj_leader_score
+                if myScore.pj_participant1 != '':
+                    scoreOfAllWorkers[myScore.pj_participant1]['faulty'] += pj_participant1_score
+                if myScore.pj_participant2 != '':
+                    scoreOfAllWorkers[myScore.pj_participant2]['faulty'] += pj_participant2_score
+                if myScore.pj_participant3 != '':
+                    scoreOfAllWorkers[myScore.pj_participant3]['faulty'] += pj_participant3_score
         else:
             pj_leader_score = 3
             if myScore.pj_leader != '':
@@ -217,4 +264,6 @@ def initScoreOfAllWorkers():
         v['cutovers'] = 0
         v['orders'] = 0
         v['bonuses'] = 0
+        v['faulty'] = 0
+        v['routine'] = 0
     return

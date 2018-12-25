@@ -14,7 +14,14 @@
       </tr>
       <tr>
         <td>未在别处加分</td>
-        <td>{{bonus.is_not_delayed}}</td>
+        <td>
+          {% if bonus.is_not_delayed %}
+          <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
+          {% else %}
+          <i class="fas fa-window-close" style="color: red;"></i>
+
+          {% endif %}
+        </td>
       </tr>
       <tr>
         <td>开始日期</td>
