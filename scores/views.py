@@ -6,32 +6,7 @@ from orders.models import Orders
 from bonuses.models import Bonuses
 from routine.models import Routine
 from faulty.models import Faulty
-
-
-POST_SCORE_FLAG = 1
-CUTOVER_SCORE_FLAG = 2
-ORDERS_SCORE_FLAG = 3
-BONUSES_SCORE_FLAG = 4
-FAULTY_SCORE_FLAG = 5
-ROUTINE_SCORE_FLAG = 6
-
-scoreOfAllWorkers = {
-    '陈立栋': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '常晓波': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '刘江': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '刘雷': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '刘峰': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '冯庆': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '郭少钏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '于秋思': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '苏飓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '苏伟衡': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '杨晓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '霍晓歌': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '李晓昕': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '韦国锐': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '张晨': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-}
+from templates.constant_files import scoreOfAllWorkers,POST_SCORE_FLAG,CUTOVER_SCORE_FLAG,ORDERS_SCORE_FLAG,BONUSES_SCORE_FLAG,FAULTY_SCORE_FLAG,ROUTINE_SCORE_FLAG
 
 
 # show tables of workers' scores
@@ -190,69 +165,71 @@ def countScores(myScores, flag):
         # count the socre of each worker
         #print('this is score',myScore.pj_leader)
         if flag != CUTOVER_SCORE_FLAG:
-            pj_leader_score = round(
-                myScore.workload_allot * myScore.pj_score, 2)
-            pj_participant1_score = round(
-                myScore.workload_allot1 * myScore.pj_score, 2)
-            pj_participant2_score = round(
-                myScore.workload_allot2 * myScore.pj_score, 2)
-            pj_participant3_score = round(
-                myScore.workload_allot3 * myScore.pj_score, 2)
+            if myScore.is_not_delayed :
+                pj_leader_score = round(
+                    myScore.workload_allot * myScore.pj_score, 2)
+                pj_participant1_score = round(
+                    myScore.workload_allot1 * myScore.pj_score, 2)
+                pj_participant2_score = round(
+                    myScore.workload_allot2 * myScore.pj_score, 2)
+                pj_participant3_score = round(
+                    myScore.workload_allot3 * myScore.pj_score, 2)
 
-            if flag == POST_SCORE_FLAG:
-                if myScore.pj_leader != '':
-                    scoreOfAllWorkers[myScore.pj_leader]['posts'] += pj_leader_score
-                if myScore.pj_participant1 != '':
-                    scoreOfAllWorkers[myScore.pj_participant1]['posts'] += pj_participant1_score
-                if myScore.pj_participant2 != '':
-                    scoreOfAllWorkers[myScore.pj_participant2]['posts'] += pj_participant2_score
-                if myScore.pj_participant3 != '':
-                    scoreOfAllWorkers[myScore.pj_participant3]['posts'] += pj_participant3_score
 
-            if flag == ORDERS_SCORE_FLAG:
-                #print("this is orders socre flag")
-                # print(pj_leader_score)
-                if myScore.pj_leader != '':
-                    scoreOfAllWorkers[myScore.pj_leader]['orders'] += pj_leader_score
-                if myScore.pj_participant1 != '':
-                    scoreOfAllWorkers[myScore.pj_participant1]['orders'] += pj_participant1_score
-                if myScore.pj_participant2 != '':
-                    scoreOfAllWorkers[myScore.pj_participant2]['orders'] += pj_participant2_score
-                if myScore.pj_participant3 != '':
-                    scoreOfAllWorkers[myScore.pj_participant3]['orders'] += pj_participant3_score
+                if flag == POST_SCORE_FLAG :
+                    if myScore.pj_leader != '':
+                        scoreOfAllWorkers[myScore.pj_leader]['posts'] += pj_leader_score * myScore.pj_progress
+                    if myScore.pj_participant1 != '':
+                        scoreOfAllWorkers[myScore.pj_participant1]['posts'] += pj_participant1_score * myScore.pj_progress
+                    if myScore.pj_participant2 != '':
+                        scoreOfAllWorkers[myScore.pj_participant2]['posts'] += pj_participant2_score * myScore.pj_progress
+                    if myScore.pj_participant3 != '':
+                        scoreOfAllWorkers[myScore.pj_participant3]['posts'] += pj_participant3_score * myScore.pj_progress
 
-            if flag == BONUSES_SCORE_FLAG:
-                if myScore.pj_leader != '':
-                    scoreOfAllWorkers[myScore.pj_leader]['bonuses'] += pj_leader_score
-                if myScore.pj_participant1 != '':
-                    scoreOfAllWorkers[myScore.pj_participant1]['bonuses'] += pj_participant1_score
-                if myScore.pj_participant2 != '':
-                    scoreOfAllWorkers[myScore.pj_participant2]['bonuses'] += pj_participant2_score
-                if myScore.pj_participant3 != '':
-                    scoreOfAllWorkers[myScore.pj_participant3]['bonuses'] += pj_participant3_score
+                if flag == ORDERS_SCORE_FLAG:
+                    #print("this is orders socre flag")
+                    # print(pj_leader_score)
+                    if myScore.pj_leader != '':
+                        scoreOfAllWorkers[myScore.pj_leader]['orders'] += pj_leader_score
+                    if myScore.pj_participant1 != '':
+                        scoreOfAllWorkers[myScore.pj_participant1]['orders'] += pj_participant1_score
+                    if myScore.pj_participant2 != '':
+                        scoreOfAllWorkers[myScore.pj_participant2]['orders'] += pj_participant2_score
+                    if myScore.pj_participant3 != '':
+                        scoreOfAllWorkers[myScore.pj_participant3]['orders'] += pj_participant3_score
 
-            if flag == ROUTINE_SCORE_FLAG:
-                if myScore.pj_leader != '':
-                    scoreOfAllWorkers[myScore.pj_leader]['routine'] += pj_leader_score
-                if myScore.pj_participant1 != '':
-                    scoreOfAllWorkers[myScore.pj_participant1]['routine'] += pj_participant1_score
-                if myScore.pj_participant2 != '':
-                    scoreOfAllWorkers[myScore.pj_participant2]['routine'] += pj_participant2_score
-                if myScore.pj_participant3 != '':
-                    scoreOfAllWorkers[myScore.pj_participant3]['routine'] += pj_participant3_score
+                if flag == BONUSES_SCORE_FLAG:
+                    if myScore.pj_leader != '':
+                        scoreOfAllWorkers[myScore.pj_leader]['bonuses'] += pj_leader_score
+                    if myScore.pj_participant1 != '':
+                        scoreOfAllWorkers[myScore.pj_participant1]['bonuses'] += pj_participant1_score
+                    if myScore.pj_participant2 != '':
+                        scoreOfAllWorkers[myScore.pj_participant2]['bonuses'] += pj_participant2_score
+                    if myScore.pj_participant3 != '':
+                        scoreOfAllWorkers[myScore.pj_participant3]['bonuses'] += pj_participant3_score
 
-            if flag == FAULTY_SCORE_FLAG:
-                if myScore.pj_leader != '':
-                    scoreOfAllWorkers[myScore.pj_leader]['faulty'] += pj_leader_score
-                if myScore.pj_participant1 != '':
-                    scoreOfAllWorkers[myScore.pj_participant1]['faulty'] += pj_participant1_score
-                if myScore.pj_participant2 != '':
-                    scoreOfAllWorkers[myScore.pj_participant2]['faulty'] += pj_participant2_score
-                if myScore.pj_participant3 != '':
-                    scoreOfAllWorkers[myScore.pj_participant3]['faulty'] += pj_participant3_score
+                if flag == ROUTINE_SCORE_FLAG:
+                    if myScore.pj_leader != '':
+                        scoreOfAllWorkers[myScore.pj_leader]['routine'] += pj_leader_score
+                    if myScore.pj_participant1 != '':
+                        scoreOfAllWorkers[myScore.pj_participant1]['routine'] += pj_participant1_score
+                    if myScore.pj_participant2 != '':
+                        scoreOfAllWorkers[myScore.pj_participant2]['routine'] += pj_participant2_score
+                    if myScore.pj_participant3 != '':
+                        scoreOfAllWorkers[myScore.pj_participant3]['routine'] += pj_participant3_score
+
+                if flag == FAULTY_SCORE_FLAG:
+                    if myScore.pj_leader != '':
+                        scoreOfAllWorkers[myScore.pj_leader]['faulty'] += pj_leader_score
+                    if myScore.pj_participant1 != '':
+                        scoreOfAllWorkers[myScore.pj_participant1]['faulty'] += pj_participant1_score
+                    if myScore.pj_participant2 != '':
+                        scoreOfAllWorkers[myScore.pj_participant2]['faulty'] += pj_participant2_score
+                    if myScore.pj_participant3 != '':
+                        scoreOfAllWorkers[myScore.pj_participant3]['faulty'] += pj_participant3_score
         else:
-            pj_leader_score = 3
-            if myScore.pj_leader != '':
+            pj_leader_score = 3 #score for per cutover
+            if myScore.pj_leader != '' and myScore.is_not_delayed:
                 scoreOfAllWorkers[myScore.pj_leader]['cutovers'] += pj_leader_score
     return
 
