@@ -14,7 +14,7 @@ def index(request):
     # return HttpResponse('hello django')
 
     scores = Scores.objects.all().filter(
-        score_year_month__contains='2018')  # the final scores of a month
+        score_year_month__contains='2019')  # the final scores of a month
 
     i = 0
     sumScores = {}
@@ -40,15 +40,15 @@ from (
 SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d,
 sum(score_faulty) e, sum(score_routine)f
 from scores_scores
-where score_year_month in('2018-11','2018-10','2018-12')
+where score_year_month in('2019-1','2019-2','2019-3')
 GROUP BY worker_name
 ) AS SEASON4
 ORDER BY s4 desc''')
-    updateScoreOfWorkers(2018, 10)
+    updateScoreOfWorkers(2019, 1)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2018, 11)
+    updateScoreOfWorkers(2019, 2)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2018, 12)
+    updateScoreOfWorkers(2019, 3)
     # print(scoreOfAllWorkers)
     # print(sumScores)
     context = {
@@ -79,6 +79,7 @@ def updateScoreOfWorkers(myYear, myMonth):
     try:
         posts = Posts.objects.filter(
             deadline_at__year=myYear, deadline_at__month=myMonth)
+        print(posts)
         cutovers = Cutovers.objects.filter(
             deadline_at__year=myYear, deadline_at__month=myMonth)
         orders = Orders.objects.filter(
@@ -117,13 +118,12 @@ def updateScoreOfWorkers(myYear, myMonth):
     if routine is not None:
         countScores(routine, ROUTINE_SCORE_FLAG)
 
-    # print(scoreOfAllWorkers)
+#    print(scoreOfAllWorkers)
 
     for aWorker in scoreOfAllWorkers:
         try:
-
-            obj = Scores.objects.get(
-                worker_name=aWorker, score_year_month=str(myYear) + '-' + str(myMonth))
+            obj = Scores.objects.get(worker_name=aWorker, score_year_month=str(myYear) + '-' + str(myMonth))
+    
             obj.score_posts = scoreOfAllWorkers[aWorker]['posts']
             obj.score_orders = scoreOfAllWorkers[aWorker]['orders']
             obj.score_cutovers = scoreOfAllWorkers[aWorker]['cutovers']
@@ -176,15 +176,15 @@ def countScores(myScores, flag):
                     myScore.workload_allot3 * myScore.pj_score, 2)
 
 
-                if flag == POST_SCORE_FLAG :
+                if flag == POST_SCORE_FLAG and 1 == myScore.pj_progress:
                     if myScore.pj_leader != '':
-                        scoreOfAllWorkers[myScore.pj_leader]['posts'] += pj_leader_score * myScore.pj_progress
+                        scoreOfAllWorkers[myScore.pj_leader]['posts'] += pj_leader_score
                     if myScore.pj_participant1 != '':
-                        scoreOfAllWorkers[myScore.pj_participant1]['posts'] += pj_participant1_score * myScore.pj_progress
+                        scoreOfAllWorkers[myScore.pj_participant1]['posts'] += pj_participant1_score 
                     if myScore.pj_participant2 != '':
-                        scoreOfAllWorkers[myScore.pj_participant2]['posts'] += pj_participant2_score * myScore.pj_progress
+                        scoreOfAllWorkers[myScore.pj_participant2]['posts'] += pj_participant2_score 
                     if myScore.pj_participant3 != '':
-                        scoreOfAllWorkers[myScore.pj_participant3]['posts'] += pj_participant3_score * myScore.pj_progress
+                        scoreOfAllWorkers[myScore.pj_participant3]['posts'] += pj_participant3_score 
 
                 if flag == ORDERS_SCORE_FLAG:
                     #print("this is orders socre flag")
