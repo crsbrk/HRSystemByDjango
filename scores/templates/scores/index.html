@@ -71,26 +71,49 @@
       </div>
     </div>
 
+    {% comment %} <table id="table_id1" class="display"> {% endcomment %}
     <table class="table table-striped ">
       <thead>
         <tr>
           <th scope="col" style="width:100px">季度</th>
           <th scope="col" style="width:100px">姓名</th>
           <th scope="col" style="width:100px">总分</th>
+          <th scope="col" style="width:100px">绩效</th>
         </tr>
       </thead>
       <tbody>
-        {% for season in season4 %}
+        {% comment %} {% for season in season4 %}
 
         <tr>
           <th scope="row">2019年第一季度</th>
+          
           <td>{{season.id}}</td>
           <td>{{season.s4}}</td>
+
+        </tr>
+        {% endfor %} {% endcomment %}
+        {% comment %} {{jixiao.0.0}}{{jixiao.0.1.0}}{{jixiao.0.1.1}}
+        {{jixiao.1.0}}{{jixiao.1.1.0}}{{jixiao.1.1.1}} {% endcomment %}
+
+{% comment %} {% for item in jixiao %}
+  {{item.0}}{{item.1.0}}{{item.1.1}}
+ {% endfor %} {% endcomment %}
+        {% for item in jixiao %}
+
+        <tr>
+          <th scope="row">2019年第一季度</th>
+          
+          <td>{{item.0}}</td>
+
+          <td>{{item.1.0}}</td>
+          <td>{{item.1.1}}</td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
     <br><br>
+
+
     <div class="container">
       <div class="text-center breadcrumbs-item">
         <h3>2019年全年人员考核记录</h3>
@@ -142,6 +165,19 @@
           例行日常工作（报表，备份，分析，维保，季度台帐更新）每个2分，故障投诉1到2分，
           特殊加分（大家填报，主管调整）。
         </p>
+        <h4>绩效规则:</h4>
+  <p>
+
+  设立公司的整体绩效基准分（可以是全体员工绩效考核的平均数），对各部门的考核均值和员工的考核得分进行部门差异调整。
+    <br>具体如下：设公司整体绩效基准分为A，如员工绩效考核实际得分为B，该员工所在部门绩效考核平均分为C.则部门差异分及为D=C-A，根据部门差异调整员工绩效考核得分为B1=B-D，员工绩效考核系数可以相应的定为B2= B1/A.这种调整方法是假定部门绩效均维持在一致的水平上，使部门间绩效相尽的员工考核得分接近，而部门内部则仍保持原由的业绩差异结构。
+　　<br><br>
+    示例：某员工甲，绩效考核得分为90分，部门考核平均分为80分，公司基准分为75分，则该员工调整后得分为B1=B-D=B-（C-A）=90-（80-75）=85分。其绩效考核系数可确定为B2= B1/A=85/75=1.13
+　　<br>与甲同部门的员工乙，绩效考核得分为80分，则调整后考核得分为：B1=80-（80-75）=75分，其绩效考核系数为B2= B1/A=75/75=1
+　　与甲不同部门的但业绩相近的员工丙，由于部门经理对考核标准把握比较严格，绩效考核得分为80分，其所在部门的平均分为70分，则调整后考核得分为：B1=80-（70-75）=85分，其绩效考核系数为B2=B1/A=85/75=1.13
+  </p>
+  <p>
+  
+  </p>
       </div>
     </div>
 
@@ -155,6 +191,10 @@
 <script>
   $(document).ready(function() {
     $('#table_id').DataTable();
+  });
+
+    $(document).ready(function() {
+    $('#table_id1').DataTable();
   });
 </script>
 

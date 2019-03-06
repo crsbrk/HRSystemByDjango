@@ -15,6 +15,43 @@ WORKERS_NAMES = (
     ('张晨', '张晨'),
 )
 
+JIXIAO11 = {
+    '陈立栋': {'scoreAll':0,'jx':0},
+    '常晓波': {'scoreAll':0,'jx':0},
+    '刘江': {'scoreAll':0,'jx':0},
+    '刘雷': {'scoreAll':0,'jx':0},
+    '刘峰': {'scoreAll':0,'jx':0},
+    '冯庆': {'scoreAll':0,'jx':0},
+    '郭少钏': {'scoreAll':0,'jx':0},
+    '于秋思': {'scoreAll':0,'jx':0},
+    '苏飓': {'scoreAll':0,'jx':0},
+    '苏伟衡': {'scoreAll':0,'jx':0},
+    '杨晓': {'scoreAll':0,'jx':0},
+    '霍晓歌': {'scoreAll':0,'jx':0},
+    '李晓昕': {'scoreAll':0,'jx':0},
+    '韦国锐': {'scoreAll':0,'jx':0},
+    '张晨': {'scoreAll':0,'jx':0},
+}
+
+JIXIAO= {
+    '陈立栋': [1,10],
+    '常晓波': [0,0],
+    '刘江': [0,0],
+    '刘雷': [0,0],
+    '刘峰': [0,0],
+    '冯庆': [10,1],
+    '郭少钏': [0,0],
+    '于秋思': [0,0],
+    '苏飓': [0,0],
+    '苏伟衡': [0,0],
+    '杨晓': [0,0],
+    '霍晓歌': [0,0],
+    '李晓昕': [0,0],
+    '韦国锐': [0,0],
+    '张晨': [0,0],
+
+}
+
 ORDER_TYPES = (
         ('行业', '行业'),
         ('物联网', '物联网'),
@@ -52,3 +89,9 @@ ORDERS_SCORE_FLAG = 3
 BONUSES_SCORE_FLAG = 4
 FAULTY_SCORE_FLAG = 5
 ROUTINE_SCORE_FLAG = 6
+
+WLW_NUMBERS = 3 #物联网组：刘雷，刘江，刘峰
+SHUTONG_NUMBERS = 3 #数通组：常晓波，于秋思，苏伟衡
+GONGZHONG_NUMBERS = 7 #公众组：杨晓，霍晓歌，苏飓，张晨，李晓昕，郭少钏，陈立栋
+OTHERS_NUMBERS = 10 #非物联网
+ALL_WORKER_NUMBERS = 13 #all

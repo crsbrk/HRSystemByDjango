@@ -6,7 +6,7 @@ from orders.models import Orders
 from bonuses.models import Bonuses
 from routine.models import Routine
 from faulty.models import Faulty
-from templates.constant_files import scoreOfAllWorkers,POST_SCORE_FLAG,CUTOVER_SCORE_FLAG,ORDERS_SCORE_FLAG,BONUSES_SCORE_FLAG,FAULTY_SCORE_FLAG,ROUTINE_SCORE_FLAG
+from templates.constant_files import *#scoreOfAllWorkers,POST_SCORE_FLAG,CUTOVER_SCORE_FLAG,ORDERS_SCORE_FLAG,BONUSES_SCORE_FLAG,FAULTY_SCORE_FLAG,ROUTINE_SCORE_FLAG
 
 
 # show tables of workers' scores
@@ -51,11 +51,100 @@ ORDER BY s4 desc''')
     updateScoreOfWorkers(2019, 3)
     # print(scoreOfAllWorkers)
     # print(sumScores)
+    wlwAll = 0
+    othersAll = 0
+    gongzhongAll = 0
+    shutongAll = 0
+
+    for s in season4:
+        if(s.id=='刘雷'):
+            wlwAll +=s.s4
+        if(s.id=='刘峰'):
+            wlwAll +=s.s4
+        if(s.id=='刘江'):
+            wlwAll +=s.s4
+        if(s.id=='杨晓'):
+            othersAll +=s.s4
+        if(s.id=='张晨'):
+            othersAll +=s.s4
+        if(s.id=='李晓昕'):
+            othersAll +=s.s4  
+        if(s.id=='郭少钏'):
+            othersAll +=s.s4   
+        if(s.id=='苏飓'):
+            othersAll +=s.s4  
+        if(s.id=='霍晓歌'):
+            othersAll +=s.s4  
+        if(s.id=='陈立栋'):
+            othersAll +=s.s4  
+        if(s.id=='于秋思'):
+            othersAll +=s.s4  
+        if(s.id=='常晓波'):
+            othersAll +=s.s4
+        if(s.id=='苏伟衡'):
+            othersAll +=s.s4   
+
+
+   # WlwAll = season4['刘雷']+ season4['刘峰']+season4['刘江']
+   # OthersAll = season4['杨晓']+season4['张晨']+season4['李晓昕']+season4['郭少钏']+season4['苏伟衡']+season4['苏飓']+season4['陈立栋']+season4['于秋思']+season4['霍晓歌']+season4['常晓波']
+    
+    averageAll = (wlwAll+othersAll) / (WLW_NUMBERS+OTHERS_NUMBERS)
+    averageWlw = (wlwAll)/WLW_NUMBERS
+    averageGongzhong = (gongzhongAll)/GONGZHONG_NUMBERS
+    averageShutTong = (shutongAll)/SHUTONG_NUMBERS
+    averageOthers = (othersAll)/OTHERS_NUMBERS
+    for s in season4:
+        if(s.id=='刘雷'):
+            JIXIAO['刘雷'][1] = round((s.s4-(averageWlw-averageAll))/averageAll,2)
+            JIXIAO['刘雷'][0] = s.s4
+        if(s.id=='刘峰'):
+            JIXIAO['刘峰'][1] = round((s.s4-(averageWlw-averageAll))/averageAll,2)
+            JIXIAO['刘峰'][0] = s.s4
+        if(s.id=='刘江'):
+            JIXIAO['刘江'][1] = round((s.s4-(averageWlw-averageAll))/averageAll,2)
+            JIXIAO['刘江'][0] = s.s4
+        if(s.id=='杨晓'):
+            JIXIAO['杨晓'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)
+            JIXIAO['杨晓'][0] = s.s4
+        if(s.id=='张晨'):
+            JIXIAO['张晨'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)
+            JIXIAO['张晨'][0] = s.s4
+        if(s.id=='李晓昕'):
+            JIXIAO['李晓昕'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)  
+            JIXIAO['李晓昕'][0] = s.s4
+        if(s.id=='郭少钏'):
+            JIXIAO['郭少钏'][1] = round((s.s4-(averageOthers-averageAll))/averageAll ,2)
+            JIXIAO['郭少钏'][0] = s.s4
+        if(s.id=='苏飓'):
+            JIXIAO['苏飓'][1] = round((s.s4-(averageOthers-averageAll))/averageAll ,2)
+            JIXIAO['苏飓'][0] = s.s4
+        if(s.id=='霍晓歌'):
+            JIXIAO['霍晓歌'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2) 
+            JIXIAO['霍晓歌'][0] = s.s4
+        if(s.id=='陈立栋'):
+            JIXIAO['陈立栋'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)  
+            JIXIAO['陈立栋'][0] = s.s4
+        if(s.id=='苏伟衡'):
+            JIXIAO['苏伟衡'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)
+            JIXIAO['苏伟衡'][0] = s.s4
+        if(s.id=='于秋思'):
+            JIXIAO['于秋思'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)
+            JIXIAO['于秋思'][0] = s.s4
+        if(s.id=='常晓波'):
+            JIXIAO['常晓波'][1] = round((s.s4-(averageOthers-averageAll))/averageAll ,2)
+            JIXIAO['常晓波'][0] = s.s4       
+
+    sortedPerformance = sorted(JIXIAO.items(), key=lambda x: x[1][1], reverse=True)
+    print(sortedPerformance)
+
+
     context = {
         'title': '分数',
         'scores': scores,
         'sumScores': sumScores,
-        'season4': season4
+        'season4': season4,
+        'jixiao': sortedPerformance,
+       
 
     }
 
