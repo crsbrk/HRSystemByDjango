@@ -38,7 +38,7 @@ def index(request):
     season4 = Scores.objects.raw('''select name as id,round((a+b+c+d+e+f),2) s4
 from (
 SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d,
-sum(score_faulty) e, sum(score_routine)/4 f
+sum(score_faulty) e, sum(score_routine)/10 f
 from scores_scores
 where score_year_month in('2019-1','2019-2','2019-3')
 GROUP BY worker_name
