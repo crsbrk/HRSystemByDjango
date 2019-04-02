@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
-from templates.constant_files import WORKERS_NAMES
+from templates.constant_files import WORKERS_NAMES ,FAULTY_TYPES
 # Create your models here.
 
 
@@ -10,6 +10,8 @@ class Faulty(models.Model):
     #title is bonus name
     title = models.CharField('故障名称', max_length=200)
     pj_score = models.IntegerField('加分', default=1)
+    pj_type = models.CharField(
+        '故障类型', choices=FAULTY_TYPES, max_length=200, default='硬件')
     pj_leader = models.CharField(
         '完成人员1', choices=WORKERS_NAMES, max_length=200)
     workload_allot = models.FloatField(

@@ -34,12 +34,12 @@ JIXIAO11 = {
 }
 
 JIXIAO= {
-    '陈立栋': [1,10],
+    '陈立栋': [0,0],
     '常晓波': [0,0],
     '刘江': [0,0],
     '刘雷': [0,0],
     '刘峰': [0,0],
-    '冯庆': [10,1],
+    '冯庆': [0,0],
     '郭少钏': [0,0],
     '于秋思': [0,0],
     '苏飓': [0,0],
@@ -63,7 +63,12 @@ ORDER_TYPES = (
         ('SGW/PGW局数据', 'SGW/PGW局数据'),
         ('其他', '其他'),
     )
-
+FAULTY_TYPES =(
+        ('硬件', '硬件'),
+        ('投诉', '投诉'),
+        ('软件', '软件'),
+        ('其他', '其他'),
+    )
 
 scoreOfAllWorkers = {
     '陈立栋': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
@@ -92,6 +97,6 @@ ROUTINE_SCORE_FLAG = 6
 
 WLW_NUMBERS = 3 #物联网组：刘雷，刘江，刘峰
 SHUTONG_NUMBERS = 3 #数通组：常晓波，于秋思，苏伟衡
-GONGZHONG_NUMBERS = 7 #公众组：杨晓，霍晓歌，苏飓，张晨，李晓昕，郭少钏，陈立栋
-OTHERS_NUMBERS = 10 #非物联网
-ALL_WORKER_NUMBERS = 13 #all
+GONGZHONG_NUMBERS = 6 #公众组：杨晓，霍晓歌，苏飓，张晨，李晓昕，郭少钏
+OTHERS_NUMBERS = 9 #非物联网
+ALL_WORKER_NUMBERS = 12 #all

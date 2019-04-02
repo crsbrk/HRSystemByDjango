@@ -38,7 +38,7 @@ def index(request):
     season4 = Scores.objects.raw('''select name as id,round((a+b+c+d+e+f),2) s4
 from (
 SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d,
-sum(score_faulty) e, sum(score_routine)f
+sum(score_faulty) e, sum(score_routine)/4 f
 from scores_scores
 where score_year_month in('2019-1','2019-2','2019-3')
 GROUP BY worker_name
@@ -75,8 +75,8 @@ ORDER BY s4 desc''')
             othersAll +=s.s4  
         if(s.id=='霍晓歌'):
             othersAll +=s.s4  
-        if(s.id=='陈立栋'):
-            othersAll +=s.s4  
+        # if(s.id=='陈立栋'):
+        #     othersAll +=s.s4  
         if(s.id=='于秋思'):
             othersAll +=s.s4  
         if(s.id=='常晓波'):
@@ -121,9 +121,9 @@ ORDER BY s4 desc''')
         if(s.id=='霍晓歌'):
             JIXIAO['霍晓歌'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2) 
             JIXIAO['霍晓歌'][0] = s.s4
-        if(s.id=='陈立栋'):
-            JIXIAO['陈立栋'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)  
-            JIXIAO['陈立栋'][0] = s.s4
+        # if(s.id=='陈立栋'):
+        #     JIXIAO['陈立栋'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)  
+        #     JIXIAO['陈立栋'][0] = s.s4
         if(s.id=='苏伟衡'):
             JIXIAO['苏伟衡'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)
             JIXIAO['苏伟衡'][0] = s.s4

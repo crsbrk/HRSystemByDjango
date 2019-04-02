@@ -8,6 +8,7 @@
           <th>
             <li>故障名称</li>
           </th>
+          <th>故障类型</th>
           <th>分数</th>
           <th>处理完成</th>
           <th>开始日期</th>
@@ -21,6 +22,7 @@
             <td style="text-align: left;">
               <li><a href="/faulty/details/{{fault.id}}">{{fault.title}}</a></li>
             </td>
+              <td style="text-align: left;">{{fault.pj_type}}</td>
             <td style="text-align: left;">{{fault.pj_score}}</td>
             <td style="text-align: center;">
               {% if fault.is_not_delayed %}
