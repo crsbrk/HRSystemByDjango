@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
-from templates.constant_files import WORKERS_NAMES
+from templates.constant_files import WORKERS_NAMES,ROUTINE_SCORE_LIST
 # Create your models here.
 
 
@@ -9,7 +9,7 @@ class Routine(models.Model):
 
     #title is bonus name
     title = models.CharField('日常工作', max_length=200)
-    pj_score = models.IntegerField('加分', default=2)
+    pj_score = models.IntegerField('加分',choices=ROUTINE_SCORE_LIST, default=1)
     pj_leader = models.CharField(
         '完成人员1', choices=WORKERS_NAMES, max_length=200)
     workload_allot = models.FloatField(

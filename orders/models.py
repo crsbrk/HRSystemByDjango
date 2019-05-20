@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
-from templates.constant_files import WORKERS_NAMES,ORDER_TYPES
+from templates.constant_files import WORKERS_NAMES,ORDER_TYPES,ORDER_SCORE_LIST
 
 # Create your models here.
 class Orders(models.Model):
@@ -10,7 +10,7 @@ class Orders(models.Model):
 
     orders_num = models.CharField('工单编号', max_length=200)
     title = models.CharField('工单名称', max_length=200)
-    pj_score = models.IntegerField('工单加分', default=1)
+    pj_score = models.IntegerField('工单加分', choices=ORDER_SCORE_LIST,default=1)
     pj_leader = models.CharField(
         '完成人员1', choices=WORKERS_NAMES, max_length=200)
     workload_allot = models.FloatField(

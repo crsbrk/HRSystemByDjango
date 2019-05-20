@@ -52,6 +52,20 @@ JIXIAO= {
 
 }
 
+FAULTY_SCORE_LIST=(
+    (1,1),(2,2)
+
+)
+
+ROUTINE_SCORE_LIST=(
+    (1,1),
+
+)
+
+ORDER_SCORE_LIST=(
+    (1,1),
+
+)
 ORDER_TYPES = (
         ('行业', '行业'),
         ('物联网', '物联网'),
