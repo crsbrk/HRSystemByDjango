@@ -1,6 +1,6 @@
 WORKERS_NAMES = (
-    # ('陈立栋', '陈立栋'),
-    # ('常晓波', '常晓波'),
+    ('陈立栋', '陈立栋'),
+    ('常晓波', '常晓波'),
     ('刘江', '刘江'),
     ('刘雷', '刘雷'),
     ('刘峰', '刘峰'),
@@ -12,16 +12,16 @@ WORKERS_NAMES = (
     ('杨晓', '杨晓'),
     ('霍晓歌', '霍晓歌'),
     ('李晓昕', '李晓昕'),
-    # ('张晨', '张晨'),
+    ('张晨', '张晨'),
 )
 
 JIXIAO11 = {
-    # '陈立栋': {'scoreAll':0,'jx':0},
-    # '常晓波': {'scoreAll':0,'jx':0},
+    '陈立栋': {'scoreAll':0,'jx':0},
+    '常晓波': {'scoreAll':0,'jx':0},
     '刘江': {'scoreAll':0,'jx':0},
     '刘雷': {'scoreAll':0,'jx':0},
     '刘峰': {'scoreAll':0,'jx':0},
-    # '冯庆': {'scoreAll':0,'jx':0},
+    '冯庆': {'scoreAll':0,'jx':0},
     '郭少钏': {'scoreAll':0,'jx':0},
     '于秋思': {'scoreAll':0,'jx':0},
     '苏飓': {'scoreAll':0,'jx':0},
@@ -29,17 +29,17 @@ JIXIAO11 = {
     '杨晓': {'scoreAll':0,'jx':0},
     '霍晓歌': {'scoreAll':0,'jx':0},
     '李晓昕': {'scoreAll':0,'jx':0},
-    # '韦国锐': {'scoreAll':0,'jx':0},
-    # '张晨': {'scoreAll':0,'jx':0},
+    '韦国锐': {'scoreAll':0,'jx':0},
+    '张晨': {'scoreAll':0,'jx':0},
 }
 
 JIXIAO= {
-    # '陈立栋': [0,0],
-    # '常晓波': [0,0],
+    '陈立栋': [0,0],
+    '常晓波': [0,0],
     '刘江': [0,0],
     '刘雷': [0,0],
     '刘峰': [0,0],
-    # '冯庆': [0,0],
+    '冯庆': [0,0],
     '郭少钏': [0,0],
     '于秋思': [0,0],
     '苏飓': [0,0],
@@ -47,8 +47,8 @@ JIXIAO= {
     '杨晓': [0,0],
     '霍晓歌': [0,0],
     '李晓昕': [0,0],
-    # '韦国锐': [0,0],
-    # '张晨': [0,0],
+    '韦国锐': [0,0],
+    '张晨': [0,0],
 
 }
 
@@ -90,7 +90,7 @@ scoreOfAllWorkers = {
     '刘江': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '刘雷': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '刘峰': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    # '冯庆': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '冯庆': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '郭少钏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '于秋思': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '苏飓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
@@ -98,7 +98,7 @@ scoreOfAllWorkers = {
     '杨晓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '霍晓歌': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '李晓昕': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-   # '韦国锐': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+   '韦国锐': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
    '张晨': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
 }
 
