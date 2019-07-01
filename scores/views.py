@@ -14,7 +14,7 @@ def index(request):
     # return HttpResponse('hello django')
 
     scores = Scores.objects.all().filter(
-        score_year_month__contains='2019')  # the final scores of a month
+        score_year_month__contains='2019',worker_name__in=['苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷','杨晓'])  # the final scores of a month
 
     i = 0
     sumScores = {}
