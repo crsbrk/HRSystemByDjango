@@ -11,7 +11,7 @@ class FaultyAdmin(admin.ModelAdmin):
     list_per_page = 25
     list_filter = ('pj_type','created_at')
     search_fields = ('title', 'pj_score', 'pj_leader','pj_type',
-                     'pj_participant1', 'pj_participant2', 'pj_participant3','created_at',)
+                     'pj_participant1', 'pj_participant2', 'pj_participant3','created_at','created_at',)
 
 
 admin.site.register(Faulty, FaultyAdmin)

@@ -40,15 +40,15 @@ from (
 SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d,
 sum(score_faulty) e, sum(score_routine)/10 f  
 from scores_scores
-where score_year_month in('2019-1','2019-2','2019-3')
+where score_year_month in('2019-4','2019-5','2019-6')
 GROUP BY worker_name
 ) AS SEASON4
 ORDER BY s4 desc''')
-    updateScoreOfWorkers(2019, 1)
+    updateScoreOfWorkers(2019, 4)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2019, 2)
+    updateScoreOfWorkers(2019, 5)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2019, 3)
+    updateScoreOfWorkers(2019, 6)
     # print(scoreOfAllWorkers)
     # print(sumScores)
     wlwAll = 0
@@ -65,8 +65,8 @@ ORDER BY s4 desc''')
             wlwAll +=s.s4
         if(s.id=='杨晓'):
             othersAll +=s.s4
-        if(s.id=='张晨'):
-            othersAll +=s.s4
+ #       if(s.id=='张晨'):
+ #           othersAll +=s.s4
         if(s.id=='李晓昕'):
             othersAll +=s.s4  
         if(s.id=='郭少钏'):
@@ -79,8 +79,8 @@ ORDER BY s4 desc''')
         #     othersAll +=s.s4  
         if(s.id=='于秋思'):
             othersAll +=s.s4  
-        if(s.id=='常晓波'):
-            othersAll +=s.s4
+ #       if(s.id=='常晓波'):
+ #           othersAll +=s.s4
         if(s.id=='苏伟衡'):
             othersAll +=s.s4   
 
@@ -106,9 +106,9 @@ ORDER BY s4 desc''')
         if(s.id=='杨晓'):
             JIXIAO['杨晓'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)
             JIXIAO['杨晓'][0] = s.s4
-        if(s.id=='张晨'):
-            JIXIAO['张晨'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)
-            JIXIAO['张晨'][0] = s.s4
+        # if(s.id=='张晨'):
+        #     JIXIAO['张晨'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)
+        #     JIXIAO['张晨'][0] = s.s4
         if(s.id=='李晓昕'):
             JIXIAO['李晓昕'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)  
             JIXIAO['李晓昕'][0] = s.s4
@@ -130,9 +130,9 @@ ORDER BY s4 desc''')
         if(s.id=='于秋思'):
             JIXIAO['于秋思'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)
             JIXIAO['于秋思'][0] = s.s4
-        if(s.id=='常晓波'):
-            JIXIAO['常晓波'][1] = round((s.s4-(averageOthers-averageAll))/averageAll ,2)
-            JIXIAO['常晓波'][0] = s.s4       
+        # if(s.id=='常晓波'):
+        #     JIXIAO['常晓波'][1] = round((s.s4-(averageOthers-averageAll))/averageAll ,2)
+        #     JIXIAO['常晓波'][0] = s.s4       
 
     sortedPerformance = sorted(JIXIAO.items(), key=lambda x: x[1][1], reverse=True)
     print(sortedPerformance)

@@ -11,6 +11,6 @@ class RoutineAdmin(admin.ModelAdmin):
     list_per_page = 25
 
     search_fields = ('title', 'pj_score', 'pj_leader',
-                     'pj_participant1', 'pj_participant2', 'pj_participant3',)
+                     'pj_participant1', 'pj_participant2', 'pj_participant3','created_at',)
 
 admin.site.register(Routine, RoutineAdmin)
