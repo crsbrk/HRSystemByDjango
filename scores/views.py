@@ -40,7 +40,8 @@ from (
 SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d,
 sum(score_faulty) e, sum(score_routine)/10 f  
 from scores_scores
-where score_year_month in('2019-4','2019-5','2019-6')
+where score_year_month in('2019-4','2019-5','2019-6') and  
+worker_name in('苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
 GROUP BY worker_name
 ) AS SEASON4
 ORDER BY s4 desc''')
