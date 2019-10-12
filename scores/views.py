@@ -65,7 +65,7 @@ ORDER BY s4 desc''')
         if(s.id=='刘江'):
             wlwAll +=s.s4
         if(s.id=='杨晓'):
-            othersAll +=s.s4
+            wlwAll +=s.s4
  #       if(s.id=='张晨'):
  #           othersAll +=s.s4
         if(s.id=='李晓昕'):
@@ -105,7 +105,7 @@ ORDER BY s4 desc''')
             JIXIAO['刘江'][1] = round((s.s4-(averageWlw-averageAll))/averageAll,2)
             JIXIAO['刘江'][0] = s.s4
         if(s.id=='杨晓'):
-            JIXIAO['杨晓'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)
+            JIXIAO['杨晓'][1] = round((s.s4-(averageWlw-averageAll))/averageAll,2)
             JIXIAO['杨晓'][0] = s.s4
         # if(s.id=='张晨'):
         #     JIXIAO['张晨'][1] = round((s.s4-(averageOthers-averageAll))/averageAll,2)

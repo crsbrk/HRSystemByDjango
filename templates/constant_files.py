@@ -109,8 +109,8 @@ BONUSES_SCORE_FLAG = 4
 FAULTY_SCORE_FLAG = 5
 ROUTINE_SCORE_FLAG = 6
 
-WLW_NUMBERS = 3 #物联网组：刘雷，刘江，刘峰
+WLW_NUMBERS = 4 #物联网组：刘雷，刘江，刘峰,yangxiao
 SHUTONG_NUMBERS = 3 #数通组：常晓波，于秋思，苏伟衡
-GONGZHONG_NUMBERS = 6 #公众组：杨晓，霍晓歌，苏飓，张晨，李晓昕，郭少钏
-OTHERS_NUMBERS = 9 #非物联网
+GONGZHONG_NUMBERS = 5 #公众组：杨晓，霍晓歌，苏飓，张晨，李晓昕，郭少钏
+OTHERS_NUMBERS = 8 #非物联网
 ALL_WORKER_NUMBERS = 12 #all
