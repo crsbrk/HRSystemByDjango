@@ -40,16 +40,16 @@ from (
 SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d,
 sum(score_faulty) e, sum(score_routine)/10 f  
 from scores_scores
-where score_year_month in('2019-7','2019-8','2019-9') and  
+where score_year_month in('2019-10','2019-11','2019-12') and  
 worker_name in('苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
 GROUP BY worker_name
 ) AS SEASON4
 ORDER BY s4 desc''')
-    updateScoreOfWorkers(2019, 7)
+    updateScoreOfWorkers(2019, 10)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2019, 8)
+    updateScoreOfWorkers(2019, 11)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2019, 9)
+    updateScoreOfWorkers(2019, 12)
     # print(scoreOfAllWorkers)
     # print(sumScores)
     wlwAll = 0
@@ -94,6 +94,8 @@ ORDER BY s4 desc''')
     averageGongzhong = (gongzhongAll)/GONGZHONG_NUMBERS
     averageShutTong = (shutongAll)/SHUTONG_NUMBERS
     averageOthers = (othersAll)/OTHERS_NUMBERS
+    if (averageAll == 0):
+        averageAll = 1
     for s in season4:
         if(s.id=='刘雷'):
             JIXIAO['刘雷'][1] = round((s.s4-(averageWlw-averageAll))/averageAll,2)
