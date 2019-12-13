@@ -9,7 +9,7 @@
       <tr  >
           <th><li>项目名称</li></th>
           <th>分数</th>
-          <th>完成</th>
+          <th>未超时</th>
           <th>进度</th>
           <th>到期时间</th>
         </tr>
@@ -38,8 +38,13 @@
           {% endif %}
         </td>
 
-        <td style="text-align: left;">{% widthratio post.pj_progress 1 100 %}% </td>
+        <td style="vertical-align: middle;"> <div class="progress ">
+  <div class="progress-bar  bg-info" role="progressbar" aria-valuenow="{% widthratio post.pj_progress 1 100 %}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{% widthratio post.pj_progress 1 100 %}%">
+    {% widthratio post.pj_progress 1 100 %}% 
+  </div></td>
   <td style="text-align: left;">{{post.deadline_at}}</td>
+</div>
         </tr>
         {% endfor %}
       </tbody>
