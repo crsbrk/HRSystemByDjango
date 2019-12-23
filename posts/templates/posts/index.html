@@ -38,11 +38,21 @@
           {% endif %}
         </td>
 
-        <td style="vertical-align: middle;"> <div class="progress ">
-  <div class="progress-bar  bg-info" role="progressbar" aria-valuenow="{% widthratio post.pj_progress 1 100 %}"
-  aria-valuemin="0" aria-valuemax="100" style="width:{% widthratio post.pj_progress 1 100 %}%">
-    {% widthratio post.pj_progress 1 100 %}% 
-  </div></td>
+        <td style="vertical-align: middle;">
+        {% if post.pj_progress < 1 %} 
+           <div class="progress ">
+              <div class="progress-bar  bg-info" role="progressbar" aria-valuenow="{% widthratio post.pj_progress 1 100 %}"
+                 aria-valuemin="0" aria-valuemax="100" style="width:{% widthratio post.pj_progress 1 100 %}%">
+                     {% widthratio post.pj_progress 1 100 %}% 
+           </div>
+        {% else %}
+         <div class="progress ">
+              <div class="progress-bar  bg-success" role="progressbar" aria-valuenow="{% widthratio post.pj_progress 1 100 %}"
+                 aria-valuemin="0" aria-valuemax="100" style="width:{% widthratio post.pj_progress 1 100 %}%">
+                     {% widthratio post.pj_progress 1 100 %}% 
+           </div>
+        {% endif %}
+       </td>
   <td style="text-align: left;">{{post.deadline_at}}</td>
 </div>
         </tr>

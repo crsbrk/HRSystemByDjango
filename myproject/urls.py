@@ -30,4 +30,6 @@ urlpatterns = [
     path('scores/', include('scores.urls')),
     path('faulty/', include('faulty.urls')),
     path('routine/', include('routine.urls')),
+    path('accounts/', include('accounts.urls')),
+  #  path('routine/', include('routine.urls')),    
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

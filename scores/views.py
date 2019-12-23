@@ -140,14 +140,14 @@ ORDER BY s4 desc''')
     sortedPerformance = sorted(JIXIAO.items(), key=lambda x: x[1][1], reverse=True)
     print(sortedPerformance)
 
-
+    visitorIp = visitor_ip_address(request)
     context = {
         'title': '分数',
         'scores': scores,
         'sumScores': sumScores,
         'season4': season4,
         'jixiao': sortedPerformance,
-       
+        'visitorIp':visitorIp,
 
     }
 
@@ -336,3 +336,16 @@ def initScoreOfAllWorkers():
         v['faulty'] = 0
         v['routine'] = 0
     return
+
+
+
+
+def visitor_ip_address(request):
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip

@@ -102,6 +102,14 @@ scoreOfAllWorkers = {
    '张晨': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
 }
 
+
+JOB_TYPES =(
+        ('物联网', '物联网'),
+        ('公众', '公众'),
+        ('数通', '数通'),
+        ('其他', '其他'),
+    )
+
 POST_SCORE_FLAG = 1
 CUTOVER_SCORE_FLAG = 2
 ORDERS_SCORE_FLAG = 3
