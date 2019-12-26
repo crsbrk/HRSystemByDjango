@@ -22,9 +22,9 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="{% url 'dashboard' %}">
-              <i class="fas fa-home"></i> Home</a>
+              <i class="fas fa-home"></i> 主页</a>
           </li>
-          <li class="breadcrumb-item active"> Dashboard</li>
+          <li class="breadcrumb-item active"> 工作台</li>
         </ol>
       </nav>
     </div>
@@ -37,9 +37,27 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h2>Welcome {{ user.first_name }}</h2>
+          <h2>欢迎 {{ user.first_name }}</h2>
+
+<div class="btn-group">
+  <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Right-aligned menu
+  </button>
+  <div class="dropdown-menu dropdown-menu-right">
+    <li class="dropdown-item" type="link">Action</li>
+    <li class="dropdown-item" type="button">Another action</li>
+    <li class="dropdown-item" type="button">Something else here</li>
+  </div>
+</div>
+
+
+
           {% if contacts %}
-            <p>Here are the property listings that you have inquired about</p>
+            <p>工作信息</p>
+
+
+
+            
             <table class="table">
               <thead>
                 <tr>
@@ -61,7 +79,7 @@
               </tbody>
             </table>
           {% else %}
-            <p>You have not made any inquiries</p>
+            <p>目前还没有工作信息</p>
           {% endif %}
         </div>
       </div>
