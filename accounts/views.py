@@ -113,7 +113,7 @@ def dashboard(request):
         print(myName)
         thisYear = datetime.datetime.now().year
         print(thisYear)
-        myOrders = Orders.objects.all().filter(pj_leader__contains='陈立栋',created_at__year=2020)
+        myOrders = Orders.objects.all().filter(pj_leader__contains=myName,created_at__year=2020)
       
         paginator = Paginator(myOrders, 15) # Show 25 contacts per page
 
