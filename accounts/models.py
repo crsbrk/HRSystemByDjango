@@ -11,13 +11,13 @@ class UserProfileInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # Add any additional attributes you want
-    portfolio_site = models.URLField("网站",blank=True)
-    portfolio_phone = models.BigIntegerField("电话号码")
-    portfolio_job_type =  models.CharField("工作类型",choices=JOB_TYPES, max_length=50)
-    portfolio_descption = models.TextField("个人介绍")
+    profile_site = models.URLField("网站",blank=True)
+    profile_phone = models.BigIntegerField("电话号码",blank=True)
+    profile_job_type =  models.CharField("工作类型",choices=JOB_TYPES, max_length=50)
+    profile_descption = models.TextField("个人介绍",blank=True)
     # pip install pillow to use this!
     # Optional: pip install pillow --global-option="build_ext" --global-option="--disable-jpeg"
-    profile_pic = models.ImageField("照片",upload_to='profile_pics',blank=True)
+    profile_pic = models.ImageField("照片",upload_to='profile_pic',blank=True)
 
     def __str__(self):
         # Built-in attribute of django.contrib.auth.models.User !

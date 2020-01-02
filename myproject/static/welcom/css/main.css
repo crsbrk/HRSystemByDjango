@@ -7259,7 +7259,7 @@ blockquote {
 }
 
 blockquote:before {
-    content: "\f117";
+    content: "若想拥有美丽的双眸，请寻找他人的优点。";
     display: block;
     text-align: center;
     font-style: normal;

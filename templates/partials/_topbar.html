@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-4">
          {% if user.is_authenticated %}
-          <i class="fas fa-phone"></i> {{user.username}}
+          <i class="fas fa-user"></i> {{user.username}}
         </div>
         <div class="col-md-4">
           <i class="fas fa-envelope-open"></i> {{user.email}}
@@ -12,7 +12,7 @@
         <div class="col-md-4">
           <div class="social text-right">
           {% else %}
-        <i class="fas fa-phone"></i> number
+        <i class="fas fa-user"></i> number
         </div>
         <div class="col-md-4">
           <i class="fas fa-envelope-open"></i> email
