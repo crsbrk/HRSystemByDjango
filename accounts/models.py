@@ -17,7 +17,7 @@ class UserProfileInfo(models.Model):
     profile_descption = models.TextField("个人介绍",blank=True)
     # pip install pillow to use this!
     # Optional: pip install pillow --global-option="build_ext" --global-option="--disable-jpeg"
-    profile_pic = models.ImageField("照片",upload_to='profile_pic',blank=True)
+    profile_pic = models.ImageField("照片",upload_to='profile_pics',blank=True)
 
     def __str__(self):
         # Built-in attribute of django.contrib.auth.models.User !

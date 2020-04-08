@@ -46,6 +46,10 @@ def register(request):
           # messages.success(request, 'You are now logged in')
           # return redirect('index')
           user.save()
+          
+          userProfile = UserProfileInfo(user_id = user.id, profile_phone='18602038888', profile_pic='profile_pics/selfie.png')
+          userProfile.save()
+
           messages.success(request, '注册成功，请登录')
           return redirect('login')
     else:

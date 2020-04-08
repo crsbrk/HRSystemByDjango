@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from scores.models import Scores
+from scores.models import *
 from posts.models import Posts
 from cutovers.models import Cutovers
 from orders.models import Orders
@@ -11,31 +11,42 @@ from templates.constant_files import *#scoreOfAllWorkers,POST_SCORE_FLAG,CUTOVER
 from templates.forms import AttitudeForm, DisciplineForm,ResponsibilityForm
 import math
 import datetime
+from django.db.models import Avg
 
+
+thisSeason = SEASON_LIST[0]
+thisYear = datetime.datetime.now().year
+thisMonth = datetime.datetime.now().month
+
+if thisMonth == 4 :
+    thisSeason = SEASON_LIST[0]
+elif thisMonth == 7:
+    thisSeason = SEASON_LIST[1]
+elif thisMonth == 10:
+    thisSeason = SEASON_LIST[2]
+else:
+    thisSeason = SEASON_LIST[3]    
+thisSeasonStr = str(thisYear)+'年'+str(thisSeason)
 
 def democracy(request):
+    
     democracy_form = {'attitude_form':0,'descipline_form':0,'responsibility_form':0}
-    thisSeason = SEASON_LIST[0]
-    thisYear = datetime.datetime.now().year
-    thisMonth = datetime.datetime.now().month
 
-    if thisMonth == 4 :
-        thisSeason = SEASON_LIST[0]
-    elif thisMonth == 7:
-        thisSeason = SEASON_LIST[1]
-    elif thisMonth == 10:
-        thisSeason = SEASON_LIST[2]
-    else:
-        thisSeason = SEASON_LIST[3]    
-    thisSeasonStr = str(thisYear)+'年'+str(thisSeason)
 
     id = request.user.id
     user_basic = User.objects.get(id=id)
         
      #get all types of work info
     myName = str(user_basic.last_name+user_basic.first_name)
+    is_attitude_exist_flag = Attitude.objects.all().filter(worker_name=myName, year_season= thisSeasonStr)
+    is_dis_exist_flag = Discipline.objects.all().filter(worker_name=myName, year_season= thisSeasonStr)
+    is_responsibility_exist_flag = Responsibility.objects.all().filter(worker_name=myName, year_season= thisSeasonStr)
+    if  is_attitude_exist_flag  or  is_dis_exist_flag  or  is_responsibility_exist_flag :
+        print('objects  exists')
+        return redirect('dashboard')
 
     if request.method == 'POST':
+
         attitude_form = AttitudeForm(request.POST)
         descipline_form = DisciplineForm(request.POST)
         reponsibility_form = ResponsibilityForm(request.POST)
@@ -54,9 +65,13 @@ def democracy(request):
             at.save()
             de.save()
             re.save()
+            return redirect('success')
+
         else:
             print('in valid data')
-        #return redirect('dashboard')
+
+
+        
 
     else:
         attitude_form = AttitudeForm()
@@ -73,6 +88,8 @@ def democracy(request):
     }    
     return render(request, 'scores/democracy.html', context)
 
+def success(request):
+     return render(request, 'scores/success.html')
 
 # show tables of workers' scores
 def index(request):
@@ -114,9 +131,11 @@ def index(request):
     # print(sumScores)
 
     #season4 = getJixiaoByGroups()
-    season4 = getJixiaoByItemsLimit()
 
-    sortedPerformance = sorted(JIXIAO.items(), key=lambda x: x[1][1], reverse=True)
+    #season4 = getJixiaoByItemsLimit()
+    season4 = None
+    #getDemocacyScore()
+    sortedPerformance = sorted(JIXIAO.items(), key=lambda x: x[1][2], reverse=True)
     print(sortedPerformance)
 
     visitorIp = visitor_ip_address(request)
@@ -131,6 +150,23 @@ def index(request):
     }
 
     return render(request, 'scores/index.html', context)
+
+def getDemocacyScore():
+    
+    for worker_name, work_name_interpreter in NAME_INTERPRETER.items():
+        work_name_item_at = 'at_'+ work_name_interpreter
+        attitude_average = Attitude.objects.all().filter(year_season = thisSeasonStr).aggregate(Avg(work_name_item_at))
+        work_name_item_re = 're_'+ work_name_interpreter
+        reponsi_average = Responsibility.objects.all().filter(year_season = thisSeasonStr).aggregate(Avg(work_name_item_re))
+        work_name_item_di = 'di_'+ work_name_interpreter
+        disci_average = Discipline.objects.all().filter(year_season = thisSeasonStr).aggregate(Avg(work_name_item_di))
+
+
+        JIXIAO[worker_name][0] = attitude_average[work_name_item_at+'__avg']*5/100 + reponsi_average[work_name_item_re+'__avg']*5/100 + disci_average[work_name_item_di+'__avg']*5/100
+        JIXIAO[worker_name][2] = JIXIAO[worker_name][0] + JIXIAO[worker_name][1]
+
+    return
+
 
 #
 # group algorithm
@@ -256,7 +292,7 @@ def getJixiaoByItemsLimit():
         for worker_name in NAMES:
             if(s.id == worker_name):
                 JIXIAO[worker_name][1] = getJixiao(s.postScores, s.orderScores, s.cutoverScores, s.bonuseScores, s.faultyScores, s.routineScores)
-  
+               
 
     return season4
 

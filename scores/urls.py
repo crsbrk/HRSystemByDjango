@@ -8,6 +8,6 @@ urlpatterns = [
     path('scores/',views.index,name='index'),
     path('',views.index,name='index'),
     path('democracy',views.democracy,name='democracy'),    
-
+    path('success',views.success,name='success'),   
 
 ];
