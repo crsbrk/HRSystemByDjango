@@ -44,7 +44,7 @@
 
       <section class="support-author">
 
-  <div class="col-md-9">
+  <div class="col-md-9" style="padding-left: 0px;">
   {% if user.is_authenticated  %}
      <img src="/media/{{ selfie }}" alt="selfie" class="img-main img-fluid mb-3">
    
@@ -71,7 +71,7 @@
         <div class="modal-body">
 
 
-<form method="post" novalidate>
+<form method="post"  enctype="multipart/form-data">
   {% csrf_token %}
 
 {% if user.is_authenticated %}

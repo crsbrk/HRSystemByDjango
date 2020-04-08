@@ -7,6 +7,7 @@ urlpatterns = [
     # url(r'^details/(?P<id>\d+)/$',views.details,name='details')
     path('scores/',views.index,name='index'),
     path('',views.index,name='index'),
+    path('democracy',views.democracy,name='democracy'),    
 
 
 ];

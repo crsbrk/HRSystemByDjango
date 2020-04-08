@@ -2,7 +2,22 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 from crispy_forms.layout import Field
+from scores.models import Attitude,Responsibility,Discipline
 
+
+class AttitudeForm(forms.ModelForm):
+    class Meta():
+        model = Attitude
+        exclude = ['worker_name','year_season']
+
+class DisciplineForm(forms.ModelForm):
+    class Meta():
+        model = Discipline
+        exclude = ['worker_name','year_season']
+class ResponsibilityForm(forms.ModelForm):
+    class Meta():
+        model = Responsibility
+        exclude = ['worker_name','year_season']
 
 class CustomEmailbox(Field):
     template = 'accounts/custom_emailbox.html'

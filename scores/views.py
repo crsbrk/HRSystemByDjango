@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from scores.models import Scores
 from posts.models import Posts
 from cutovers.models import Cutovers
@@ -7,6 +8,70 @@ from bonuses.models import Bonuses
 from routine.models import Routine
 from faulty.models import Faulty
 from templates.constant_files import *#scoreOfAllWorkers,POST_SCORE_FLAG,CUTOVER_SCORE_FLAG,ORDERS_SCORE_FLAG,BONUSES_SCORE_FLAG,FAULTY_SCORE_FLAG,ROUTINE_SCORE_FLAG
+from templates.forms import AttitudeForm, DisciplineForm,ResponsibilityForm
+import math
+import datetime
+
+
+def democracy(request):
+    democracy_form = {'attitude_form':0,'descipline_form':0,'responsibility_form':0}
+    thisSeason = SEASON_LIST[0]
+    thisYear = datetime.datetime.now().year
+    thisMonth = datetime.datetime.now().month
+
+    if thisMonth == 4 :
+        thisSeason = SEASON_LIST[0]
+    elif thisMonth == 7:
+        thisSeason = SEASON_LIST[1]
+    elif thisMonth == 10:
+        thisSeason = SEASON_LIST[2]
+    else:
+        thisSeason = SEASON_LIST[3]    
+    thisSeasonStr = str(thisYear)+'年'+str(thisSeason)
+
+    id = request.user.id
+    user_basic = User.objects.get(id=id)
+        
+     #get all types of work info
+    myName = str(user_basic.last_name+user_basic.first_name)
+
+    if request.method == 'POST':
+        attitude_form = AttitudeForm(request.POST)
+        descipline_form = DisciplineForm(request.POST)
+        reponsibility_form = ResponsibilityForm(request.POST)
+        if attitude_form.is_valid() and descipline_form.is_valid() and reponsibility_form.is_valid():
+            at = attitude_form.save(commit=False)
+            de = descipline_form.save(commit=False)
+            re = reponsibility_form.save(commit=False)
+
+            at.worker_name = myName
+            at.year_season = thisSeasonStr
+            de.worker_name = myName
+            de.year_season = thisSeasonStr
+            re.worker_name = myName
+            re.year_season = thisSeasonStr
+
+            at.save()
+            de.save()
+            re.save()
+        else:
+            print('in valid data')
+        #return redirect('dashboard')
+
+    else:
+        attitude_form = AttitudeForm()
+        descipline_form = DisciplineForm()
+        reponsibility_form = ResponsibilityForm()
+
+    democracy_form['attitude_form'] = attitude_form
+    democracy_form['descipline_form'] = descipline_form
+    democracy_form['reponsibility_form'] = reponsibility_form
+
+    context = {
+        'democracy':democracy_form,
+        'title': '民主测评',
+    }    
+    return render(request, 'scores/democracy.html', context)
 
 
 # show tables of workers' scores
@@ -14,7 +79,7 @@ def index(request):
     # return HttpResponse('hello django')
 
     scores = Scores.objects.all().filter(
-        score_year_month__contains='2019',worker_name__in=['苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷',])  # the final scores of a month
+        score_year_month__contains='2020',worker_name__in=['张晨','常晓波','陈立栋','黄锵栩','汪志武','韦国锐','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷',])  # the final scores of a month
 
     i = 0
     sumScores = {}
@@ -34,24 +99,55 @@ def index(request):
         #print(sumScore['sum_all'])
         sumScores[i] = sumScore
         i += 1
-#s4 means forth season 
-    season4 = Scores.objects.raw('''select name as id,round((a+b+c+d+e+f),2) s4
-from (
-SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d,
-sum(score_faulty) e, sum(score_routine)/10 f  
-from scores_scores
-where score_year_month in('2019-10','2019-11','2019-12') and  
-worker_name in('苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
-GROUP BY worker_name
-) AS SEASON4
-ORDER BY s4 desc''')
-    updateScoreOfWorkers(2019, 10)
+
+
+
+
+
+
+    updateScoreOfWorkers(2020, 1)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2019, 11)
+    updateScoreOfWorkers(2020, 2)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2019, 12)
+    updateScoreOfWorkers(2020, 3)
     # print(scoreOfAllWorkers)
     # print(sumScores)
+
+    #season4 = getJixiaoByGroups()
+    season4 = getJixiaoByItemsLimit()
+
+    sortedPerformance = sorted(JIXIAO.items(), key=lambda x: x[1][1], reverse=True)
+    print(sortedPerformance)
+
+    visitorIp = visitor_ip_address(request)
+    context = {
+        'title': '分数',
+        'scores': scores,
+        'sumScores': sumScores,
+        'season4': season4,
+        'jixiao': sortedPerformance,
+        'visitorIp':visitorIp,
+
+    }
+
+    return render(request, 'scores/index.html', context)
+
+#
+# group algorithm
+#
+def getJixiaoByGroups():
+#s4 means forth season 
+    season4 = Scores.objects.raw('''select name as id,round((a+b+c+d+e+f),2) s4
+    from (
+    SELECT worker_name name,sum(score_posts) a,sum(score_orders) b, sum(score_cutovers) c, sum(score_bonuses) d,
+    sum(score_faulty) e, sum(score_routine)/10 f  
+    from scores_scores
+    where score_year_month in('2020-1','2020-2','2020-3') and  
+    worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
+    GROUP BY worker_name
+    ) AS SEASON4
+    ORDER BY s4 desc''')
+
     wlwAll = 0
     othersAll = 0
     gongzhongAll = 0
@@ -66,8 +162,8 @@ ORDER BY s4 desc''')
             wlwAll +=s.s4
         if(s.id=='杨晓'):
             wlwAll +=s.s4
- #       if(s.id=='张晨'):
- #           othersAll +=s.s4
+        if(s.id=='张晨'):
+           othersAll +=s.s4
         if(s.id=='李晓昕'):
             othersAll +=s.s4  
         if(s.id=='郭少钏'):
@@ -76,12 +172,12 @@ ORDER BY s4 desc''')
             othersAll +=s.s4  
         if(s.id=='霍晓歌'):
             othersAll +=s.s4  
-        # if(s.id=='陈立栋'):
-        #     othersAll +=s.s4  
+        if(s.id=='陈立栋'):
+            othersAll +=s.s4  
         if(s.id=='于秋思'):
             othersAll +=s.s4  
- #       if(s.id=='常晓波'):
- #           othersAll +=s.s4
+        if(s.id=='常晓波'):
+           othersAll +=s.s4
         if(s.id=='苏伟衡'):
             othersAll +=s.s4   
 
@@ -137,24 +233,47 @@ ORDER BY s4 desc''')
         #     JIXIAO['常晓波'][1] = round((s.s4-(averageOthers-averageAll))/averageAll ,2)
         #     JIXIAO['常晓波'][0] = s.s4       
 
-    sortedPerformance = sorted(JIXIAO.items(), key=lambda x: x[1][1], reverse=True)
-    print(sortedPerformance)
+    return season4
 
-    visitorIp = visitor_ip_address(request)
-    context = {
-        'title': '分数',
-        'scores': scores,
-        'sumScores': sumScores,
-        'season4': season4,
-        'jixiao': sortedPerformance,
-        'visitorIp':visitorIp,
 
-    }
+#
+# calculate items
+#
+def getJixiaoByItemsLimit():
+    
+    season4 = Scores.objects.raw('''SELECT worker_name as id,sum(score_posts) postScores,sum(score_orders) orderScores,
+	sum(score_cutovers) cutoverScores, sum(score_bonuses) bonuseScores, sum(score_faulty) faultyScores, sum(score_routine) routineScores  
+    from scores_scores
+    where score_year_month in('2020-1','2020-2','2020-3') and  
+    worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
+    GROUP BY worker_name
+''')
 
-    return render(request, 'scores/index.html', context)
+
+
+    for s in season4:
+        print(s.id)
+        for worker_name in NAMES:
+            if(s.id == worker_name):
+                JIXIAO[worker_name][1] = getJixiao(s.postScores, s.orderScores, s.cutoverScores, s.bonuseScores, s.faultyScores, s.routineScores)
+  
+
+    return season4
+
+
+def getJixiao(postScores, orderScores, cutoverScores, bonusScores, faultyScores, routineScores):
+    
+    p = POST_SHARE * (1 - math.exp(-1 * POST_LAMADA * postScores)) 
+    o = ORDER_SHARE * (1 - math.exp(-1 * ORDER_LAMADA * orderScores)) 
+    c = CUTOVER_SHARE * (1 - math.exp(-1 * CUTOVER_LAMADA * cutoverScores)) 
+    b = BONUS_SHARE * (1 - math.exp(-1 * BONUS_LAMADA * bonusScores)) 
+    f = FAULTY_SHARE * (1 - math.exp(-1 * FAULTY_LAMADA * faultyScores)) 
+    r = ROUTINE_SHARE * (1 - math.exp(-1 * ROUTINE_LAMADA * routineScores)) 
+    percentage_of_score = round(p+o+c+b+f+r,4)
+
+    return percentage_of_score
 
 # update wokers scores
-
 
 def updateScoreOfWorkers(myYear, myMonth):
     global scoreOfAllWorkers
@@ -210,7 +329,7 @@ def updateScoreOfWorkers(myYear, myMonth):
     if routine is not None:
         countScores(routine, ROUTINE_SCORE_FLAG)
 
-#    print(scoreOfAllWorkers)
+    #    print(scoreOfAllWorkers)
 
     for aWorker in scoreOfAllWorkers:
         try:

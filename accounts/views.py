@@ -171,8 +171,10 @@ def updateInfo(request,my_form):
             # UserForm and UserProfileInfoForm
             pf.user = user
             # Check if they provided a profile picture
-            if 'profile_pic' in request.FILES:
-                print('found it')
+
+           # pf.profile_pic = request.FILES['inputProfilePic']
+            if 'inputProfilePic' in request.FILES:
+                print('found it!!!!')
                 # If yes, then grab it from the POST form reply
                 pf.profile_pic = request.FILES['inputProfilePic']
 
@@ -219,3 +221,11 @@ def updateInfo(request,my_form):
 #         form = NameForm()
 
 #     return render(request, 'accounts/dashboard.html', {'form': form})
+
+def printRequest(request):
+    print(type(request))   # 打印出request的类型
+
+    print(request.environ)   # 打印出request的header详细信息
+    #循环打印出每一个键值对
+    for k, v in request.environ.items():
+       print(k, v)

@@ -1,0 +1,81 @@
+{% extends 'layout.html'%}
+{% load widget_tweaks %}
+{% load crispy_forms_tags   %}
+
+
+{% block title %} | 用户后台 {% endblock %}
+
+{% block content %}
+
+<h2>{{title}}</h2>
+ <!-- 更新个人信息的输入框 -->
+<form method="post" novalidate>
+  {% csrf_token %}
+
+{% if user.is_authenticated %}
+ <div class="form-group">
+  <label for="logonName">登录名:</label>
+   <input type="text" class="form-control " readonly name="inputUsername" value='{{user.username}}'>
+
+
+ {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+  {% endfor %}
+  <br>
+  <hr>
+
+
+<h4>工作态度5%：积极主动95分、比较主动91分，一般87分，等靠83分、懈怠79分；</h4>
+  {% for field in democracy.attitude_form.visible_fields %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {% render_field field class="form-control" %}
+      {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+      {% endif %}
+          {% if field.errors  %}
+        <small class="form-text text-muted">{{ field.errors  }}</small>
+      {% endif %}
+    {% endfor %}
+    
+    </div>
+
+  <br>
+  <hr>
+   <h4> 工作纪律5%：严格遵守95分、比较遵守91分，遵守87分、有所欠缺83分、较差79分；</h4>
+    {% for field in democracy.descipline_form.visible_fields %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {% render_field field class="form-control" %}
+      {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+      {% endif %}
+    {% endfor %}
+    </div>
+
+  <br>
+  <hr>
+<h4>责任心5%：认真负责95分、比较认真91分，一般87分、有所欠缺83分、较差79分；</h4>
+      {% for field in democracy.reponsibility_form.visible_fields %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {% render_field field class="form-control" %}
+      {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+      {% endif %}
+    </div>
+
+  {% endfor %}
+
+  
+    <button type="submit" value="Send" class="btn btn-block btn-secondary">提交</button>
+  </form>
+
+
+
+ 
+</div>
+{% endif %}
+
+
+{% endblock %}

@@ -14,6 +14,7 @@ WORKERS_NAMES = (
     ('李晓昕', '李晓昕'),
     ('张晨', '张晨'),
 )
+NAMES = ('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
 
 JIXIAO11 = {
     '黄锵栩': {'scoreAll':0,'jx':0},
@@ -49,6 +50,7 @@ JIXIAO= {
     '李晓昕': [0,0],
     '韦国锐': [0,0],
     '张晨': [0,0],
+    '陈立栋': [0,0],
 
 }
 
@@ -66,6 +68,11 @@ ORDER_SCORE_LIST=(
     (1,1),
 
 )
+
+DEMOCRACY_LIST =(
+(95,95),(91,91),(83,83),(79,79),
+)
+
 ORDER_TYPES = (
         ('行业', '行业'),
         ('物联网', '物联网'),
@@ -79,7 +86,6 @@ ORDER_TYPES = (
     )
 FAULTY_TYPES =(
         ('硬件', '硬件'),
-        ('投诉', '投诉'),
         ('软件', '软件'),
         ('其他', '其他'),
     )
@@ -90,7 +96,7 @@ scoreOfAllWorkers = {
     '刘江': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '刘雷': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '刘峰': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '冯庆': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '黄锵栩': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '郭少钏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '于秋思': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '苏飓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
@@ -98,8 +104,9 @@ scoreOfAllWorkers = {
     '杨晓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '霍晓歌': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '李晓昕': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-   '韦国锐': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-   '张晨': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '韦国锐': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '张晨': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '黄锵栩': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
 }
 
 
@@ -130,3 +137,20 @@ SHUTONG_NUMBERS = 3 #数通组：常晓波，于秋思，苏伟衡
 GONGZHONG_NUMBERS = 5 #公众组：杨晓，霍晓歌，苏飓，张晨，李晓昕，郭少钏
 OTHERS_NUMBERS = 8 #非物联网
 ALL_WORKER_NUMBERS = 12 #all
+
+POST_LAMADA = 0.05
+ORDER_LAMADA = 0.05
+CUTOVER_LAMADA = 0.1
+BONUS_LAMADA = 0
+FAULTY_LAMADA = 0.05
+ROUTINE_LAMADA = 0.01
+
+POST_SHARE = 11.525
+ORDER_SHARE = 15.5
+CUTOVER_SHARE = 15.5
+BONUS_SHARE = 15.5
+ROUTINE_SHARE = 15.5
+FAULTY_SHARE = 11.525
+
+SEASON_LIST = ('第一季度','第二季度','第三季度','第四季度')
+
