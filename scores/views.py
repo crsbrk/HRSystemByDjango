@@ -32,8 +32,10 @@ def democracy(request):
     
     democracy_form = {'attitude_form':0,'descipline_form':0,'responsibility_form':0}
 
-
     id = request.user.id
+    if id is None:
+        return redirect('dashboard')
+        
     user_basic = User.objects.get(id=id)
         
      #get all types of work info
