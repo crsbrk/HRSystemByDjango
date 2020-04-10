@@ -328,7 +328,7 @@ def updateScoreOfWorkers(myYear, myMonth):
             deadline_at__year=myYear, deadline_at__month=myMonth)
         print(posts)
         cutovers = Cutovers.objects.filter(
-            deadline_at__year=myYear, deadline_at__month=myMonth, cutover_num__regex=r'.*\d.*')
+            deadline_at__year=myYear, deadline_at__month=myMonth)
         orders = Orders.objects.filter(
             deadline_at__year=myYear, deadline_at__month=myMonth)
         bonuses = Bonuses.objects.filter(
