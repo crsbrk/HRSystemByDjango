@@ -35,7 +35,7 @@ def democracy(request):
     id = request.user.id
     if id is None:
         return redirect('dashboard')
-        
+
     user_basic = User.objects.get(id=id)
         
      #get all types of work info
@@ -70,7 +70,7 @@ def democracy(request):
             return redirect('success')
 
         else:
-            print('in valid data')
+            print('invalid data')
 
 
         
@@ -120,10 +120,6 @@ def index(request):
         i += 1
 
 
-
-
-
-
     updateScoreOfWorkers(2020, 1)
     # print(scoreOfAllWorkers)
     updateScoreOfWorkers(2020, 2)
@@ -134,9 +130,9 @@ def index(request):
 
     #season4 = getJixiaoByGroups()
 
-    #season4 = getJixiaoByItemsLimit()
-    season4 = None
-    #getDemocacyScore()
+    season4 = getJixiaoByItemsLimit()
+    #season4 = None
+    getDemocacyScore()
     sortedPerformance = sorted(JIXIAO.items(), key=lambda x: x[1][2], reverse=True)
     print(sortedPerformance)
 
@@ -153,6 +149,7 @@ def index(request):
 
     return render(request, 'scores/index.html', context)
 
+
 def getDemocacyScore():
     
     for worker_name, work_name_interpreter in NAME_INTERPRETER.items():
@@ -168,6 +165,7 @@ def getDemocacyScore():
         JIXIAO[worker_name][2] = JIXIAO[worker_name][0] + JIXIAO[worker_name][1]
 
     return
+
 
 
 #
@@ -330,15 +328,16 @@ def updateScoreOfWorkers(myYear, myMonth):
             deadline_at__year=myYear, deadline_at__month=myMonth)
         print(posts)
         cutovers = Cutovers.objects.filter(
-            deadline_at__year=myYear, deadline_at__month=myMonth)
+            deadline_at__year=myYear, deadline_at__month=myMonth, cutover_num__regex=r'.*\d.*')
         orders = Orders.objects.filter(
             deadline_at__year=myYear, deadline_at__month=myMonth)
         bonuses = Bonuses.objects.filter(
             created_at__year=myYear, created_at__month=myMonth)
         faulty = Faulty.objects.filter(
-            created_at__year=myYear, created_at__month=myMonth)
+            created_at__year=myYear, created_at__month=myMonth).exclude(pj_type='投诉')
         routine = Routine.objects.filter(
             created_at__year=myYear, created_at__month=myMonth)
+        
 
     except Posts.DoesNotExist:
         posts = None
@@ -363,6 +362,7 @@ def updateScoreOfWorkers(myYear, myMonth):
     if cutovers is not None:
         countScores(cutovers, CUTOVER_SCORE_FLAG)
     if faulty is not None:
+        print('print faulty except complaints',faulty)
         countScores(faulty, FAULTY_SCORE_FLAG)
     if routine is not None:
         countScores(routine, ROUTINE_SCORE_FLAG)

@@ -81,7 +81,7 @@ FAULTY_SCORE_LIST=(
 )
 
 ROUTINE_SCORE_LIST=(
-    (1,1),
+    (1,1),(2,2),(3,3),
 
 )
 
@@ -91,7 +91,7 @@ ORDER_SCORE_LIST=(
 )
 
 DEMOCRACY_LIST =(
-(95,95),(91,91),(83,83),(79,79),
+(95,95),(91,91),(87,87),(83,83),(79,79),
 )
 
 ORDER_TYPES = (
@@ -117,7 +117,7 @@ scoreOfAllWorkers = {
     '刘江': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '刘雷': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '刘峰': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '黄锵栩': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '汪志武': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '郭少钏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '于秋思': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '苏飓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
