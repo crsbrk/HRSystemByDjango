@@ -302,7 +302,7 @@ def getJixiao(postScores, orderScores, cutoverScores, bonusScores, faultyScores,
     p = POST_SHARE * (1 - math.exp(-1 * POST_LAMADA * postScores)) 
     o = ORDER_SHARE * (1 - math.exp(-1 * ORDER_LAMADA * orderScores)) 
     c = CUTOVER_SHARE * (1 - math.exp(-1 * CUTOVER_LAMADA * cutoverScores)) 
-    b = BONUS_SHARE * (1 - math.exp(-1 * BONUS_LAMADA * bonusScores)) 
+    b = bonusScores #BONUS_SHARE * (1 - math.exp(-1 * BONUS_LAMADA * bonusScores)) 
     f = FAULTY_SHARE * (1 - math.exp(-1 * FAULTY_LAMADA * faultyScores)) 
     r = ROUTINE_SHARE * (1 - math.exp(-1 * ROUTINE_LAMADA * routineScores)) 
     percentage_of_score = round(p+o+c+b+f+r,4)
