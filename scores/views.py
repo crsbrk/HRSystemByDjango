@@ -147,8 +147,8 @@ def index(request):
         'thisSeasonStr':thisSeasonStr,
 
     }
-
-    return render(request, 'scores/index.html', context)
+    return
+    #return render(request, 'scores/index.html', context)
 
 
 def getDemocacyScore(thisSeasonStr):
