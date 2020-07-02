@@ -18,11 +18,11 @@ thisSeason = SEASON_LIST[0]
 thisYear = datetime.datetime.now().year
 thisMonth = datetime.datetime.now().month
 
-if thisMonth == 4 :
+if thisMonth <= 4 :
     thisSeason = SEASON_LIST[0]
-elif thisMonth == 7:
+elif thisMonth <= 7:
     thisSeason = SEASON_LIST[1]
-elif thisMonth == 10:
+elif thisMonth <= 10:
     thisSeason = SEASON_LIST[2]
 else:
     thisSeason = SEASON_LIST[3]    
@@ -120,11 +120,11 @@ def index(request):
         i += 1
 
 
-    updateScoreOfWorkers(2020, 1)
+    updateScoreOfWorkers(2020, 4)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2020, 2)
+    updateScoreOfWorkers(2020, 5)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2020, 3)
+    updateScoreOfWorkers(2020, 6)
     # print(scoreOfAllWorkers)
     # print(sumScores)
 
@@ -132,7 +132,7 @@ def index(request):
 
     season4 = getJixiaoByItemsLimit()
     #season4 = None
-    getDemocacyScore()
+    getDemocacyScore(thisSeasonStr)
     sortedPerformance = sorted(JIXIAO.items(), key=lambda x: x[1][2], reverse=True)
     print(sortedPerformance)
 
@@ -144,15 +144,19 @@ def index(request):
         'season4': season4,
         'jixiao': sortedPerformance,
         'visitorIp':visitorIp,
+        'thisSeasonStr':thisSeasonStr,
 
     }
 
     return render(request, 'scores/index.html', context)
 
 
-def getDemocacyScore():
+def getDemocacyScore(thisSeasonStr):
+    print('--->'+thisSeasonStr+'<---')
+    global JIXIAO
     
     for worker_name, work_name_interpreter in NAME_INTERPRETER.items():
+        
         work_name_item_at = 'at_'+ work_name_interpreter
         attitude_average = Attitude.objects.all().filter(year_season = thisSeasonStr).aggregate(Avg(work_name_item_at))
         work_name_item_re = 're_'+ work_name_interpreter
@@ -160,17 +164,27 @@ def getDemocacyScore():
         work_name_item_di = 'di_'+ work_name_interpreter
         disci_average = Discipline.objects.all().filter(year_season = thisSeasonStr).aggregate(Avg(work_name_item_di))
 
+        attitude_score = 0
+        responsibility_score = 0
+        discipline_score = 0
 
-        JIXIAO[worker_name][0] = attitude_average[work_name_item_at+'__avg']*5/100 + reponsi_average[work_name_item_re+'__avg']*5/100 + disci_average[work_name_item_di+'__avg']*5/100
+        if(attitude_average ):
+            attitude_score = attitude_average[work_name_item_at+'__avg']*5/100
+        if(reponsi_average):
+            responsibility_score = reponsi_average[work_name_item_re+'__avg']*5/100
+        if(disci_average):
+            discipline_score = disci_average[work_name_item_di+'__avg']*5/100
+
+        JIXIAO[worker_name][0] = attitude_score + responsibility_score + discipline_score
         JIXIAO[worker_name][2] = JIXIAO[worker_name][0] + JIXIAO[worker_name][1]
 
     return
 
 
 
-#
+# ################
 # group algorithm
-#
+# ################
 def getJixiaoByGroups():
 #s4 means forth season 
     season4 = Scores.objects.raw('''select name as id,round((a+b+c+d+e+f),2) s4
@@ -276,11 +290,12 @@ def getJixiaoByGroups():
 # calculate items
 #
 def getJixiaoByItemsLimit():
-    
+    global JIXIAO
+
     season4 = Scores.objects.raw('''SELECT worker_name as id,sum(score_posts) postScores,sum(score_orders) orderScores,
 	sum(score_cutovers) cutoverScores, sum(score_bonuses) bonuseScores, sum(score_faulty) faultyScores, sum(score_routine) routineScores  
     from scores_scores
-    where score_year_month in('2020-1','2020-2','2020-3') and  
+    where score_year_month in('2020-4','2020-5','2020-6') and  
     worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
     GROUP BY worker_name
 ''')
