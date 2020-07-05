@@ -147,8 +147,8 @@ def index(request):
         'thisSeasonStr':thisSeasonStr,
 
     }
-    return
-    #return render(request, 'scores/index.html', context)
+    
+    return render(request, 'scores/index.html', context)
 
 
 def getDemocacyScore(thisSeasonStr):
@@ -168,11 +168,11 @@ def getDemocacyScore(thisSeasonStr):
         responsibility_score = 0
         discipline_score = 0
 
-        if(attitude_average ):
+        if(attitude_average and attitude_average[work_name_item_at+'__avg']):
             attitude_score = attitude_average[work_name_item_at+'__avg']*5/100
-        if(reponsi_average):
+        if(reponsi_average and reponsi_average[work_name_item_re+'__avg']):
             responsibility_score = reponsi_average[work_name_item_re+'__avg']*5/100
-        if(disci_average):
+        if(disci_average and disci_average[work_name_item_di+'__avg']):
             discipline_score = disci_average[work_name_item_di+'__avg']*5/100
 
         JIXIAO[worker_name][0] = attitude_score + responsibility_score + discipline_score
