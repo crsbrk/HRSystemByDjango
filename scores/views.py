@@ -147,7 +147,7 @@ def index(request):
         'thisSeasonStr':thisSeasonStr,
 
     }
-    
+    return
     return render(request, 'scores/index.html', context)
 
 
