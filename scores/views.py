@@ -33,7 +33,8 @@ def democracy(request):
     democracy_form = {'attitude_form':0,'descipline_form':0,'responsibility_form':0}
 
     id = request.user.id
-    if id is None:
+    print(id)
+    if id is None: 
         return redirect('dashboard')
 
     user_basic = User.objects.get(id=id)
@@ -147,7 +148,7 @@ def index(request):
         'thisSeasonStr':thisSeasonStr,
 
     }
-    return
+    
     return render(request, 'scores/index.html', context)
 
 
@@ -429,7 +430,7 @@ def countScores(myScores, flag):
         # count the socre of each worker
         #print('this is score',myScore.pj_leader)
         if flag != CUTOVER_SCORE_FLAG:
-            if myScore.is_not_delayed :
+            if myScore.is_not_delayed and myScore.body !='':
                 pj_leader_score = round(
                     myScore.workload_allot * myScore.pj_score, 2)
                 pj_participant1_score = round(
@@ -493,7 +494,7 @@ def countScores(myScores, flag):
                         scoreOfAllWorkers[myScore.pj_participant3]['faulty'] += pj_participant3_score
         else:
             pj_leader_score = 3 #score for per cutover
-            if myScore.pj_leader != '' and myScore.is_not_delayed:
+            if myScore.pj_leader != '' and myScore.is_not_delayed and myScore.body !='':
                 scoreOfAllWorkers[myScore.pj_leader]['cutovers'] += pj_leader_score
     return
 
