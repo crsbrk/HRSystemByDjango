@@ -76,17 +76,17 @@ NAME_INTERPRETER= {
 }
 
 FAULTY_SCORE_LIST=(
-    (1,1),(2,2)
+    (0,0),(1,1),(2,2)
 
 )
 
 ROUTINE_SCORE_LIST=(
-    (1,1),(2,2),(3,3),
+    (0,0),(1,1),(2,2),(3,3),
 
 )
 
 ORDER_SCORE_LIST=(
-    (1,1),
+    (0,0),(1,1),
 
 )
 
