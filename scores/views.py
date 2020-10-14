@@ -28,6 +28,8 @@ else:
     thisSeason = SEASON_LIST[3]    
 thisSeasonStr = str(thisYear)+'年'+str(thisSeason)
 
+print(thisSeasonStr)
+
 def democracy(request):
     
     democracy_form = {'attitude_form':0,'descipline_form':0,'responsibility_form':0}
@@ -121,11 +123,11 @@ def index(request):
         i += 1
 
 
-    updateScoreOfWorkers(2020, 4)
+    updateScoreOfWorkers(2020, 7)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2020, 5)
+    updateScoreOfWorkers(2020, 8)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2020, 6)
+    updateScoreOfWorkers(2020, 9)
     # print(scoreOfAllWorkers)
     # print(sumScores)
 
@@ -296,7 +298,7 @@ def getJixiaoByItemsLimit():
     season4 = Scores.objects.raw('''SELECT worker_name as id,sum(score_posts) postScores,sum(score_orders) orderScores,
 	sum(score_cutovers) cutoverScores, sum(score_bonuses) bonuseScores, sum(score_faulty) faultyScores, sum(score_routine) routineScores  
     from scores_scores
-    where score_year_month in('2020-4','2020-5','2020-6') and  
+    where score_year_month in('2020-7','2020-8','2020-9') and  
     worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
     GROUP BY worker_name
 ''')
