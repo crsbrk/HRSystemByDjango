@@ -347,8 +347,10 @@ def updateScoreOfWorkers(myYear, myMonth):
         print(posts)
         cutovers = Cutovers.objects.filter(
             deadline_at__year=myYear, deadline_at__month=myMonth)
+        print(cutovers)
         orders = Orders.objects.filter(
             deadline_at__year=myYear, deadline_at__month=myMonth)
+        print(orders)
         bonuses = Bonuses.objects.filter(
             created_at__year=myYear, created_at__month=myMonth)
         faulty = Faulty.objects.filter(
@@ -430,9 +432,10 @@ def countScores(myScores, flag):
 
     for myScore in myScores:
         # count the socre of each worker
-        #print('this is score',myScore.pj_leader)
+        print('this is score',myScore.pj_leader)
         if flag != CUTOVER_SCORE_FLAG:
             if myScore.is_not_delayed and myScore.body !='':
+                print('not delayed')
                 pj_leader_score = round(
                     myScore.workload_allot * myScore.pj_score, 2)
                 pj_participant1_score = round(
