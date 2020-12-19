@@ -123,11 +123,11 @@ def index(request):
         i += 1
 
 
-    updateScoreOfWorkers(2020, 9)
+    updateScoreOfWorkers(2020, 10)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2020, 9)
+    updateScoreOfWorkers(2020, 11)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2020, 9)
+    updateScoreOfWorkers(2020, 12)
     # print(scoreOfAllWorkers)
     # print(sumScores)
 
