@@ -101,7 +101,7 @@ def index(request):
     # return HttpResponse('hello django')
 
     scores = Scores.objects.all().filter(
-        score_year_month__contains='2020',worker_name__in=['张晨','常晓波','陈立栋','黄锵栩','汪志武','韦国锐','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷',])  # the final scores of a month
+        score_year_month__contains='2021',worker_name__in=['张晨','常晓波','陈立栋','黄锵栩','汪志武','韦国锐','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷',])  # the final scores of a month
 
     i = 0
     sumScores = {}
@@ -123,11 +123,11 @@ def index(request):
         i += 1
 
 
-    updateScoreOfWorkers(2020, 10)
+    updateScoreOfWorkers(2021, 1)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2020, 11)
+    #updateScoreOfWorkers(2020, 11)
     # print(scoreOfAllWorkers)
-    updateScoreOfWorkers(2020, 12)
+    #updateScoreOfWorkers(2020, 12)
     # print(scoreOfAllWorkers)
     # print(sumScores)
 
@@ -298,7 +298,7 @@ def getJixiaoByItemsLimit():
     season4 = Scores.objects.raw('''SELECT worker_name as id,sum(score_posts) postScores,sum(score_orders) orderScores,
 	sum(score_cutovers) cutoverScores, sum(score_bonuses) bonuseScores, sum(score_faulty) faultyScores, sum(score_routine) routineScores  
     from scores_scores
-    where score_year_month in('2020-10','2020-11','2020-12') and  
+    where score_year_month in('2021-1','2021-2') and  
     worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
     GROUP BY worker_name
 ''')
