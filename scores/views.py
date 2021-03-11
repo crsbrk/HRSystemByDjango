@@ -14,19 +14,24 @@ import datetime
 from django.db.models import Avg
 
 
-thisSeason = SEASON_LIST[0]
+thisSeason = MONTH_LIST[0]
 thisYear = datetime.datetime.now().year
 thisMonth = datetime.datetime.now().month
 
-if thisMonth <= 4 :
-    thisSeason = SEASON_LIST[0]
-elif thisMonth <= 7:
-    thisSeason = SEASON_LIST[1]
-elif thisMonth <= 10:
-    thisSeason = SEASON_LIST[2]
-else:
-    thisSeason = SEASON_LIST[3]    
+# if thisMonth <= 4 :
+#     thisSeason = SEASON_LIST[0]
+# elif thisMonth <= 7:
+#     thisSeason = SEASON_LIST[1]
+# elif thisMonth <= 10:
+#     thisSeason = SEASON_LIST[2]
+# else:
+#     thisSeason = SEASON_LIST[3]    
+
+thisSeason = MONTH_LIST[thisMonth-1]
 thisSeasonStr = str(thisYear)+'年'+str(thisSeason)
+
+if thisMonth == 1:
+    thisSeasonStr = str(thisYear-1)+'年十二月'
 
 print(thisSeasonStr)
 
@@ -123,7 +128,7 @@ def index(request):
         i += 1
 
 
-    updateScoreOfWorkers(2021, 1)
+    updateScoreOfWorkers(2021, 2)
     # print(scoreOfAllWorkers)
     #updateScoreOfWorkers(2020, 11)
     # print(scoreOfAllWorkers)
@@ -298,7 +303,7 @@ def getJixiaoByItemsLimit():
     season4 = Scores.objects.raw('''SELECT worker_name as id,sum(score_posts) postScores,sum(score_orders) orderScores,
 	sum(score_cutovers) cutoverScores, sum(score_bonuses) bonuseScores, sum(score_faulty) faultyScores, sum(score_routine) routineScores  
     from scores_scores
-    where score_year_month in('2021-1','2021-2') and  
+    where score_year_month in('2021-2') and  
     worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
     GROUP BY worker_name
 ''')
