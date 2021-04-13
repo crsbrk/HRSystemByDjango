@@ -9,11 +9,14 @@
 
 <h2>{{title}}</h2>
  <!-- 更新个人信息的输入框 -->
-<form method="post" novalidate>
+
+ <h3 >{{thisSeasonStr}}</h3>
+ <form method="post" novalidate>
   {% csrf_token %}
 
 {% if user.is_authenticated %}
  <div class="form-group">
+  
   <label for="logonName">登录名:</label>
    <input type="text" class="form-control " readonly name="inputUsername" value='{{user.username}}'>
 
