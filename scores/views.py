@@ -129,7 +129,7 @@ def index(request):
         i += 1
 
 
-    updateScoreOfWorkers(2021, 3)
+    updateScoreOfWorkers(2021, 4)
     # print(scoreOfAllWorkers)
     #updateScoreOfWorkers(2020, 11)
     # print(scoreOfAllWorkers)
@@ -304,7 +304,7 @@ def getJixiaoByItemsLimit():
     season4 = Scores.objects.raw('''SELECT worker_name as id,sum(score_posts) postScores,sum(score_orders) orderScores,
 	sum(score_cutovers) cutoverScores, sum(score_bonuses) bonuseScores, sum(score_faulty) faultyScores, sum(score_routine) routineScores  
     from scores_scores
-    where score_year_month in('2021-3') and  
+    where score_year_month in('2021-4') and  
     worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
     GROUP BY worker_name
 ''')
