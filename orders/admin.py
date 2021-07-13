@@ -9,7 +9,7 @@ class OrdersAdmin(admin.ModelAdmin):
     list_filter = ('orders_type','is_finished','is_not_delayed',)
     list_editable =('orders_type','is_finished','is_not_delayed',)
     search_fields = ('orders_num','title','pj_leader','pj_participant1','pj_participant2','pj_participant3',)
-
+    readonly_fields = ("created_at",)
 
 admin.site.register(Orders, OrdersAdmin)
 admin.site.site_header = "分组网人力考核系统"

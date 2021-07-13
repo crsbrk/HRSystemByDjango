@@ -34,7 +34,7 @@ class Orders(models.Model):
     is_not_delayed = models.BooleanField('未超时', default=True)
     is_finished = models.BooleanField('完成', default=False)
     created_at = models.DateTimeField('登记日期', default=datetime.now, blank=True)
-    body = models.TextField('备注', default='', blank=True)  # body is comment
+    body = models.TextField('备注', default='', )  # body is comment blank=True
 
     def __str__(self):
         return self.title
