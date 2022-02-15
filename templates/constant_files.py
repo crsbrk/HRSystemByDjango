@@ -3,7 +3,7 @@ WORKERS_NAMES = (
     ('常晓波', '常晓波'),
     ('刘江', '刘江'),
     ('刘雷', '刘雷'),
-    ('刘峰', '刘峰'),
+    ('许海鹏', '许海鹏'),
     ('黄锵栩', '黄锵栩'),
     ('郭少钏', '郭少钏'),
     ('于秋思', '于秋思'),
@@ -15,14 +15,14 @@ WORKERS_NAMES = (
     ('张晨', '张晨'),
     ('汪志武', '汪志武'),
 )
-NAMES = ('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
+NAMES = ('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','许海鹏','刘江','刘雷')
 
 JIXIAO11 = {
     '黄锵栩': {'scoreAll':0,'jx':0},
     '常晓波': {'scoreAll':0,'jx':0},
     '刘江': {'scoreAll':0,'jx':0},
     '刘雷': {'scoreAll':0,'jx':0},
-    '刘峰': {'scoreAll':0,'jx':0},
+    '许海鹏': {'scoreAll':0,'jx':0},
     '汪志武': {'scoreAll':0,'jx':0},
     '郭少钏': {'scoreAll':0,'jx':0},
     '于秋思': {'scoreAll':0,'jx':0},
@@ -40,7 +40,7 @@ JIXIAO= {
     '常晓波': [0,0,0],
     '刘江': [0,0,0],
     '刘雷': [0,0,0],
-    '刘峰': [0,0,0],
+    '许海鹏': [0,0,0],
     '汪志武': [0,0,0],
     '郭少钏': [0,0,0],
     '于秋思': [0,0,0],
@@ -60,7 +60,7 @@ NAME_INTERPRETER= {
     '常晓波': 'changxiaobo',
     '刘江': 'liujiang',
     '刘雷': 'liulei',
-    '刘峰': 'liufeng',
+    '许海鹏': 'liufeng',
     '汪志武': 'wangzhiwu',
     '郭少钏': 'guoshaochuan',
     '于秋思': 'yuqiusi',
@@ -124,7 +124,7 @@ scoreOfAllWorkers = {
    '常晓波': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '刘江': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '刘雷': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '刘峰': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '许海鹏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '汪志武': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '郭少钏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '于秋思': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
@@ -162,7 +162,7 @@ BONUSES_SCORE_FLAG = 4
 FAULTY_SCORE_FLAG = 5
 ROUTINE_SCORE_FLAG = 6
 
-WLW_NUMBERS = 4 #物联网组：刘雷，刘江，刘峰,yangxiao
+WLW_NUMBERS = 4 #物联网组：刘雷，刘江，许海鹏,yangxiao
 SHUTONG_NUMBERS = 3 #数通组：常晓波，于秋思，苏伟衡
 GONGZHONG_NUMBERS = 5 #公众组：杨晓，霍晓歌，苏飓，张晨，李晓昕，郭少钏
 OTHERS_NUMBERS = 8 #非物联网

@@ -32,6 +32,7 @@ thisSeasonStr = str(thisYear)+'年'+str(thisSeason)
 
 if thisMonth == 1:
     thisSeasonStr = str(thisYear-1)+'年十二月'
+    thisYear = thisYear-1
 
 print(thisSeasonStr)
 
@@ -107,7 +108,7 @@ def index(request):
     # return HttpResponse('hello django')
 
     scores = Scores.objects.all().filter(
-        score_year_month__contains='2021',worker_name__in=['张晨','常晓波','陈立栋','黄锵栩','汪志武','韦国锐','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷',])  # the final scores of a month
+        score_year_month__contains=thisYear,worker_name__in=['张晨','常晓波','陈立栋','黄锵栩','汪志武','韦国锐','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','许海鹏','刘江','刘雷',])  # the final scores of a month
 
     i = 0
     sumScores = {}
@@ -129,7 +130,7 @@ def index(request):
         i += 1
 
 
-    updateScoreOfWorkers(2021, lastMonth)
+    updateScoreOfWorkers(thisYear, lastMonth)
     # print(scoreOfAllWorkers)
     #updateScoreOfWorkers(2020, 11)
     # print(scoreOfAllWorkers)
@@ -202,7 +203,7 @@ def getJixiaoByGroups():
     sum(score_faulty) e, sum(score_routine)/10 f  
     from scores_scores
     where score_year_month in('2020-1','2020-2','2020-3') and  
-    worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
+    worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','许海鹏','刘江','刘雷')
     GROUP BY worker_name
     ) AS SEASON4
     ORDER BY s4 desc''')
@@ -215,7 +216,7 @@ def getJixiaoByGroups():
     for s in season4:
         if(s.id=='刘雷'):
             wlwAll +=s.s4
-        if(s.id=='刘峰'):
+        if(s.id=='许海鹏'):
             wlwAll +=s.s4
         if(s.id=='刘江'):
             wlwAll +=s.s4
@@ -241,7 +242,7 @@ def getJixiaoByGroups():
             othersAll +=s.s4   
 
 
-   # WlwAll = season4['刘雷']+ season4['刘峰']+season4['刘江']
+   # WlwAll = season4['刘雷']+ season4['许海鹏']+season4['刘江']
    # OthersAll = season4['杨晓']+season4['张晨']+season4['李晓昕']+season4['郭少钏']+season4['苏伟衡']+season4['苏飓']+season4['陈立栋']+season4['于秋思']+season4['霍晓歌']+season4['常晓波']
     
     averageAll = (wlwAll+othersAll) / (WLW_NUMBERS+OTHERS_NUMBERS)
@@ -255,9 +256,9 @@ def getJixiaoByGroups():
         if(s.id=='刘雷'):
             JIXIAO['刘雷'][1] = round((s.s4-(averageWlw-averageAll))/averageAll,2)
             JIXIAO['刘雷'][0] = s.s4
-        if(s.id=='刘峰'):
-            JIXIAO['刘峰'][1] = round((s.s4-(averageWlw-averageAll))/averageAll,2)
-            JIXIAO['刘峰'][0] = s.s4
+        if(s.id=='许海鹏'):
+            JIXIAO['许海鹏'][1] = round((s.s4-(averageWlw-averageAll))/averageAll,2)
+            JIXIAO['许海鹏'][0] = s.s4
         if(s.id=='刘江'):
             JIXIAO['刘江'][1] = round((s.s4-(averageWlw-averageAll))/averageAll,2)
             JIXIAO['刘江'][0] = s.s4
@@ -304,10 +305,10 @@ def getJixiaoByItemsLimit():
     season4 = Scores.objects.raw('''SELECT worker_name as id,sum(score_posts) postScores,sum(score_orders) orderScores,
 	sum(score_cutovers) cutoverScores, sum(score_bonuses) bonuseScores, sum(score_faulty) faultyScores, sum(score_routine) routineScores  
     from scores_scores
-    where score_year_month in('2021-%s') and  
-    worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','刘峰','刘江','刘雷')
+    where score_year_month in('%s-%s') and  
+    worker_name in('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','许海鹏','刘江','刘雷')
     GROUP BY worker_name
-'''%lastMonth)
+'''%(thisYear,lastMonth))
 
 
 
