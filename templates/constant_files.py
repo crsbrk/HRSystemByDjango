@@ -1,34 +1,34 @@
 WORKERS_NAMES = (
     ('陈立栋', '陈立栋'),
-    ('常晓波', '常晓波'),
-    ('刘江', '刘江'),
-    ('刘雷', '刘雷'),
+    ('陈浚标', '陈浚标'),
+    ('黄铭贤', '黄铭贤'),
+    ('陆天洋', '陆天洋'),
     ('许海鹏', '许海鹏'),
-    ('黄锵栩', '黄锵栩'),
+    ('马梦阳', '马梦阳'),
     ('郭少钏', '郭少钏'),
     ('于秋思', '于秋思'),
     ('苏飓', '苏飓'),
     ('苏伟衡', '苏伟衡'),
-    ('杨晓', '杨晓'),
+    ('彭俊霖', '彭俊霖'),
     ('霍晓歌', '霍晓歌'),
     ('李晓昕', '李晓昕'),
     ('张晨', '张晨'),
     ('汪志武', '汪志武'),
 )
-NAMES = ('张晨','常晓波','陈立栋','韦国锐','黄锵栩','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','杨晓','许海鹏','刘江','刘雷')
+NAMES = ('张晨','陈浚标','陈立栋','韦国锐','马梦阳','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','彭俊霖','许海鹏','黄铭贤','陆天洋')
 
 JIXIAO11 = {
-    '黄锵栩': {'scoreAll':0,'jx':0},
-    '常晓波': {'scoreAll':0,'jx':0},
-    '刘江': {'scoreAll':0,'jx':0},
-    '刘雷': {'scoreAll':0,'jx':0},
+    '马梦阳': {'scoreAll':0,'jx':0},
+    '陈浚标': {'scoreAll':0,'jx':0},
+    '黄铭贤': {'scoreAll':0,'jx':0},
+    '陆天洋': {'scoreAll':0,'jx':0},
     '许海鹏': {'scoreAll':0,'jx':0},
     '汪志武': {'scoreAll':0,'jx':0},
     '郭少钏': {'scoreAll':0,'jx':0},
     '于秋思': {'scoreAll':0,'jx':0},
     '苏飓': {'scoreAll':0,'jx':0},
     '苏伟衡': {'scoreAll':0,'jx':0},
-    '杨晓': {'scoreAll':0,'jx':0},
+    '彭俊霖': {'scoreAll':0,'jx':0},
     '霍晓歌': {'scoreAll':0,'jx':0},
     '李晓昕': {'scoreAll':0,'jx':0},
     '韦国锐': {'scoreAll':0,'jx':0},
@@ -36,17 +36,17 @@ JIXIAO11 = {
 }
 
 JIXIAO= {
-    '黄锵栩': [0,0,0],
-    '常晓波': [0,0,0],
-    '刘江': [0,0,0],
-    '刘雷': [0,0,0],
+    '马梦阳': [0,0,0],
+    '陈浚标': [0,0,0],
+    '黄铭贤': [0,0,0],
+    '陆天洋': [0,0,0],
     '许海鹏': [0,0,0],
     '汪志武': [0,0,0],
     '郭少钏': [0,0,0],
     '于秋思': [0,0,0],
     '苏飓': [0,0,0],
     '苏伟衡': [0,0,0],
-    '杨晓': [0,0,0],
+    '彭俊霖': [0,0,0],
     '霍晓歌': [0,0,0],
     '李晓昕': [0,0,0],
     '韦国锐': [0,0,0],
@@ -56,17 +56,17 @@ JIXIAO= {
 }
 
 NAME_INTERPRETER= {
-    '黄锵栩': 'huangqiangxu',
-    '常晓波': 'changxiaobo',
-    '刘江': 'liujiang',
-    '刘雷': 'liulei',
-    '许海鹏': 'liufeng',
+    '马梦阳': 'mamengyang',
+    '陈浚标': 'chenjunbiao',
+    '黄铭贤': 'huangmingxian',
+    '陆天洋': 'lutianyang',
+    '许海鹏': 'xuhaipeng',
     '汪志武': 'wangzhiwu',
     '郭少钏': 'guoshaochuan',
     '于秋思': 'yuqiusi',
     '苏飓': 'suju',
     '苏伟衡': 'suweiheng',
-    '杨晓': 'yangxiao',
+    '彭俊霖': 'pengjunlin',
     '霍晓歌': 'huoxiaoge',
     '李晓昕': 'lixiaoxin',
     '韦国锐': 'weiguorui',
@@ -121,21 +121,21 @@ FAULTY_TYPES =(
 
 scoreOfAllWorkers = {
    '陈立栋': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-   '常晓波': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '刘江': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '刘雷': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+   '陈浚标': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '黄铭贤': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '陆天洋': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '许海鹏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '汪志武': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '郭少钏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '于秋思': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '苏飓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '苏伟衡': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '杨晓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '彭俊霖': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '霍晓歌': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '李晓昕': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '韦国锐': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
     '张晨': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '黄锵栩': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
+    '马梦阳': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
 }
 
 
@@ -162,9 +162,9 @@ BONUSES_SCORE_FLAG = 4
 FAULTY_SCORE_FLAG = 5
 ROUTINE_SCORE_FLAG = 6
 
-WLW_NUMBERS = 4 #物联网组：刘雷，刘江，许海鹏,yangxiao
-SHUTONG_NUMBERS = 3 #数通组：常晓波，于秋思，苏伟衡
-GONGZHONG_NUMBERS = 5 #公众组：杨晓，霍晓歌，苏飓，张晨，李晓昕，郭少钏
+WLW_NUMBERS = 4 #物联网组：0
+SHUTONG_NUMBERS = 3 #数通组：陈浚标，于秋思，苏伟衡
+GONGZHONG_NUMBERS = 5 #公众组：彭俊霖，霍晓歌，苏飓，张晨，李晓昕，郭少钏
 OTHERS_NUMBERS = 8 #非物联网
 ALL_WORKER_NUMBERS = 12 #all
 
