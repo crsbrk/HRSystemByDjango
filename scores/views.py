@@ -179,11 +179,11 @@ def getDemocacyScore(thisSeasonStr):
         discipline_score = 0
 
         if(attitude_average and attitude_average[work_name_item_at+'__avg']):
-            attitude_score = attitude_average[work_name_item_at+'__avg']*5/100
+            attitude_score = attitude_average[work_name_item_at+'__avg']*3.33/100
         if(reponsi_average and reponsi_average[work_name_item_re+'__avg']):
-            responsibility_score = reponsi_average[work_name_item_re+'__avg']*5/100
+            responsibility_score = reponsi_average[work_name_item_re+'__avg']*3.33/100
         if(disci_average and disci_average[work_name_item_di+'__avg']):
-            discipline_score = disci_average[work_name_item_di+'__avg']*5/100
+            discipline_score = disci_average[work_name_item_di+'__avg']*3.33/100
 
         JIXIAO[worker_name][0] = attitude_score + responsibility_score + discipline_score
         JIXIAO[worker_name][2] = JIXIAO[worker_name][0] + JIXIAO[worker_name][1]
@@ -322,7 +322,10 @@ def getJixiaoByItemsLimit():
     return season4
 
 
-def getJixiao(postScores, orderScores, cutoverScores, bonusScores, faultyScores, routineScores):
+###
+#change origin scores to new scores
+###
+def getJixiao2021(postScores, orderScores, cutoverScores, bonusScores, faultyScores, routineScores):
     
     p = POST_SHARE * (1 - math.exp(-1 * POST_LAMADA * postScores)) 
     o = ORDER_SHARE * (1 - math.exp(-1 * ORDER_LAMADA * orderScores)) 
@@ -333,6 +336,19 @@ def getJixiao(postScores, orderScores, cutoverScores, bonusScores, faultyScores,
     percentage_of_score = round(p+o+c+b+f+r,4)
 
     return percentage_of_score
+
+def getJixiao(postScores, orderScores, cutoverScores, bonusScores, faultyScores, routineScores):
+    
+    p = postScores
+    o = orderScores
+    c = cutoverScores
+    b = bonusScores 
+    f = faultyScores
+    r = routineScores
+    percentage_of_score = round(p+o+c+b+f+r,4)
+
+    return percentage_of_score
+
 
 # update wokers scores
 
