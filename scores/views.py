@@ -345,9 +345,11 @@ def getJixiao(postScores, orderScores, cutoverScores, bonusScores, faultyScores,
     b = bonusScores 
     f = faultyScores
     r = routineScores
-    percentage_of_score = round(p+o+c+b+f+r,4)
+    
+    ocfr = o+c+f+r
+    percentage_of_score = ocfr if ocfr <40 else 40
 
-    return percentage_of_score
+    return percentage_of_score+p+b
 
 
 # update wokers scores
