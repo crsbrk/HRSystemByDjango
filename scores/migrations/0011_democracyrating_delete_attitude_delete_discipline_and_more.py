@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('scores', '0010_rename_at_suju_attitude_at_fanyf53_and_more'),
+        ('scores', '0010_rename_rating_fields'),
     ]
 
     operations = [

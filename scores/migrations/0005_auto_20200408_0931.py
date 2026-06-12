@@ -12,12 +12,12 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='attitude',
-            name='suweiheng',
+            name='workers',
             field=models.FloatField(default=0.0, verbose_name='测试员工5分数'),
         ),
         migrations.AlterField(
             model_name='attitude',
-            name='weiguorui',
+            name='workeru',
             field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工10分数'),
         ),
         migrations.AlterField(
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='discipline',
-            name='suweiheng',
+            name='workers',
             field=models.FloatField(default=0.0, verbose_name='测试员工5分数'),
         ),
         migrations.AlterField(
@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='responsibility',
-            name='suweiheng',
+            name='workers',
             field=models.FloatField(default=0.0, verbose_name='测试员工5分数'),
         ),
         migrations.AlterField(

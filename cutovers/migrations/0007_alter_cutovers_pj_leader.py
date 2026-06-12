@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='cutovers',
             name='pj_leader',
-            field=models.CharField(choices=[('陈立栋', '陈立栋'), ('陈浚标', '陈浚标'), ('黄铭贤', '黄铭贤'), ('陆天洋', '陆天洋'), ('许海鹏', '许海鹏'), ('马梦阳', '马梦阳'), ('郭少钏', '郭少钏'), ('于秋思', '于秋思'), ('樊一锋', '樊一锋'), ('苏伟衡', '苏伟衡'), ('彭俊霖', '彭俊霖'), ('霍晓歌', '霍晓歌'), ('李晓昕', '李晓昕'), ('张晨', '张晨'), ('汪志武', '汪志武')], max_length=200, verbose_name='割接负责人'),
+            field=models.CharField(choices=[('员工B', '员工B'), ('员工E', '员工E'), ('员工C', '员工C'), ('员工O', '员工O'), ('员工V', '员工V'), ('员工P', '员工P'), ('员工H', '员工H'), ('员工X', '员工X'), ('员工F', '员工F'), ('员工S', '员工S'), ('员工Q', '员工Q'), ('员工J', '员工J'), ('员工N', '员工N'), ('员工A', '员工A'), ('员工T', '员工T')], max_length=200, verbose_name='割接负责人'),
         ),
     ]
