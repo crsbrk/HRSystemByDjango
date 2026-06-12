@@ -1,0 +1,6 @@
+Django==5.2.15
+mysqlclient==2.2.8
+django-crispy-forms==2.6
+django-simpleui==2026.1.13
+django-widget-tweaks==1.5.1
+pillow==12.2.0

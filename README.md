@@ -6,6 +6,7 @@
 ## 功能特性
 
 ### 前台（员工）
+
 - **业务展示**：工单类、割接类、项目类、日常工作、故障处理、特殊加分项六类业务列表
 - **总分排名**：按月自动汇总六类业务积分 + 民主测评分，生成绩效看板与 TOP3 领奖台
 - **工作台**（主页 / 工作台）：个人信息维护、年度工作量统计、绩效排名概览
@@ -14,6 +15,7 @@
 - **民主测评**：每周期对其他员工进行工作态度/责任心/工作纪律打分
 
 ### 后台（管理员）
+
 - 基于 [SimpleUI](https://github.com/newpanjing/simpleui)（Vue.js + Element-UI）重新设计的管理后台
 - 全部业务数据的录入、批量编辑、筛选、搜索
 - 系统设置（项目名称、Logo、页脚、公告）、首页轮播图、用户审批与角色管理
@@ -33,7 +35,7 @@
 ```bash
 # 1. 创建虚拟环境并安装依赖
 python3 -m venv .venv
-.venv/bin/pip install -r requirment.txt
+.venv/bin/pip install -r requirements.txt
 
 # 2. （开发环境可选）使用 SQLite：创建 myproject/local_settings.py
 cat > myproject/local_settings.py <<'EOF'
@@ -70,7 +72,7 @@ EOF
 
 ## 项目结构
 
-```
+```text
 HRSystemByDjango/
 ├── accounts/    # 用户注册/登录、个人工作台、工作量申请与审批流、系统设置
 ├── scores/      # 总分排名、绩效计算、民主测评、演示数据命令
