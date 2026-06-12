@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import HttpResponse
 from .models import Orders
@@ -22,7 +22,7 @@ def index(request):
     return render(request, 'orders/index.html', context)
 
 def details(request, id):
-    order = Orders.objects.get(id=id)
+    order = get_object_or_404(Orders, id=id)
 
     context = {
         'order': order

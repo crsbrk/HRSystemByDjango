@@ -7,7 +7,224 @@
 
 {% block content %}
 
-<div  >
+<style>
+  .dashboard-summary {
+    margin: 2rem 0 1rem;
+    padding: 1.25rem;
+    background: #f6f8fb;
+    border-radius: 8px;
+  }
+
+  .dashboard-summary-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .summary-kicker {
+    display: inline-block;
+    margin-bottom: .35rem;
+    color: #2563eb;
+    font-size: .78rem;
+    font-weight: 700;
+  }
+
+  .dashboard-summary-head h4 {
+    margin: 0 0 .35rem;
+    color: #162033;
+    font-weight: 700;
+  }
+
+  .dashboard-summary-head p {
+    margin: 0;
+    color: #65748b;
+  }
+
+  .summary-rank {
+    min-width: 150px;
+    padding: .85rem 1rem;
+    border-radius: 8px;
+    background: #16324f;
+    color: #fff;
+    text-align: right;
+  }
+
+  .summary-rank span,
+  .summary-rank small {
+    display: block;
+    color: rgba(255, 255, 255, .72);
+  }
+
+  .summary-rank strong {
+    display: block;
+    font-size: 2rem;
+    line-height: 1.05;
+  }
+
+  .dashboard-stat-grid,
+  .work-summary-grid {
+    display: grid;
+    gap: .85rem;
+  }
+
+  .dashboard-stat-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: .85rem;
+  }
+
+  .dashboard-stat-tile,
+  .work-summary-card {
+    border: 1px solid #e1e7ef;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(21, 32, 51, .05);
+  }
+
+  .dashboard-stat-tile {
+    padding: .9rem 1rem;
+  }
+
+  .dashboard-stat-tile span,
+  .work-summary-muted {
+    color: #68778d;
+    font-size: .82rem;
+  }
+
+  .dashboard-stat-tile strong {
+    display: block;
+    margin-top: .3rem;
+    color: #172033;
+    font-size: 1.65rem;
+    line-height: 1.1;
+  }
+
+  .work-summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .work-summary-card {
+    position: relative;
+    overflow: hidden;
+    padding: 1rem;
+  }
+
+  .work-summary-card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #2563eb;
+  }
+
+  .work-summary-card-head {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: .85rem;
+  }
+
+  .work-summary-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #e7f0ff;
+    color: #2563eb;
+  }
+
+  .work-summary-card-head strong {
+    display: block;
+    color: #172033;
+    font-size: 1rem;
+  }
+
+  .work-summary-metrics {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: .55rem;
+  }
+
+  .work-summary-metrics b {
+    color: #172033;
+    font-size: 1.45rem;
+  }
+
+  .work-summary-progress {
+    height: 7px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e9edf3;
+  }
+
+  .work-summary-progress span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: #2563eb;
+  }
+
+  .work-summary-orders:before,
+  .work-summary-orders .work-summary-progress span { background: #2563eb; }
+  .work-summary-orders .work-summary-icon { background: #e7f0ff; color: #2563eb; }
+
+  .work-summary-cutovers:before,
+  .work-summary-cutovers .work-summary-progress span { background: #0891b2; }
+  .work-summary-cutovers .work-summary-icon { background: #dff7fb; color: #087f9a; }
+
+  .work-summary-posts:before,
+  .work-summary-posts .work-summary-progress span { background: #7c3aed; }
+  .work-summary-posts .work-summary-icon { background: #f0e8ff; color: #6d28d9; }
+
+  .work-summary-routine:before,
+  .work-summary-routine .work-summary-progress span { background: #16a34a; }
+  .work-summary-routine .work-summary-icon { background: #e4f7eb; color: #15803d; }
+
+  .work-summary-faulty:before,
+  .work-summary-faulty .work-summary-progress span { background: #dc2626; }
+  .work-summary-faulty .work-summary-icon { background: #fee2e2; color: #b91c1c; }
+
+  .work-summary-bonuses:before,
+  .work-summary-bonuses .work-summary-progress span { background: #ca8a04; }
+  .work-summary-bonuses .work-summary-icon { background: #fef3c7; color: #a16207; }
+
+  .work-summary-card p {
+    margin: .65rem 0 0;
+    color: #68778d;
+    font-size: .82rem;
+  }
+
+  @media (max-width: 991.98px) {
+    .dashboard-stat-grid,
+    .work-summary-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .dashboard-summary-head {
+      flex-direction: column;
+    }
+
+    .summary-rank {
+      width: 100%;
+      text-align: left;
+    }
+
+    .dashboard-stat-grid,
+    .work-summary-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div>
 <blockquote class="blockquote">
   <p class="mb-1">{{description}}</p>
 <footer class="blockquote-footer" style="color:white"><cite title="Source Title">{{user.last_name }}{{user.first_name }}</cite></footer>
@@ -27,36 +244,57 @@
         </ol>
       </nav>
     </div>
-
-    
   </section>
 
   <!-- Alerts -->
   {% include 'partials/_alerts.html' %}
 
+  <div class="container">
 
- 
-    <div class="container">
-    <h2>欢迎 {{ user.last_name }} {{ user.first_name }}</h2>
-      <div class="row">
-        <div class="col-md-3">
-    
-
-      <section class="support-author">
-
-  <div class="col-md-9" style="padding-left: 0px;">
-  {% if user.is_authenticated  %}
-     <img src="/media/{{ selfie }}" alt="selfie" class="img-main img-fluid mb-3">
-   
-
-  {% endif %}
+  {% if not can_submit_work %}
+  <div class="alert alert-warning" role="alert">
+    当前账号状态：{{ approval_status }}。管理员审批后才能提交工单、割接、项目、日常工作、故障处理和特殊加分。
   </div>
+  {% else %}
+  <div class="alert alert-success" role="alert">
+    当前账号状态：{{ approval_status }}，可以提交和维护自己的工作量申请。
+  </div>
+  {% endif %}
 
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#updateInfoModal">
-<i class="fa fa-cny" aria-hidden="true"></i> 更新个人信息</button>
-</section>
-
-
+  <!-- 个人信息卡片 -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-3 text-center mb-3 mb-md-0">
+          {% if user.is_authenticated %}
+          <img src="/media/{{ selfie }}" alt="头像"
+               class="rounded-circle shadow-sm"
+               style="width:130px;height:130px;object-fit:cover;border:3px solid #f1f1f1;">
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <h3 class="mb-2">{{ user.last_name }}{{ user.first_name }}</h3>
+          <p class="text-muted mb-1"><i class="fas fa-user"></i> {{ user.username }}</p>
+          {% if phone_number %}<p class="text-muted mb-1"><i class="fas fa-phone"></i> {{ phone_number }}</p>{% endif %}
+          {% if website %}<p class="text-muted mb-1"><i class="fas fa-globe"></i> <a href="{{ website }}" target="_blank">{{ website }}</a></p>{% endif %}
+          <p class="mb-0">
+            状态：
+            {% if can_submit_work %}
+            <span class="badge badge-success">{{ approval_status }}</span>
+            {% else %}
+            <span class="badge badge-warning">{{ approval_status }}</span>
+            {% endif %}
+          </p>
+        </div>
+        <div class="col-md-3 text-center text-md-right">
+          <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#updateInfoModal">
+            <i class="fa fa-cny" aria-hidden="true"></i> 更新个人信息</button>
+          <a href="{% url 'work_applications' %}" class="btn btn-primary mb-2">
+            <i class="fas fa-file-signature"></i> 工作量申请</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Inquiry Modal -->
   <div class="modal fade" id="updateInfoModal" role="dialog">
@@ -70,15 +308,13 @@
         </div>
         <div class="modal-body">
 
-
-<form method="post"  enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
 
 {% if user.is_authenticated %}
  <div class="form-group">
   <label for="logonName">登录名:</label>
    <input type="text" class="form-control " readonly name="inputUsername" value='{{user.username}}'>
-
 </div>
 {% endif %}
 
@@ -101,17 +337,15 @@
     <input type="text" class="form-control" id="inputPhoneNumber" name="inputPhoneNumber" value={{phone_number}}>
   </div>
 
-<div class="form-group">
-<label for="" class="">照片</label>
- <div class="custom-file ">
-    <input type="file" class="custom-file-input" id="inputProfilePic" name="inputProfilePic" >
-    <label class="custom-file-label"   >{{selfie}}</label>
-    <div class="invalid-feedback"></div>
+  <div class="form-group">
+    <label for="" class="">照片</label>
+    <div class="custom-file ">
+      <input type="file" class="custom-file-input" id="inputProfilePic" name="inputProfilePic" >
+      <label class="custom-file-label">{{selfie}}</label>
+      <div class="invalid-feedback"></div>
+    </div>
   </div>
-</div>
 
-
-        
   <div class="form-group">
     <label for="">网址</label>
     <input type="url" class="form-control" id="inputPersonalWebsite" name="inputPersonalWebsite" value="{{website}}">
@@ -125,62 +359,72 @@
   <button type="submit" value="Send" class="btn btn-block btn-secondary">提交</button>
   </form>
 
-
         </div>
       </div>
     </div>
   </div>
 
-  </section>
-</div>
+  <section class="dashboard-summary" aria-label="工作统计">
+    <div class="dashboard-summary-head">
+      <div>
+        <span class="summary-kicker">工作统计</span>
+        <h4>{{ workSummary.year }} 年个人工作量概览</h4>
+        <p>按工单、割接、项目、日常工作、故障处理和特殊加分项汇总。</p>
+      </div>
+      <div class="summary-rank">
+        <span>绩效排名</span>
+        {% if workSummary.rank %}
+        <strong>#{{ workSummary.rank }}</strong>
+        <small>{{ workSummary.period }} / {{ workSummary.rank_total }} 人</small>
+        {% else %}
+        <strong>-</strong>
+        <small>{{ workSummary.period }} 暂无排名</small>
+        {% endif %}
+      </div>
+    </div>
 
+    <div class="dashboard-stat-grid">
+      <div class="dashboard-stat-tile">
+        <span>全年工作记录</span>
+        <strong>{{ workSummary.total_count }}</strong>
+      </div>
+      <div class="dashboard-stat-tile">
+        <span>年累计分数</span>
+        <strong>{{ workSummary.total_score }}</strong>
+      </div>
+      <div class="dashboard-stat-tile">
+        <span>审批通过申请</span>
+        <strong>{{ workSummary.approved_application_count }}</strong>
+      </div>
+      <div class="dashboard-stat-tile">
+        <span>本周期绩效分</span>
+        <strong>{{ workSummary.period_score }}</strong>
+      </div>
+    </div>
 
-  </div>
-
-
-
-
-
-
-
-<br>
-
-<div class="container">
-
-          {% if myOrders %}
-            <p>工作信息</p>
-
-
-
-            
-            <table class="table table-bordered ">
-              
-                <tr>
-                  <th scope="col">工单号</th>
-                  <th scope="col">工单名</th>
-                  <th></th>
-                </tr>
-              
-              <tbody>
-                {% for order in myOrders %}
-                  <tr>
-                    <td style="text-align: left;">{{ order.orders_num }}</td>
-                    <td style="text-align: left;">{{ order.title }}</td>
-                    <td>
-                      {% comment %} <a class="btn btn-light" href="{% url 'dashboard' order.id %}">View Listing</a> {% endcomment %}
-                    </td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          {% else %}
-            <p>目前还没有工作信息</p>
-          {% endif %}
-
-
-
-          
+    <div class="work-summary-grid">
+      {% for item in workSummary.categories %}
+      <article class="work-summary-card work-summary-{{ item.key }}">
+        <div class="work-summary-card-head">
+          <span class="work-summary-icon"><i class="{{ item.icon }}"></i></span>
+          <div>
+            <strong>{{ item.label }}</strong>
+            <span class="work-summary-muted">{{ item.count }} 条记录</span>
+          </div>
         </div>
+        <div class="work-summary-metrics">
+          <span class="work-summary-muted">累计分数</span>
+          <b>{{ item.score }}</b>
+        </div>
+        <div class="work-summary-progress">
+          <span style="width: {{ item.percent }}%;"></span>
+        </div>
+        <p>业务登记 {{ item.direct_count }} 条 · 审批通过 {{ item.approved_count }} 条</p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
 
-  {% endblock %}
+  </div><!-- /.container -->
 
+{% endblock %}

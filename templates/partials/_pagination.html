@@ -1,0 +1,23 @@
+{# 通用分页片段：用 {% include 'partials/_pagination.html' with page_obj=列表 %} 调用 #}
+<nav class="biz-pagination">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><a href="?page=1" class="page-link">&laquo; 首页</a></li>
+    <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link">上一页</a></li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">&laquo; 首页</span></li>
+    <li class="page-item disabled"><span class="page-link">上一页</span></li>
+    {% endif %}
+
+    <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+
+    {% if page_obj.has_next %}
+    <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link">下一页</a></li>
+    <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">最后一页 &raquo;</a></li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">下一页</span></li>
+    <li class="page-item disabled"><span class="page-link">最后一页 &raquo;</span></li>
+    {% endif %}
+  </ul>
+  <p class="biz-page-info">第 {{ page_obj.number }} 页，共 {{ page_obj.paginator.num_pages }} 页</p>
+</nav>

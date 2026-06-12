@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import HttpResponse
 from .models import Faulty
@@ -23,7 +23,7 @@ def index(request):
 
 
 def details(request, id):
-    fault = Faulty.objects.get(id=id)
+    fault = get_object_or_404(Faulty, id=id)
 
     context = {
         'fault': fault

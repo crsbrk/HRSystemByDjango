@@ -5,7 +5,11 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="/">
+    {% if site_settings.logo %}
+    <img src="{{ site_settings.logo.url }}" class="logo" alt="{{ site_settings.project_name }}">
+    {% else %}
     <img src="{% static 'img/yunwei.png' %}" class="logo" alt="">
+    {% endif %}
   </a>
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">

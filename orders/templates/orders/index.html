@@ -1,121 +1,52 @@
 {% extends 'layout.html'%}
 
 {% block content %}
-<!-- <h3 class="center-align red lighten-3">{{title}}</h3>
-<ul class=list-group>
-  {% for order in orders %}
-  <li class="list-group-item"><a href="/orders/details/{{order.id}}">{{order.title}}</a></li>
-  {% endfor %}
-</ul> -->
+{% include 'partials/_biz_table_style.html' %}
 
-<h3 class="center-align red lighten-3">{{title}}<h3>
-    <ul class=list-group>
-      <table class="table table-bordered ">
+<div class="biz-shell">
+  <h3 class="biz-page-title">{{ title }}</h3>
+
+  <div class="biz-card">
+    <table class="biz-table">
+      <thead>
         <tr>
-          <th>
-            <li>工单名称</li>
-          </th>
-          <!-- <th>工单编号</th> -->
-          <th>未超时</th>
-          <th>完成</th>
-
-          <th>分数</th>
+          <th>工单名称</th>
+          <th class="biz-center">未超时</th>
+          <th class="biz-center">完成</th>
+          <th class="biz-center">分数</th>
           <th>工单类型</th>
-          <th>工单到期日期</th>
+          <th>到期日期</th>
         </tr>
-        <tbody>
-          <tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td><a class="biz-title-link" href="/orders/details/{{ order.id }}">{{ order.title }}</a></td>
+          <td class="biz-center">
+            {% if order.is_not_delayed %}
+            <span class="biz-badge biz-badge-ok"><i class="fas fa-check"></i> 未超时</span>
+            {% else %}
+            <span class="biz-badge biz-badge-no"><i class="fas fa-times"></i> 超时</span>
+            {% endif %}
+          </td>
+          <td class="biz-center">
+            {% if order.is_finished %}
+            <span class="biz-badge biz-badge-ok"><i class="fas fa-check"></i> 完成</span>
+            {% else %}
+            <span class="biz-badge biz-badge-no"><i class="fas fa-clock"></i> 进行中</span>
+            {% endif %}
+          </td>
+          <td class="biz-center"><span class="biz-score">{{ order.pj_score }}</span></td>
+          <td><span class="biz-tag">{{ order.orders_type }}</span></td>
+          <td><span class="biz-date">{{ order.deadline_at|date:"Y-m-d" }}</span></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="biz-empty">暂无工单记录</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-
-            {% for order in orders %}
-            <td style="text-align: left;">
-              <li><a href="/orders/details/{{order.id}}">{{order.title}}</a></li>
-            </td>
-            <!-- <td style="text-align: left;">{{order.orders_num}}</td> -->
-            <td style="text-align: center;">
-              {% if order.is_not_delayed %}
-              <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
-              {% else %}
-              <i class="fas fa-window-close" style="color: red;"></i>
-
-              {% endif %}
-            </td>
-            <td style="text-align: center;">
-              {% if order.is_finished %}
-              <i class="fas fa-check-circle" style="color: Dodgerblue;"></i>
-              {% else %}
-              <i class="fas fa-window-close" style="color: red;"></i>
-
-              {% endif %}
-            </td>
-            <td style="text-align: left;">{{order.pj_score}}</td>
-            <td style="text-align: left;">{{order.orders_type}}</td>
-            <td style="text-align: left;">{{order.deadline_at}}</td>
-
-
-          </tr>
-          {% endfor %}
-
-        </tbody>
-
-      </table>
-    </ul>
-
-    <br>
-
-    <div class="row">
-      <div class="col-md-12">
-        <ul class="pagination">
-          {% if orders.has_previous %}
-          <li class="page-item">
-            <a href="?page=1" class="page-link">&laquo; 首页</a>
-          </li>
-          <li class="page-item">
-            <a href="?page={{ orders.previous_page_number }}" class="page-link">上一页</a>
-          </li>
-          {% else %}
-          <li class="page-item disabled">
-            <a class="page-link">&laquo; 首页</a>
-          </li>
-          <li class="page-item disabled">
-            <a class="page-link">1</a>
-          </li>
-          {% endif %}
-
-
-          {% if orders.has_previous %}
-          <li class="page-item">
-            <a href="?page={{orders.previous_page_number}}" class="page-link">{{orders.previous_page_number}}</a>
-          </li>
-
-          <li class="page-item">
-            <a class="page-link active">{{orders.number}}</a>
-          </li>
-          {% endif%}
-          <!-- Page {{ orders.number }} of {{ orders.paginator.num_pages }}. -->
-          {% if orders.has_next %}
-          <li class="page-item">
-            <a href="?page={{ orders.next_page_number }}" class="page-link">{{orders.next_page_number}}</a>
-          </li>
-          {% endif %}
-
-          {% if orders.has_next %}
-
-          <li class="page-item">
-            <a href="?page={{ orders.next_page_number }}" class="page-link">下一页</a>
-          </li>
-          <li class="page-item">
-            <a href="?page={{ orders.paginator.num_pages }}" class="page-link">最后一页 &raquo;</a>
-          </li>
-          {% else %}
-          <li class="page-item disabled">
-            <a class="page-link">最后一页 &raquo;</a>
-          </li>
-          {% endif %}
-          <li class="page-item disabled">
-            <a class="page-link">第{{orders.number}}页，共{{ orders.paginator.num_pages }}页 </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    {% endblock %}
+  {% include 'partials/_pagination.html' with page_obj=orders %}
+</div>
+{% endblock %}

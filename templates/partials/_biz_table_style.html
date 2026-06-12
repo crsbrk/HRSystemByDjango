@@ -1,0 +1,77 @@
+{# 业务列表页共享样式：卡片 + 表格 + 徽标 + 分页。内联避免外部 CSS 缓存问题。 #}
+<style>
+  :root {
+    --biz-accent: #2563eb;
+    --biz-accent-soft: #dbeafe;
+    --biz-ink: #0f172a;
+    --biz-muted: #64748b;
+    --biz-line: #e5e7eb;
+  }
+  .biz-shell { max-width: 1080px; margin: 1.5rem auto 2.5rem; padding: 0 1rem; }
+  .biz-page-title {
+    text-align: center; font-weight: 700; color: var(--biz-ink);
+    margin: 0.5rem 0 1.4rem; font-size: 1.6rem; position: relative;
+  }
+  .biz-page-title::after {
+    content: ""; display: block; width: 56px; height: 4px; border-radius: 4px;
+    margin: 0.6rem auto 0; background: var(--biz-accent);
+  }
+  .biz-card {
+    background: #fff; border: 1px solid var(--biz-line); border-radius: 14px;
+    box-shadow: 0 10px 30px -22px rgba(15,23,42,.45); overflow: hidden;
+  }
+  .biz-table { width: 100%; margin: 0; border-collapse: separate; border-spacing: 0; }
+  .biz-table thead th {
+    background: #f8fafc; color: #475569; font-weight: 600; font-size: 0.84rem;
+    padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--biz-line);
+    text-align: left; white-space: nowrap;
+  }
+  .biz-table tbody td {
+    padding: 0.85rem 1.1rem; border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle; color: #334155; font-size: 0.92rem;
+  }
+  .biz-table tbody tr:last-child td { border-bottom: none; }
+  .biz-table tbody tr { transition: background .12s ease; }
+  .biz-table tbody tr:hover { background: #f0f6ff; }
+  .biz-table tbody tr:nth-child(even) { background: #fcfdfe; }
+  .biz-table tbody tr:nth-child(even):hover { background: #f0f6ff; }
+  .biz-title-link { color: var(--biz-ink); font-weight: 600; text-decoration: none; }
+  .biz-title-link:hover { color: var(--biz-accent); text-decoration: underline; }
+  .biz-center { text-align: center; }
+  .biz-badge {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.22rem 0.6rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
+  }
+  .biz-badge-ok { background: #dcfce7; color: #15803d; }
+  .biz-badge-no { background: #fee2e2; color: #b91c1c; }
+  .biz-score {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 2rem; padding: 0.15rem 0.55rem; border-radius: 8px;
+    background: var(--biz-accent-soft); color: #1d4ed8; font-weight: 700; font-size: 0.85rem;
+  }
+  .biz-tag {
+    display: inline-block; padding: 0.15rem 0.55rem; border-radius: 6px;
+    background: #eef2ff; color: #3730a3; font-size: 0.8rem; font-weight: 500;
+  }
+  .biz-date { color: var(--biz-muted); font-size: 0.86rem; white-space: nowrap; }
+  .biz-empty { text-align: center; color: var(--biz-muted); padding: 2.5rem 1rem; }
+  /* 进度条 */
+  .biz-progress { background: #eef2f7; border-radius: 999px; height: 16px; overflow: hidden; min-width: 120px; }
+  .biz-progress-bar {
+    height: 100%; border-radius: 999px; color: #fff; font-size: 0.7rem; line-height: 16px;
+    text-align: center; background: var(--biz-accent);
+  }
+  .biz-progress-bar.is-done { background: #16a34a; }
+  /* 分页 */
+  .biz-pagination { margin-top: 1.25rem; }
+  .biz-pagination .pagination { flex-wrap: wrap; gap: 0.25rem; }
+  .biz-pagination .page-link {
+    border: 1px solid var(--biz-line); border-radius: 8px !important; color: var(--biz-accent);
+    margin: 0 1px; min-width: 38px; text-align: center;
+  }
+  .biz-pagination .page-item.active .page-link {
+    background: var(--biz-accent); border-color: var(--biz-accent); color: #fff;
+  }
+  .biz-pagination .page-item.disabled .page-link { color: #cbd5e1; }
+  .biz-page-info { text-align: center; color: var(--biz-muted); font-size: 0.82rem; margin-top: 0.6rem; }
+</style>

@@ -1,79 +1,7 @@
-WORKERS_NAMES = (
-    ('陈立栋', '陈立栋'),
-    ('陈浚标', '陈浚标'),
-    ('黄铭贤', '黄铭贤'),
-    ('陆天洋', '陆天洋'),
-    ('许海鹏', '许海鹏'),
-    ('马梦阳', '马梦阳'),
-    ('郭少钏', '郭少钏'),
-    ('于秋思', '于秋思'),
-    ('苏飓', '苏飓'),
-    ('苏伟衡', '苏伟衡'),
-    ('彭俊霖', '彭俊霖'),
-    ('霍晓歌', '霍晓歌'),
-    ('李晓昕', '李晓昕'),
-    ('张晨', '张晨'),
-    ('汪志武', '汪志武'),
-)
-NAMES = ('张晨','陈浚标','陈立栋','韦国锐','马梦阳','汪志武','苏飓','霍晓歌','李晓昕','郭少钏','于秋思','苏伟衡','彭俊霖','许海鹏','黄铭贤','陆天洋')
-
-JIXIAO11 = {
-    '马梦阳': {'scoreAll':0,'jx':0},
-    '陈浚标': {'scoreAll':0,'jx':0},
-    '黄铭贤': {'scoreAll':0,'jx':0},
-    '陆天洋': {'scoreAll':0,'jx':0},
-    '许海鹏': {'scoreAll':0,'jx':0},
-    '汪志武': {'scoreAll':0,'jx':0},
-    '郭少钏': {'scoreAll':0,'jx':0},
-    '于秋思': {'scoreAll':0,'jx':0},
-    '苏飓': {'scoreAll':0,'jx':0},
-    '苏伟衡': {'scoreAll':0,'jx':0},
-    '彭俊霖': {'scoreAll':0,'jx':0},
-    '霍晓歌': {'scoreAll':0,'jx':0},
-    '李晓昕': {'scoreAll':0,'jx':0},
-    '韦国锐': {'scoreAll':0,'jx':0},
-    '张晨': {'scoreAll':0,'jx':0},
-}
-
-JIXIAO= {
-    '马梦阳': [0,0,0],
-    '陈浚标': [0,0,0],
-    '黄铭贤': [0,0,0],
-    '陆天洋': [0,0,0],
-    '许海鹏': [0,0,0],
-    '汪志武': [0,0,0],
-    '郭少钏': [0,0,0],
-    '于秋思': [0,0,0],
-    '苏飓': [0,0,0],
-    '苏伟衡': [0,0,0],
-    '彭俊霖': [0,0,0],
-    '霍晓歌': [0,0,0],
-    '李晓昕': [0,0,0],
-    '韦国锐': [0,0,0],
-    '张晨': [0,0,0],
-    '陈立栋': [0,0,0],
-
-}
-
-NAME_INTERPRETER= {
-    '马梦阳': 'mamengyang',
-    '陈浚标': 'chenjunbiao',
-    '黄铭贤': 'huangmingxian',
-    '陆天洋': 'lutianyang',
-    '许海鹏': 'xuhaipeng',
-    '汪志武': 'wangzhiwu',
-    '郭少钏': 'guoshaochuan',
-    '于秋思': 'yuqiusi',
-    '苏飓': 'suju',
-    '苏伟衡': 'suweiheng',
-    '彭俊霖': 'pengjunlin',
-    '霍晓歌': 'huoxiaoge',
-    '李晓昕': 'lixiaoxin',
-    '韦国锐': 'weiguorui',
-    '张晨': 'zhangchen',
-    '陈立栋': 'chenlidong',
-
-}
+# 员工名单不再写死，改为从注册用户动态生成。
+# 业务录入的人员下拉见 accounts.workers.worker_name_choices；
+# scores 排名见 scores.views.collect_worker_names / get_worker_profiles；
+# 民主测评见 scores.models.DemocracyRating（测评人/被测评人均关联注册用户）。
 
 FAULTY_SCORE_LIST=(
     (0,0),(1,1),(2,2)
@@ -119,26 +47,6 @@ FAULTY_TYPES =(
         ('其他', '其他'),
     )
 
-scoreOfAllWorkers = {
-   '陈立栋': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-   '陈浚标': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '黄铭贤': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '陆天洋': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '许海鹏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '汪志武': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '郭少钏': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '于秋思': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '苏飓': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '苏伟衡': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '彭俊霖': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '霍晓歌': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '李晓昕': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '韦国锐': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '张晨': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-    '马梦阳': {'posts': 0, 'orders': 0, 'cutovers': 0, 'bonuses': 0, 'routine': 0, 'faulty': 0},
-}
-
-
 JOB_TYPES =(
         ('物联网', '物联网'),
         ('公众', '公众'),
@@ -161,12 +69,6 @@ ORDERS_SCORE_FLAG = 3
 BONUSES_SCORE_FLAG = 4
 FAULTY_SCORE_FLAG = 5
 ROUTINE_SCORE_FLAG = 6
-
-WLW_NUMBERS = 4 #物联网组：0
-SHUTONG_NUMBERS = 3 #数通组：陈浚标，于秋思，苏伟衡
-GONGZHONG_NUMBERS = 5 #公众组：彭俊霖，霍晓歌，苏飓，张晨，李晓昕，郭少钏
-OTHERS_NUMBERS = 8 #非物联网
-ALL_WORKER_NUMBERS = 12 #all
 
 POST_LAMADA = 0.05
 ORDER_LAMADA = 0.05

@@ -1,5 +1,6 @@
 from django.db import models
-from templates.constant_files import WORKERS_NAMES,DEMOCRACY_LIST
+from django.contrib.auth.models import User
+from templates.constant_files import DEMOCRACY_LIST
 
 class Scores(models.Model):
 
@@ -22,78 +23,25 @@ class Scores(models.Model):
 
 
 
-class Attitude(models.Model):
+class DemocracyRating(models.Model):
+    """民主测评：一条记录 = 某测评人对某被测评人在一个季度的三项打分。
 
-    #title is project name
-    worker_name = models.CharField('员工姓名', editable=False, max_length=200)
-    year_season = models.CharField('年季度', editable=False, max_length=200)
-    at_weiguorui = models.IntegerField('韦国锐分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])#IntegerField('加分',choices=FAULTY_SCORE_LIST,default=1)
-    at_zhangchen = models.IntegerField('张晨分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_yuqiusi = models.IntegerField('于秋思分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_xuhaipeng = models.IntegerField('许海鹏分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_mamengyang = models.IntegerField('马梦阳分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_suju = models.IntegerField('苏飓分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_guoshaochuan = models.IntegerField('郭少钏分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_huoxiaoge = models.IntegerField('霍晓歌分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_lixiaoxin = models.IntegerField('李晓昕分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_chenjunbiao = models.IntegerField('陈浚标分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_chenlidong = models.IntegerField('陈立栋分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_suweiheng = models.IntegerField('苏伟衡分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_huangmingxian = models.IntegerField('黄铭贤分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_lutianyang = models.IntegerField('陆天洋分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_pengjunlin = models.IntegerField('彭俊霖数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    at_wangzhiwu = models.IntegerField('汪志武分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
+    不再为每个员工写死字段，测评人与被测评人都关联到注册用户，
+    支持任意新注册员工自动参与。
+    """
+    evaluator = models.ForeignKey(
+        User, verbose_name='测评人', on_delete=models.CASCADE, related_name='democracy_given')
+    target = models.ForeignKey(
+        User, verbose_name='被测评人', on_delete=models.CASCADE, related_name='democracy_received')
+    year_season = models.CharField('年季度', max_length=200)
+    attitude = models.IntegerField('工作态度', choices=DEMOCRACY_LIST, default=DEMOCRACY_LIST[0][1])
+    responsibility = models.IntegerField('责任心', choices=DEMOCRACY_LIST, default=DEMOCRACY_LIST[0][1])
+    discipline = models.IntegerField('工作纪律', choices=DEMOCRACY_LIST, default=DEMOCRACY_LIST[0][1])
+
+    class Meta:
+        verbose_name = '民主测评'
+        verbose_name_plural = '民主测评'
+        unique_together = ('evaluator', 'target', 'year_season')
 
     def __str__(self):
-        return self.worker_name
-
-
-class Responsibility(models.Model):
-
-    #title is project name
-    worker_name = models.CharField('员工姓名',editable=False,max_length=200)
-    year_season = models.CharField('年季度',editable=False,max_length=200)
-    re_weiguorui = models.IntegerField('韦国锐分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_zhangchen = models.IntegerField('张晨分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_yuqiusi = models.IntegerField('于秋思分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_xuhaipeng = models.IntegerField('许海鹏分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_mamengyang = models.IntegerField('马梦阳分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_suju = models.IntegerField('苏飓分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_guoshaochuan = models.IntegerField('郭少钏分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_huoxiaoge = models.IntegerField('霍晓歌分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_lixiaoxin = models.IntegerField('李晓昕分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_chenjunbiao = models.IntegerField('陈浚标分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_chenlidong = models.IntegerField('陈立栋分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_suweiheng = models.IntegerField('苏伟衡分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_huangmingxian = models.IntegerField('黄铭贤分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_lutianyang = models.IntegerField('陆天洋分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_pengjunlin = models.IntegerField('彭俊霖数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    re_wangzhiwu = models.IntegerField('汪志武分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-
-    def __str__(self):
-        return self.worker_name
-
-class Discipline(models.Model):
-
-    #title is project name
-    worker_name = models.CharField('员工姓名',editable=False,max_length=200)
-    year_season = models.CharField('年季度',editable=False,max_length=200)
-    di_weiguorui = models.IntegerField('韦国锐分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_zhangchen = models.IntegerField('张晨分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_yuqiusi = models.IntegerField('于秋思分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_xuhaipeng = models.IntegerField('许海鹏分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_mamengyang = models.IntegerField('马梦阳分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_suju = models.IntegerField('苏飓分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_guoshaochuan = models.IntegerField('郭少钏分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_huoxiaoge = models.IntegerField('霍晓歌分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_lixiaoxin = models.IntegerField('李晓昕分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_chenjunbiao = models.IntegerField('陈浚标分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_chenlidong = models.IntegerField('陈立栋分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_suweiheng = models.IntegerField('苏伟衡分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_huangmingxian = models.IntegerField('黄铭贤分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_lutianyang = models.IntegerField('陆天洋分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_pengjunlin = models.IntegerField('彭俊霖数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-    di_wangzhiwu = models.IntegerField('汪志武分数',choices= DEMOCRACY_LIST,default=DEMOCRACY_LIST[0][1])
-
-    def __str__(self):
-        return self.worker_name
+        return '%s -> %s (%s)' % (self.evaluator, self.target, self.year_season)

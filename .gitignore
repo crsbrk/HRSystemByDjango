@@ -128,3 +128,7 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/django
+
+# Local agent/tool directories
+.codex/
+.claude/

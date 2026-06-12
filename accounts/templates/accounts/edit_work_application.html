@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+
+{% block title %} | 修改申请 {% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-3">修改工作量申请</h2>
+  {% include 'partials/_alerts.html' %}
+
+  {% if application.status == 'rejected' and application.review_comment %}
+  <div class="alert alert-danger">
+    <strong>驳回意见：</strong>{{ application.review_comment }}
+  </div>
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data" class="border rounded p-3 bg-light" style="max-width:640px">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {% render_field field class="form-control" %}
+      {% for error in field.errors %}
+      <div class="text-danger small">{{ error }}</div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">重新提交</button>
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary">返回</a>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,347 @@
+{% extends 'layout.html'%}
+{% load widget_tweaks %}
+
+{% block title %} | 工作量申请 {% endblock %}
+
+{% block content %}
+
+<style>
+  .workload-split-box {
+    border: 1px solid #dfe6ef;
+    border-radius: 8px;
+    background: #fff;
+    padding: .85rem;
+    margin-bottom: 1rem;
+  }
+
+  .workload-split-title {
+    margin: 0 0 .75rem;
+    color: #172033;
+    font-weight: 700;
+  }
+
+  .workload-split-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) 100px;
+    gap: .65rem;
+    align-items: end;
+    margin-bottom: .65rem;
+  }
+
+  .workload-split-row:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 575.98px) {
+    .workload-split-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'dashboard' %}">
+              <i class="fas fa-home"></i> 主页</a>
+          </li>
+          <li class="breadcrumb-item active"> 工作量申请</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Alerts -->
+  {% include 'partials/_alerts.html' %}
+
+  <div class="container">
+
+  {% if not can_submit_work %}
+  <div class="alert alert-warning" role="alert">
+    当前账号状态：{{ approval_status }}。管理员审批后才能提交工作量申请。
+  </div>
+  {% endif %}
+
+  <!-- 工作量申请 + 流程历史 -->
+  <div class="row">
+    <div class="col-md-5">
+      <h4>提交工作量申请</h4>
+      <form id="workAppForm" method="post" enctype="multipart/form-data" class="border rounded p-3 bg-light">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="work_application">
+
+        <!-- 申请类型 -->
+        <div class="form-group">
+          <label>申请类型 <span class="text-danger">*</span></label>
+          <select name="work_type" id="id_work_type" class="form-control" required>
+            <option value="">-- 请选择类型 --</option>
+            <option value="orders">工单</option>
+            <option value="cutovers">割接</option>
+            <option value="posts">项目</option>
+            <option value="routine">日常工作</option>
+            <option value="faulty">故障处理</option>
+            <option value="bonuses">特殊加分</option>
+          </select>
+        </div>
+
+        <!-- 审批人（必填） -->
+        <div class="form-group">
+          <label>审批人 <span class="text-danger">*</span></label>
+          <select name="reviewer" id="id_reviewer" class="form-control" required>
+            <option value="">-- 请选择审批人 --</option>
+            {% for u in work_application_form.fields.reviewer.queryset %}
+            <option value="{{ u.pk }}">{{ u.last_name }}{{ u.first_name }}（{{ u.username }}）</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- 标题（必填，所有类型） -->
+        <div class="form-group">
+          <label id="label_title">标题 <span class="text-danger">*</span></label>
+          <input type="text" name="title" id="id_title" class="form-control" required>
+        </div>
+
+        <!-- 编号（工单/割接专属） -->
+        <div class="form-group type-field type-orders type-cutovers" style="display:none">
+          <label id="label_work_num">编号 <span class="text-danger">*</span></label>
+          <input type="text" name="work_num" id="id_work_num" class="form-control">
+        </div>
+
+        <!-- 工单类型（工单专属） -->
+        <div class="form-group type-field type-orders" style="display:none">
+          <label>工单类型 <span class="text-danger">*</span></label>
+          <select name="work_subtype" id="id_work_subtype_orders" class="form-control">
+            <option value="">-- 请选择 --</option>
+            {% for val, label in ORDER_TYPES %}
+            <option value="{{ val }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- 故障类型（故障处理专属） -->
+        <div class="form-group type-field type-faulty" style="display:none">
+          <label>故障类型 <span class="text-danger">*</span></label>
+          <select name="work_subtype" id="id_work_subtype_faulty" class="form-control">
+            <option value="">-- 请选择 --</option>
+            {% for val, label in FAULTY_TYPES %}
+            <option value="{{ val }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- 厂家（故障处理专属） -->
+        <div class="form-group type-field type-faulty" style="display:none">
+          <label>厂家 <span class="text-danger">*</span></label>
+          <select name="work_manufacturer" id="id_work_manufacturer" class="form-control">
+            <option value="">-- 请选择 --</option>
+            {% for val, label in MANUFA_TYPES %}
+            <option value="{{ val }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- 相关日期（工单/割接/项目/日常） -->
+        <div class="form-group type-field type-orders type-cutovers type-posts type-routine" style="display:none">
+          <label id="label_work_date">相关日期</label>
+          <input type="date" name="work_date" id="id_work_date" class="form-control">
+        </div>
+
+        <!-- 当前进度（项目专属） -->
+        <div class="form-group type-field type-posts" style="display:none">
+          <label>当前进度（0~1）</label>
+          <input type="number" name="work_progress" id="id_work_progress" class="form-control" step="0.01" min="0" max="1" placeholder="例如 0.5 表示50%">
+        </div>
+
+        <!-- 申请分数 -->
+        <div class="form-group">
+          <label>申请分数 <span class="text-danger">*</span></label>
+          <input type="number" name="score" id="id_score" class="form-control" step="0.1" min="0" value="1" required>
+        </div>
+
+        <div class="workload-split-box type-field type-orders type-posts type-routine type-faulty type-bonuses" style="display:none">
+          <p class="workload-split-title">完成人员与完成比例</p>
+          <div class="workload-split-row">
+            <div>
+              <label>完成人员1（提交人）</label>
+              <input type="text" class="form-control" value="{{ user.last_name }}{{ user.first_name }}" readonly>
+            </div>
+            <div>
+              <label>比例1</label>
+              <input type="number" name="workload_allot" class="form-control workload-ratio" step="0.01" min="0" max="1" value="1">
+            </div>
+          </div>
+          <div class="workload-split-row">
+            <div>
+              <label>完成人员2</label>
+              <select name="pj_participant1" class="form-control">
+                {% for val, label in work_application_form.fields.pj_participant1.choices %}
+                <option value="{{ val }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div>
+              <label>比例2</label>
+              <input type="number" name="workload_allot1" class="form-control workload-ratio" step="0.01" min="0" max="1" value="0">
+            </div>
+          </div>
+          <div class="workload-split-row">
+            <div>
+              <label>完成人员3</label>
+              <select name="pj_participant2" class="form-control">
+                {% for val, label in work_application_form.fields.pj_participant2.choices %}
+                <option value="{{ val }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div>
+              <label>比例3</label>
+              <input type="number" name="workload_allot2" class="form-control workload-ratio" step="0.01" min="0" max="1" value="0">
+            </div>
+          </div>
+          <div class="workload-split-row">
+            <div>
+              <label>完成人员4</label>
+              <select name="pj_participant3" class="form-control">
+                {% for val, label in work_application_form.fields.pj_participant3.choices %}
+                <option value="{{ val }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div>
+              <label>比例4</label>
+              <input type="number" name="workload_allot3" class="form-control workload-ratio" step="0.01" min="0" max="1" value="0">
+            </div>
+          </div>
+          <small class="text-muted">比例合计不能超过 1；完成人员2-4可以为空。</small>
+        </div>
+
+        <!-- 说明 -->
+        <div class="form-group">
+          <label>说明</label>
+          <textarea name="description" id="id_description" class="form-control" rows="3"></textarea>
+        </div>
+
+        <!-- 证明材料 -->
+        <div class="form-group">
+          <label>证明材料</label>
+          <input type="file" name="evidence" id="id_evidence" class="form-control-file">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" {% if not can_submit_work %}disabled{% endif %}>提交审批</button>
+      </form>
+    </div>
+
+    <div class="col-md-7">
+      <h4>流程历史</h4>
+      {% if myApplications %}
+      <table class="table table-sm table-hover">
+        <thead>
+          <tr>
+            <th>类型</th>
+            <th>标题</th>
+            <th>分数</th>
+            <th>审批人</th>
+            <th>状态</th>
+            <th>材料</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for application in myApplications %}
+          <tr>
+            <td>{{ application.get_work_type_display }}</td>
+            <td>
+              {{ application.title }}
+              {% if application.status == 'rejected' and application.review_comment %}
+              <br><small class="text-danger">驳回意见：{{ application.review_comment }}</small>
+              {% endif %}
+            </td>
+            <td>{{ application.score }}</td>
+            <td>
+              {% if application.reviewer %}
+              {{ application.reviewer.last_name }}{{ application.reviewer.first_name }}
+              {% else %}
+              -
+              {% endif %}
+            </td>
+            <td>
+              <span class="badge {% if application.status == 'approved' %}badge-success{% elif application.status == 'rejected' %}badge-danger{% else %}badge-warning{% endif %}">
+                {{ application.get_status_display }}
+              </span>
+            </td>
+            <td>
+              {% if application.evidence %}
+              <a href="{{ application.evidence.url }}">下载</a>
+              {% else %}
+              -
+              {% endif %}
+            </td>
+            <td>
+              {% if application.status != 'approved' %}
+              <a href="{% url 'edit_work_application' application.pk %}" class="btn btn-outline-primary btn-sm">修改</a>
+              <form method="post" action="{% url 'delete_work_application' application.pk %}" class="d-inline" onsubmit="return confirm('确认删除该申请？');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger btn-sm">删除</button>
+              </form>
+              {% else %}
+              <span class="text-muted">已通过</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>暂无申请记录</p>
+      {% endif %}
+    </div>
+  </div>
+
+  </div><!-- /.container -->
+
+<script>
+(function(){
+  var workTypeSelect = document.getElementById('id_work_type');
+  var labelTitle = document.getElementById('label_title');
+  var labelWorkNum = document.getElementById('label_work_num');
+  var labelWorkDate = document.getElementById('label_work_date');
+
+  var typeLabels = {
+    'orders':   { title: '工单名称', num: '工单编号', date: '工单到期日期' },
+    'cutovers': { title: '割接名称', num: '割接编号', date: '割接日期' },
+    'posts':    { title: '项目名称', num: null,      date: '计划完成日期' },
+    'routine':  { title: '工作内容', num: null,      date: '工作日期' },
+    'faulty':   { title: '故障名称', num: null,      date: null },
+    'bonuses':  { title: '加分项目名称', num: null,  date: null },
+  };
+
+  function updateFields() {
+    var type = workTypeSelect.value;
+    // 先隐藏所有 type-field
+    document.querySelectorAll('.type-field').forEach(function(el){ el.style.display = 'none'; });
+    // 再显示当前类型的
+    if (type) {
+      document.querySelectorAll('.type-' + type).forEach(function(el){ el.style.display = ''; });
+    }
+    // 更新标签
+    if (type && typeLabels[type]) {
+      var lbl = typeLabels[type];
+      labelTitle.innerHTML = (lbl.title || '标题') + ' <span class="text-danger">*</span>';
+      if (labelWorkNum && lbl.num) {
+        labelWorkNum.innerHTML = lbl.num + ' <span class="text-danger">*</span>';
+      }
+      if (labelWorkDate && lbl.date) {
+        labelWorkDate.innerHTML = lbl.date;
+      }
+    }
+  }
+
+  workTypeSelect.addEventListener('change', updateFields);
+  updateFields();
+})();
+</script>
+
+{% endblock %}

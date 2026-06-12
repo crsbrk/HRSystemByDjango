@@ -9,12 +9,12 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>分组网人力考核系统</title>
+    <title>{{ site_settings.project_name }}</title>
   </head>
   <section  class="breadcrumbs">
         <div class="container">
           <div class="text-left breadcrumbs-item">
-            <h1>分组网人力考核系统</h1>
+            <h1>{{ site_settings.project_name }}</h1>
           </div>
         </div>
       </section>
@@ -22,7 +22,7 @@
   <body>
     <header class ="container center-align">
 
-      <!-- <h2>分组网人力考核系统</h2> -->
+      <!-- <h2>人力考核系统</h2> -->
 
     </header>
 
@@ -49,13 +49,13 @@
     <!-- NavBar -->
     {% include 'partials/_navbar.html' %}
     <br>
-    <div class="container">
+    <main class="container site-main">
       {% block content %}
       {% endblock %}
       <br>
 
 
-    </div>
+    </main>
 
 
     

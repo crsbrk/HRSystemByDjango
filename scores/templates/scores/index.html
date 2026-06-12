@@ -24,12 +24,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>分组网人力考核系统</title>
+  <title>{{ site_settings.project_name }}</title>
 </head>
 <section class="breadcrumbs">
   <div class="container">
     <div class="text-left breadcrumbs-item">
-      <h1>分组网人力考核系统</h1>
+      <h1>{{ site_settings.project_name }}</h1>
     </div>
   </div>
 </section>
@@ -51,6 +51,222 @@
   <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
   <link rel="stylesheet" href="{% static 'welcom/css/main.css' %}">
 
+  <!-- 头像尺寸/裁切内联兜底，避免外部 style.css 被浏览器缓存导致图片超大 -->
+  <style>
+    .score-person { align-items: center; display: flex; gap: 0.75rem; }
+    .score-avatar {
+      width: 46px !important; height: 46px !important;
+      min-width: 46px !important; max-width: 46px !important;
+      min-height: 46px !important; max-height: 46px !important;
+      border-radius: 50% !important;
+      object-fit: cover !important; object-position: center !important;
+      overflow: hidden !important; display: inline-flex !important;
+      align-items: center; justify-content: center;
+      flex: 0 0 auto !important;
+      border: 2px solid #fff; box-shadow: 0 0 0 1px #dbe3ea;
+    }
+    .score-avatar-sm {
+      width: 32px !important; height: 32px !important;
+      min-width: 32px !important; max-width: 32px !important;
+      min-height: 32px !important; max-height: 32px !important;
+    }
+    .score-avatar-fallback { background: #e0f2fe; color: #075985 !important; font-weight: 700; font-size: 1.05rem; line-height: 1; }
+    .score-avatar-sm.score-avatar-fallback { font-size: 0.85rem; }
+    /* TOP3 榜单头像略大一些 */
+    .score-podium-item .score-avatar {
+      width: 72px !important; height: 72px !important;
+      min-width: 72px !important; max-width: 72px !important;
+      min-height: 72px !important; max-height: 72px !important;
+      font-size: 1.6rem;
+    }
+
+    /* ===== 统一设计变量 =====
+       单一强调色（蓝色），中性底色，统一圆角，去渐变 / 去对比色 */
+    :root {
+      --c-accent: #2563eb;
+      --c-accent-soft: #dbeafe;
+      --c-ink: #1f2937;
+      --c-muted: #6b7280;
+      --c-line: #e5e7eb;
+      --c-bg-soft: #f8fafc;
+      --radius: 12px;
+    }
+    .page-shell { padding-bottom: 2.5rem; }
+
+    /* 防止任何子元素溢出容器（box-sizing 统一） */
+    .page-shell, .page-shell * { box-sizing: border-box; }
+
+    /* ===== 绩效看板 hero ===== */
+    .score-hero {
+      display: block !important;
+      background: var(--c-bg-soft);
+      border: 1px solid var(--c-line);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.9rem;
+      margin: 1.25rem 0 1.5rem;
+      color: var(--c-ink);
+      box-shadow: none;
+      overflow: hidden;
+    }
+    .score-hero-head h2,
+    .score-hero-head .score-muted { word-break: break-word; }
+    .score-hero-head { margin-bottom: 1.4rem; }
+    .score-hero-head .score-eyebrow { color: var(--c-accent) !important; letter-spacing: .1em; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .score-eyebrow-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--c-accent-soft); color: var(--c-accent); font-size: 0.85rem;
+      flex: 0 0 30px;
+    }
+    .score-hero-head h2 { font-size: 1.7rem; margin: 0.35rem 0 0.5rem; color: var(--c-ink); font-weight: 700; }
+    .score-hero-head .score-muted { margin: 0; max-width: 760px; color: var(--c-muted) !important; }
+    .score-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .score-stat {
+      display: flex; align-items: center; gap: 0.9rem;
+      background: #fff; border: 1px solid var(--c-line);
+      border-radius: var(--radius);
+      padding: 1rem 1.15rem;
+    }
+    .score-stat .score-stat-icon {
+      flex: 0 0 34px; width: 34px; height: 34px; min-width: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--c-accent-soft); color: var(--c-accent); font-size: 0.95rem;
+      line-height: 1; overflow: hidden;
+    }
+    .score-stat .score-stat-icon i { line-height: 1; margin: 0; }
+    .score-stat > div > span { display: block; color: var(--c-muted); font-size: 0.82rem; }
+    .score-stat strong { display: block; color: var(--c-ink); font-size: 1.45rem; line-height: 1.2; margin-top: 0.15rem; }
+    @media (max-width: 768px) { .score-stats { grid-template-columns: 1fr; } }
+
+    /* ===== 面板 / 区块标题 ===== */
+    .score-panel { border-top: none !important; margin-top: 2rem; padding-top: 0; }
+    .score-panel-header { margin-bottom: 1.1rem; }
+    .score-panel-header .score-eyebrow { color: var(--c-accent); letter-spacing: .1em; }
+    .score-panel-header h3 {
+      font-size: 1.35rem; font-weight: 700; color: var(--c-ink); margin: 0;
+      position: relative; padding-left: 0.85rem;
+    }
+    .score-panel-header h3::before {
+      content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      width: 4px; height: 1.1rem; border-radius: 4px;
+      background: var(--c-accent);
+    }
+
+    /* ===== TOP3 领奖台（保留上一版彩色立体效果） ===== */
+    .score-podium {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      align-items: end;
+    }
+    .score-podium-item {
+      position: relative;
+      background: #fff;
+      border: 1px solid #e8edf2;
+      border-radius: 16px;
+      padding: 2.4rem 1.25rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 30px -18px rgba(15,23,42,.35);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .score-podium-item:hover { transform: translateY(-4px); box-shadow: 0 18px 36px -18px rgba(15,23,42,.4); }
+    .score-podium-item::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      border-radius: 16px 16px 0 0;
+    }
+    .score-podium-rank-1 { order: 2; transform: translateY(-14px); }
+    .score-podium-rank-1:hover { transform: translateY(-18px); }
+    .score-podium-rank-2 { order: 1; }
+    .score-podium-rank-3 { order: 3; }
+    .score-podium-rank-1::before { background: #f59e0b; }
+    .score-podium-rank-2::before { background: #94a3b8; }
+    .score-podium-rank-3::before { background: #c2814f; }
+    .score-podium-rank-1 { border-color: #fcd34d; }
+
+    .score-podium-item .score-rank-icon {
+      position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+      min-width: 0; width: 34px; height: 34px; padding: 0;
+      border-radius: 50%; font-size: 0.95rem; gap: 0;
+      box-shadow: 0 6px 14px -6px rgba(15,23,42,.5);
+    }
+    .score-podium-item .score-person {
+      flex-direction: column; gap: 0.55rem; justify-content: center; margin-bottom: 0.65rem;
+    }
+    .score-podium-item .score-person strong { font-size: 1.05rem; }
+    .score-podium-item .score-person > div { text-align: center; }
+    .score-podium-score {
+      display: inline-block; margin-top: 0.35rem;
+      font-size: 0.82rem; color: #64748b;
+    }
+    .score-podium-score b {
+      display: block; font-size: 1.6rem; color: #0f172a; font-weight: 700; line-height: 1.1;
+    }
+    .score-podium-rank-1 .score-podium-score b { color: #b45309; }
+
+    /* ===== 表格美化 ===== */
+    .score-table { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--c-line); }
+    .score-table thead th {
+      background: var(--c-bg-soft) !important; color: var(--c-muted) !important;
+      font-size: 0.85rem; font-weight: 700; text-transform: none;
+      border-bottom: 1px solid var(--c-line) !important; padding: 0.85rem 0.9rem;
+    }
+    .score-table tbody td { vertical-align: middle; padding: 0.7rem 0.9rem; }
+    .score-table tbody tr { transition: background .12s ease; }
+    .score-table tbody tr:hover { background: var(--c-accent-soft) !important; }
+    .score-row-top { background: var(--c-bg-soft) !important; }
+    .score-table td strong { color: var(--c-ink); }
+
+    /* ===== 状态徽标统一为强调色基调 ===== */
+    .score-status {
+      background: var(--c-bg-soft); border: 1px solid var(--c-line);
+      border-radius: 999px; color: var(--c-muted);
+      display: inline-block;
+      font-size: 0.75rem;
+      line-height: 1.2;
+      padding: 0.15rem 0.5rem;
+      vertical-align: middle;
+    }
+    .score-status-approved {
+      background: var(--c-accent-soft); border-color: var(--c-accent); color: var(--c-accent);
+    }
+
+    /* ===== DataTables Show / Search 表单控件圆润化 ===== */
+    .dataTables_wrapper .dataTables_length select,
+    .dataTables_wrapper .dataTables_filter input {
+      border: 1px solid var(--c-line);
+      border-radius: 999px;
+      padding: 0.35rem 0.85rem;
+      outline: none;
+      transition: border-color .12s ease, box-shadow .12s ease;
+    }
+    .dataTables_wrapper .dataTables_length select { padding-right: 1.6rem; }
+    .dataTables_wrapper .dataTables_filter input:focus,
+    .dataTables_wrapper .dataTables_length select:focus {
+      border-color: var(--c-accent);
+      box-shadow: 0 0 0 3px var(--c-accent-soft);
+    }
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter { margin-bottom: 0.75rem; }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+      background: var(--c-accent) !important;
+      border-radius: 8px !important;
+      border-color: var(--c-accent) !important;
+      color: #fff !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      border-radius: 8px !important;
+    }
+
+    @media (max-width: 768px) {
+      .score-podium { grid-template-columns: 1fr; align-items: stretch; }
+      .score-podium-rank-1, .score-podium-rank-2, .score-podium-rank-3 { order: 0; transform: none; }
+    }
+  </style>
+
 
   <!-- Top Bar -->
   {% include 'partials/_topbar.html' %}
@@ -61,25 +277,94 @@
 
 
 
-  <div class="container">
-    <br>
-    <div class="container">
-
-
-      <div class="text-center breadcrumbs-item">
-        <h3>{{thisSeasonStr}}绩效排名情况</h3>
+  <div class="container page-shell">
+    <section class="score-hero">
+      <div class="score-hero-head">
+        <p class="score-eyebrow"><span class="score-eyebrow-icon"><i class="fas fa-chart-line"></i></span> 绩效看板</p>
+        <h2>{{thisSeasonStr}}绩效排名情况</h2>
+        <p class="score-muted">按注册员工、项目、工单、割接、特殊加分、日常工作、故障处理和民主测评自动汇总。</p>
       </div>
-    </div>
+      <div class="score-stats">
+        <div class="score-stat">
+          <span class="score-stat-icon"><i class="far fa-calendar-alt"></i></span>
+          <div>
+            <span>当前周期</span>
+            <strong>{{thisSeasonStr}}</strong>
+          </div>
+        </div>
+        <div class="score-stat">
+          <span class="score-stat-icon"><i class="fas fa-users"></i></span>
+          <div>
+            <span>排名人数</span>
+            <strong>{{jixiao|length}}</strong>
+          </div>
+        </div>
+        <div class="score-stat">
+          <span class="score-stat-icon"><i class="fas fa-database"></i></span>
+          <div>
+            <span>全年记录</span>
+            <strong>{{scoreRecordCount}}</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="score-panel">
+      <div class="score-panel-header">
+        <div>
+          <p class="score-eyebrow">TOP 3</p>
+          <h3>当前领先</h3>
+        </div>
+      </div>
+      <div class="score-podium">
+        {% for item in topPerformance %}
+        <div class="score-podium-item score-podium-rank-{{ item.rank }}">
+          <span class="score-rank-icon score-rank-{{ item.rank }}">
+            {% if item.rank == 1 %}
+            <i class="fas fa-crown"></i>
+            {% elif item.rank == 2 %}
+            <i class="fas fa-medal"></i>
+            {% else %}
+            <i class="fas fa-award"></i>
+            {% endif %}
+          </span>
+          <div class="score-person">
+            {% if item.avatar_url %}
+            <img src="{{ item.avatar_url }}" alt="{{ item.name }}" class="score-avatar">
+            {% else %}
+            <span class="score-avatar score-avatar-fallback">{{ item.initials }}</span>
+            {% endif %}
+            <div>
+              <strong>{{item.name}}</strong>
+              <span>{{ item.role|default:"员工" }}</span>
+            </div>
+          </div>
+          <span class="score-podium-score">总分<b>{{item.total_score}}</b></span>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
 
     {% comment %} <table id="table_id1" class="display"> {% endcomment %}
-    <table class="table table-striped ">
+    <section class="score-panel">
+      <div class="score-panel-header">
+        <div>
+          <p class="score-eyebrow">Ranking</p>
+          <h3>总分排名</h3>
+        </div>
+      </div>
+    <table class="table table-striped score-table">
       <thead>
         <tr>
-          <th scope="col" style="width:100px">季度</th>
-          <th scope="col" style="width:100px">姓名</th>
+          <th scope="col" style="width:80px">名次</th>
+          <th scope="col">周期</th>
+          <th scope="col">员工</th>
+          <th scope="col">状态</th>
+          <th scope="col">互评</th>
+          <th scope="col">工作绩效</th>
           <!-- <th scope="col" style="width:100px">民主测评</th>
           <th scope="col" style="width:100px">工作绩效</th> -->
-          <th scope="col" style="width:100px">总分排名</th>
+          <th scope="col">总分</th>
         </tr>
       </thead>
       <tbody>
@@ -101,30 +386,63 @@
  {% endfor %} {% endcomment %}
         {% for item in jixiao %}
 
-        <tr>
-          <th scope="row">{{thisSeasonStr}}</th>
+        <tr class="{% if item.rank <= 3 %}score-row-top{% endif %}">
+          <th scope="row">
+            <span class="score-rank-icon score-rank-{{ item.rank }}">
+              {% if item.rank == 1 %}
+              <i class="fas fa-trophy"></i>
+              {% elif item.rank == 2 %}
+              <i class="fas fa-medal"></i>
+              {% elif item.rank == 3 %}
+              <i class="fas fa-award"></i>
+              {% endif %}
+              {{item.rank}}
+            </span>
+          </th>
+          <td>{{thisSeasonStr}}</td>
           
-          <td>{{item.0}}</td>
+          <td>
+            <div class="score-person">
+              {% if item.avatar_url %}
+              <img src="{{ item.avatar_url }}" alt="{{ item.name }}" class="score-avatar">
+              {% else %}
+              <span class="score-avatar score-avatar-fallback">{{ item.initials }}</span>
+              {% endif %}
+              <div>
+                <strong>{{item.name}}</strong>
+                <span>{{ item.role|default:"员工" }}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            {% if item.is_approved %}
+            <span class="score-status score-status-approved">已审批</span>
+            {% else %}
+            <span class="score-status">待审批</span>
+            {% endif %}
+          </td>
 
           <!-- <td>{{item.1.0}}</td>
           <td>{{item.1.1}}</td> -->
-          <td>{{item.1.2}}</td>
+          <td>{{item.attitude_score}}</td>
+          <td>{{item.work_score}}</td>
+          <td><strong>{{item.total_score}}</strong></td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
-    <br><br>
+    </section>
 
-
-    <div class="container">
-      <div class="text-center breadcrumbs-item">
-        <h3>全年人员考核记录</h3>
+    <section class="score-panel">
+      <div class="score-panel-header">
+        <div>
+          <p class="score-eyebrow">History</p>
+          <h3>全年人员考核记录</h3>
+        </div>
       </div>
-    </div>
-    <div class="container">
 
       <br>
-      <table id="table_id" class="display">
+      <table id="table_id" class="display score-table">
         <thead>
           <tr>
 
@@ -140,11 +458,19 @@
           </tr>
         </thead>
         <tbody>
+            {% for value in sumScores %}
           <tr>
-
-            {% for key, value in sumScores.items %}
             <td>{{value.sum_month}}</td>
-            <td>{{value.sum_name}}</td>
+            <td>
+              <div class="score-person">
+                {% if value.avatar_url %}
+                <img src="{{ value.avatar_url }}" alt="{{ value.sum_name }}" class="score-avatar score-avatar-sm">
+                {% else %}
+                <span class="score-avatar score-avatar-sm score-avatar-fallback">{{ value.initials }}</span>
+                {% endif %}
+                <strong>{{value.sum_name}}</strong>
+              </div>
+            </td>
             <td>{{value.sum_orders}}</td>
             <td>{{value.sum_cutovers}}</td>
             <td>{{value.sum_posts}}</td>
@@ -156,84 +482,14 @@
           {% endfor %}
         </tbody>
       </table>
+    </section>
 
       <br>      <br>
-      <div class="alert alert-light" role="alert">
-        <h5>2020年4月4日修订:</h5>
-        <h2>加分标准:</h2>
-
-        <p>
-          工单1分，割接3分（按次），项目10分起，最多25分（完成需超一个月，月初立项，立项后填报），
-          例行日常工作（报表，备份，分析，维保，季度台帐更新）每个1分，故障投诉1到2分，
-          表彰扣罚等特殊加分（主管调整）。<br>
-          
-          <br>详细说明:
-          <h4>日常工作</h4>
-1、故障类里不填写投诉，投诉填写到日常工作里。<br>
-日常包括：开会（割接评审、技术支持）、网管告警处理、投诉处理、邮件处理其他专业问题（ip溯源等）、周报月报、
-备份台账整理（节前备份1分，其余时间由厂家和系统自动备份）、综合事务（贴发票报销、信息收集）、开门必须领导同意（不包括建设类随工）、值班（现场3分、远程1分）。
-
-<br><br>
-<h4>故障：</h4>
-<ul>
-<li>
-1、人为故障扣分、论文得奖加分由主管填写到特殊加分里;</li>
-<li>2、包含硬件替换、软件处理、非人为故障;</li>
-<li>3、不包含客户硬件问题、不包含外专业硬件替换。</li></ul>
-<br>
-
-<h4>割接：</h4>
-<ul>
-<li>1、配合割接需要提供工单，配合割接需要动数据，否则不加分;</li>
-<li>2、不需要动数据的配合割接，只是拨测，由厂家配合或者网管拨测。不填到割接里面;</li>
-<li>3、配合割接，如查看路由表、需要通过命令查看指标，需要提供日志。可以填入割接。</li></ul>
-<br>
-<h4>特殊加分(由主管调整)：</h4>
-<ul>
-<li>1、集团奖项、省内奖项、竞赛得奖、感谢信等;</li>
-<li>
-  2、论文、专利;
-</li>
-<li>
-  3、故障扣分;
-</li>
-<li>
-  4、学习内容共享;
-</li>
-
-</ul>
-等其他需要调整的分数。
-<br><br>
-
-<h4>工单：</h4>
-需要填写工单号
-<br><br>
-
-<h4>项目/专项工作：</h4>
-规则不变，以去年为准。季度科室例会讨论确定项目。
-        </p>
-
-
-        <h2>绩效规则:</h2>
-  <p>
-    每一项工作通过累积分布函数压缩到规定分数内,开始做同一类工作加分多,做太多相同工作后加分少;<br>
-    令x=15.5分<br>
-    项目 0.75x， 即11.525分，λ=0.05<br>
-    工单 x，即15.5分,  λ=0.05<br>
-    割接 x，即15.5分,λ=0.1<br>
-    特殊 x ,即15.5分，人工调整，不需要标准化<br>
-    故障 0.75x ， 11.525分，λ=0.05<br>
-    日常 x，即15.5分, λ=0.01<br>
-    
-    以上量化总分：85分;<br>
-    工作态度民主测评，匿名：15分<br>
-    共计100分
-  
-  </p>
-  <p>
-
-  </p>
+      {% if site_settings.scores_announcement %}
+      <div class="alert alert-light score-announcement" role="alert">
+        {{ site_settings.scores_announcement|safe }}
       </div>
+      {% endif %}
     </div>
 
   </div>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import HttpResponse
 from .models import Bonuses
@@ -20,7 +20,7 @@ def index(request):
     return render(request, 'bonuses/index.html', context)
 
 def details(request, id):
-    bonus = Bonuses.objects.get(id=id)
+    bonus = get_object_or_404(Bonuses, id=id)
 
     context = {
         'bonus': bonus

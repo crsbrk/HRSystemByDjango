@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
-from templates.constant_files import WORKERS_NAMES, ORDER_TYPES
+from templates.constant_files import ORDER_TYPES
 
 # Create your models here.
 
@@ -13,19 +13,19 @@ class Posts(models.Model):
 
     pj_score = models.IntegerField('项目加分', default=0)
     pj_leader = models.CharField(
-        '完成人员1', choices=WORKERS_NAMES, max_length=200)
+        '完成人员1', max_length=200)
     workload_allot = models.FloatField(
         '比例1', validators=[MinValueValidator(0.0), MaxValueValidator(1)], default=0)
     pj_participant1 = models.CharField(
-        '完成人员2', choices=WORKERS_NAMES, max_length=200, blank=True)
+        '完成人员2', max_length=200, blank=True)
     workload_allot1 = models.FloatField(
         '比例2', validators=[MinValueValidator(0.0), MaxValueValidator(1)], default=0)
     pj_participant2 = models.CharField(
-        '完成人员3', choices=WORKERS_NAMES, max_length=200, blank=True)
+        '完成人员3', max_length=200, blank=True)
     workload_allot2 = models.FloatField(
         '比例3', validators=[MinValueValidator(0.0), MaxValueValidator(1)], default=0)
     pj_participant3 = models.CharField(
-        '完成人员4', choices=WORKERS_NAMES, max_length=200, blank=True)
+        '完成人员4', max_length=200, blank=True)
     workload_allot3 = models.FloatField(
         '比例4', validators=[MinValueValidator(0.0), MaxValueValidator(1)], default=0)
 

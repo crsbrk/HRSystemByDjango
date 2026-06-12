@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import HttpResponse
 from .models import Routine
@@ -22,7 +22,7 @@ def index(request):
 
 
 def details(request, id):
-    routine = Routine.objects.get(id=id)
+    routine = get_object_or_404(Routine, id=id)
 
     context = {
         'routine': routine

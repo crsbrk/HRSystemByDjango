@@ -1,84 +1,78 @@
 {% extends 'layout.html'%}
 {% load widget_tweaks %}
-{% load crispy_forms_tags   %}
 
-
-{% block title %} | 用户后台 {% endblock %}
+{% block title %} | 民主测评 {% endblock %}
 
 {% block content %}
 
-<h2>{{title}}</h2>
- <!-- 更新个人信息的输入框 -->
+<div class="container">
+  <h2>{{ title }}</h2>
+  <h3 class="text-muted">{{ thisSeasonStr }}</h3>
 
- <h3 >{{thisSeasonStr}}</h3>
- <form method="post" novalidate>
-  {% csrf_token %}
+  {% include 'partials/_alerts.html' %}
 
-{% if user.is_authenticated %}
- <div class="form-group">
-  
-  <label for="logonName">登录名:</label>
-   <input type="text" class="form-control " readonly name="inputUsername" value='{{user.username}}'>
+  <div class="alert alert-info">
+    <p class="mb-1"><strong>工作态度</strong>：积极主动95分、比较主动91分、一般87分、等靠83分、懈怠79分；</p>
+    <p class="mb-1"><strong>工作纪律</strong>：严格遵守95分、比较遵守91分、遵守87分、有所欠缺83分、较差79分；</p>
+    <p class="mb-0"><strong>责任心</strong>：认真负责95分、比较认真91分、一般87分、有所欠缺83分、较差79分；</p>
+  </div>
 
+  {% if user.is_authenticated %}
+  <form method="post" novalidate>
+    {% csrf_token %}
 
- {% for hidden_field in form.hidden_fields %}
-    {{ hidden_field }}
-  {% endfor %}
-  <br>
-  <hr>
-
-
-<h4>工作态度5%：积极主动95分、比较主动91分，一般87分，等靠83分、懈怠79分；</h4>
-  {% for field in democracy.attitude_form.visible_fields %}
     <div class="form-group">
-      {{ field.label_tag }}
-      {% render_field field class="form-control" %}
-      {% if field.help_text %}
-        <small class="form-text text-muted">{{ field.help_text }}</small>
-      {% endif %}
-          {% if field.errors  %}
-        <small class="form-text text-muted">{{ field.errors  }}</small>
-      {% endif %}
-    {% endfor %}
-    
+      <label>登录名：</label>
+      <input type="text" class="form-control" readonly value="{{ user.username }}" style="max-width:300px;">
     </div>
 
-  <br>
-  <hr>
-   <h4> 工作纪律5%：严格遵守95分、比较遵守91分，遵守87分、有所欠缺83分、较差79分；</h4>
-    {% for field in democracy.descipline_form.visible_fields %}
-    <div class="form-group">
-      {{ field.label_tag }}
-      {% render_field field class="form-control" %}
-      {% if field.help_text %}
-        <small class="form-text text-muted">{{ field.help_text }}</small>
-      {% endif %}
-    {% endfor %}
-    </div>
+    {% if targets %}
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="thead-light">
+        <tr>
+          <th style="width:20%">被测评人</th>
+          <th>工作态度</th>
+          <th>工作纪律</th>
+          <th>责任心</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for target in targets %}
+        <tr>
+          <td>{{ target.name }}</td>
+          <td>
+            <select name="attitude_{{ target.id }}" class="form-control">
+              {% for val, label in score_choices %}
+              <option value="{{ val }}">{{ label }}</option>
+              {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name="discipline_{{ target.id }}" class="form-control">
+              {% for val, label in score_choices %}
+              <option value="{{ val }}">{{ label }}</option>
+              {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name="responsibility_{{ target.id }}" class="form-control">
+              {% for val, label in score_choices %}
+              <option value="{{ val }}">{{ label }}</option>
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
-  <br>
-  <hr>
-<h4>责任心5%：认真负责95分、比较认真91分，一般87分、有所欠缺83分、较差79分；</h4>
-      {% for field in democracy.reponsibility_form.visible_fields %}
-    <div class="form-group">
-      {{ field.label_tag }}
-      {% render_field field class="form-control" %}
-      {% if field.help_text %}
-        <small class="form-text text-muted">{{ field.help_text }}</small>
-      {% endif %}
-    </div>
-
-  {% endfor %}
-
-  
-    <button type="submit" value="Send" class="btn btn-block btn-secondary">提交</button>
+    <button type="submit" class="btn btn-primary btn-block">提交测评</button>
+    {% else %}
+    <p>暂无可测评的员工。</p>
+    {% endif %}
   </form>
+  {% endif %}
 
-
-
- 
 </div>
-{% endif %}
-
 
 {% endblock %}

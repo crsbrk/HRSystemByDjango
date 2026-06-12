@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import HttpResponse
 from .models import Cutovers
@@ -20,7 +20,7 @@ def index(request):
     return render(request, 'cutovers/index.html', context)
 
 def details(request, id):
-    cutover = Cutovers.objects.get(id=id)
+    cutover = get_object_or_404(Cutovers, id=id)
 
     context = {
         'cutover': cutover

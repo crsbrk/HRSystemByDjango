@@ -18,12 +18,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='attitude',
             name='at_chenlidong',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='陈立栋分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工13分数'),
         ),
         migrations.AlterField(
             model_name='attitude',
             name='at_guoshaochuan',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='郭少钏分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工16分数'),
         ),
         migrations.AlterField(
             model_name='attitude',
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='attitude',
             name='at_huoxiaoge',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='霍晓歌分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工9分数'),
         ),
         migrations.AlterField(
             model_name='attitude',
@@ -53,7 +53,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='attitude',
             name='at_lixiaoxin',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='李晓昕分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工2分数'),
         ),
         migrations.AlterField(
             model_name='attitude',
@@ -63,12 +63,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='attitude',
             name='at_suweiheng',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='苏伟衡分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工5分数'),
         ),
         migrations.AlterField(
             model_name='attitude',
             name='at_wangzhiwu',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='汪志武分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工4分数'),
         ),
         migrations.AlterField(
             model_name='attitude',
@@ -78,12 +78,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='attitude',
             name='at_yuqiusi',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='于秋思分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工15分数'),
         ),
         migrations.AlterField(
             model_name='attitude',
             name='at_zhangchen',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='张晨分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工12分数'),
         ),
         migrations.AlterField(
             model_name='discipline',
@@ -93,12 +93,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='discipline',
             name='di_chenlidong',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='陈立栋分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工13分数'),
         ),
         migrations.AlterField(
             model_name='discipline',
             name='di_guoshaochuan',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='郭少钏分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工16分数'),
         ),
         migrations.AlterField(
             model_name='discipline',
@@ -108,7 +108,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='discipline',
             name='di_huoxiaoge',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='霍晓歌分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工9分数'),
         ),
         migrations.AlterField(
             model_name='discipline',
@@ -128,7 +128,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='discipline',
             name='di_lixiaoxin',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='李晓昕分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工2分数'),
         ),
         migrations.AlterField(
             model_name='discipline',
@@ -138,17 +138,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='discipline',
             name='di_suweiheng',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='苏伟衡分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工5分数'),
         ),
         migrations.AlterField(
             model_name='discipline',
             name='di_wangzhiwu',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='汪志武分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工4分数'),
         ),
         migrations.AlterField(
             model_name='discipline',
             name='di_weiguorui',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='韦国锐分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工10分数'),
         ),
         migrations.AlterField(
             model_name='discipline',
@@ -158,12 +158,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='discipline',
             name='di_yuqiusi',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='于秋思分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工15分数'),
         ),
         migrations.AlterField(
             model_name='discipline',
             name='di_zhangchen',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='张晨分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工12分数'),
         ),
         migrations.AlterField(
             model_name='responsibility',
@@ -173,12 +173,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='responsibility',
             name='re_chenlidong',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='陈立栋分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工13分数'),
         ),
         migrations.AlterField(
             model_name='responsibility',
             name='re_guoshaochuan',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='郭少钏分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工16分数'),
         ),
         migrations.AlterField(
             model_name='responsibility',
@@ -188,7 +188,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='responsibility',
             name='re_huoxiaoge',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='霍晓歌分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工9分数'),
         ),
         migrations.AlterField(
             model_name='responsibility',
@@ -208,7 +208,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='responsibility',
             name='re_lixiaoxin',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='李晓昕分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工2分数'),
         ),
         migrations.AlterField(
             model_name='responsibility',
@@ -218,17 +218,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='responsibility',
             name='re_suweiheng',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='苏伟衡分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工5分数'),
         ),
         migrations.AlterField(
             model_name='responsibility',
             name='re_wangzhiwu',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='汪志武分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工4分数'),
         ),
         migrations.AlterField(
             model_name='responsibility',
             name='re_weiguorui',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='韦国锐分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工10分数'),
         ),
         migrations.AlterField(
             model_name='responsibility',
@@ -238,11 +238,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='responsibility',
             name='re_yuqiusi',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='于秋思分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工15分数'),
         ),
         migrations.AlterField(
             model_name='responsibility',
             name='re_zhangchen',
-            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='张晨分数'),
+            field=models.IntegerField(choices=[(95, 95), (91, 91), (83, 83), (79, 79)], verbose_name='测试员工12分数'),
         ),
     ]

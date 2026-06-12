@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+
+{% block title %} | 待办审批 {% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-3">待办审批</h2>
+  {% include 'partials/_alerts.html' %}
+
+  <section class="mb-5">
+    <h4>待审批 <span class="badge badge-warning">{{ pending_count }}</span></h4>
+    {% if pending %}
+    <table class="table table-hover align-middle">
+      <thead class="thead-light">
+        <tr>
+          <th>申请人</th>
+          <th>类型</th>
+          <th>标题</th>
+          <th>分数</th>
+          <th>说明</th>
+          <th>材料</th>
+          <th style="width:320px">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for app in pending %}
+        <tr>
+          <td>{{ app.applicant.last_name }}{{ app.applicant.first_name }}<br><small class="text-muted">{{ app.applicant.username }}</small></td>
+          <td>{{ app.get_work_type_display }}</td>
+          <td>{{ app.title }}</td>
+          <td>{{ app.score }}</td>
+          <td><small>{{ app.description|default:"-" }}</small></td>
+          <td>{% if app.evidence %}<a href="{{ app.evidence.url }}" target="_blank">下载</a>{% else %}-{% endif %}</td>
+          <td>
+            <form method="post" action="{% url 'approve_work_application' app.pk %}" class="mb-2">
+              {% csrf_token %}
+              <input type="text" name="review_comment" class="form-control form-control-sm mb-1" placeholder="审批意见(可选)">
+              <button type="submit" class="btn btn-success btn-sm">审批通过</button>
+              <button type="submit" class="btn btn-danger btn-sm" formaction="{% url 'reject_work_application' app.pk %}">驳回</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="text-muted">暂无待办审批。</p>
+    {% endif %}
+  </section>
+
+  <section>
+    <h4>历史审批</h4>
+    {% if reviewed %}
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>申请人</th>
+          <th>类型</th>
+          <th>标题</th>
+          <th>分数</th>
+          <th>结果</th>
+          <th>意见</th>
+          <th>时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for app in reviewed %}
+        <tr>
+          <td>{{ app.applicant.last_name }}{{ app.applicant.first_name }}</td>
+          <td>{{ app.get_work_type_display }}</td>
+          <td>{{ app.title }}</td>
+          <td>{{ app.score }}</td>
+          <td>
+            <span class="badge {% if app.status == 'approved' %}badge-success{% else %}badge-danger{% endif %}">
+              {{ app.get_status_display }}
+            </span>
+          </td>
+          <td><small>{{ app.review_comment|default:"-" }}</small></td>
+          <td><small>{{ app.reviewed_at|date:"Y-m-d H:i" }}</small></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="text-muted">暂无历史审批记录。</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

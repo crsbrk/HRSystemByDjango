@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ["192.168.50.69","127.0.0.1","10.116.1.121","localhost"]
 # Application definition
 
 INSTALLED_APPS = [
+    # Vue.js + Element-UI 后台主题，必须放在 django.contrib.admin 之前
+    'simpleui',
     'scores.apps.ScoresConfig',
     'posts.apps.PostsConfig',
     'bonuses.apps.BonusesConfig',
@@ -74,6 +76,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'accounts.context_processors.site_settings',
+                'accounts.context_processors.approval_badge',
             ],
         },
     },
@@ -131,8 +135,6 @@ TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = False
 
 
@@ -157,9 +159,49 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
+# ---- SimpleUI：基于 Vue.js + Element-UI 的后台管理主题 ----
+# 内网部署，静态资源全部走本地，不依赖外网 CDN
+SIMPLEUI_STATIC_OFFLINE = True
+# 关闭使用统计上报与首页的 simpleui 仓库信息卡片
+SIMPLEUI_ANALYSIS = False
+SIMPLEUI_HOME_INFO = False
+# 默认主题（登录后右上角“头像 -> 更换主题”可随时切换）
+SIMPLEUI_DEFAULT_THEME = 'e-blue-pro.css'
+# 后台首页标题与图标
+SIMPLEUI_HOME_TITLE = '人力考核系统'
+SIMPLEUI_HOME_ICON = 'fas fa-chart-line'
+# 左侧菜单图标（按 app verbose_name / model verbose_name 匹配）
+SIMPLEUI_ICON = {
+    '账号与系统': 'fas fa-cogs',
+    '考核分数': 'fas fa-trophy',
+    '工单类': 'fas fa-clipboard-list',
+    '项目类': 'fas fa-project-diagram',
+    '割接类': 'fas fa-network-wired',
+    '特殊加分项': 'fas fa-star',
+    '故障类': 'fas fa-bug',
+    '日常类': 'fas fa-calendar-check',
+    '认证和授权': 'fas fa-user-shield',
+    '总分': 'fas fa-trophy',
+    '民主测评': 'fas fa-vote-yea',
+    '工作量申请': 'fas fa-file-signature',
+    '系统设置': 'fas fa-sliders-h',
+    '首页轮播图': 'fas fa-images',
+    '工单': 'fas fa-clipboard-list',
+    '项目': 'fas fa-project-diagram',
+    '割接': 'fas fa-network-wired',
+    '特殊加分': 'fas fa-star',
+    '故障处理': 'fas fa-wrench',
+    '日常工作': 'fas fa-calendar-check',
+    '用户': 'fas fa-user',
+    '组': 'fas fa-users',
+}
+
 
 
 try:
     from .local_settings import *
 except ImportError:
     pass
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+

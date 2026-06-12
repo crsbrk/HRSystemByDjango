@@ -1,19 +1,16 @@
 from django.contrib import admin
 
-from .models import Scores,Attitude,Responsibility,Discipline
+from .models import Scores, DemocracyRating
 
 class ScoresAdmin(admin.ModelAdmin):
     list_display = ('worker_name','score_year_month','score_posts','score_orders','score_bonuses','score_cutovers','score_routine','score_faulty')
-#    list_display = ('title','pj_score','pj_leader','pj_progress','is_delayed','deadline_at')
 
-class AttitudeAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Attitude._meta.get_fields()]
-class ResponsAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Responsibility._meta.get_fields()]
-class DiscipAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Discipline._meta.get_fields()]
+
+class DemocracyRatingAdmin(admin.ModelAdmin):
+    list_display = ('evaluator', 'target', 'year_season', 'attitude', 'responsibility', 'discipline')
+    list_filter = ('year_season',)
+    search_fields = ('evaluator__username', 'target__username')
+
 
 admin.site.register(Scores, ScoresAdmin)
-admin.site.register(Attitude, AttitudeAdmin)
-admin.site.register(Responsibility, ResponsAdmin)
-admin.site.register(Discipline, DiscipAdmin)
+admin.site.register(DemocracyRating, DemocracyRatingAdmin)

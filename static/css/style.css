@@ -1,6 +1,14 @@
 .btn-secondary {
   color: #fff !important; }
 
+html {
+  min-height: 100%; }
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; }
+
 img {
   width: 100%; }
 
@@ -69,6 +77,13 @@ img {
 .listing-preview a {
   position: relative; }
 
+.site-main {
+  flex: 1 0 auto; }
+
+#main-footer {
+  flex-shrink: 0;
+  margin-top: auto; }
+
 @media (max-width: 991px) {
   #showcase {
     padding-top: 4rem; }
@@ -94,3 +109,238 @@ img {
     font-size: 30px; }
   #showcase-inner h1 {
     font-size: 40px; } }
+
+.page-shell {
+  padding-bottom: 2rem;
+}
+
+.score-hero {
+  align-items: stretch;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
+  margin: 1rem 0 1.25rem;
+  padding: 1.5rem;
+}
+
+.score-hero h2,
+.score-panel h3 {
+  color: #1f2937;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.score-muted,
+.score-eyebrow,
+.score-summary span,
+.score-podium-item span:last-child {
+  color: #64748b;
+}
+
+.score-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+}
+
+.score-summary-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.score-summary,
+.score-podium-item {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.score-podium-rank-1 {
+  border-color: #f5c542;
+}
+
+.score-podium-rank-2 {
+  border-color: #cbd5e1;
+}
+
+.score-podium-rank-3 {
+  border-color: #d8a76a;
+}
+
+.score-summary span,
+.score-podium-item span {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.score-summary strong,
+.score-podium-item strong {
+  color: #111827;
+  display: block;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  margin-top: 0.25rem;
+}
+
+.score-panel {
+  border-top: 1px solid #e5e7eb;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+}
+
+.score-panel-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.score-podium {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.score-rank {
+  color: #2563eb !important;
+  font-weight: 700;
+}
+
+.score-rank-icon {
+  align-items: center;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 999px;
+  color: #3730a3;
+  display: inline-flex;
+  font-size: 0.9rem;
+  font-weight: 700;
+  gap: 0.35rem;
+  justify-content: center;
+  min-width: 2.25rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.score-rank-1 {
+  background: #fff7cc;
+  border-color: #f5c542;
+  color: #8a5a00;
+}
+
+.score-rank-2 {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+.score-rank-3 {
+  background: #fff1df;
+  border-color: #d8a76a;
+  color: #8a4b14;
+}
+
+.score-person {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.score-person strong {
+  color: #1f2937;
+  display: block;
+  line-height: 1.25;
+}
+
+.score-person span {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.score-avatar {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #dbe3ea;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.score-avatar-sm {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  max-width: 30px;
+  max-height: 30px;
+}
+
+.score-avatar-fallback {
+  align-items: center;
+  background: #e0f2fe;
+  color: #075985 !important;
+  display: inline-flex !important;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1;
+  justify-content: center;
+}
+
+.score-avatar-sm.score-avatar-fallback {
+  font-size: 0.85rem;
+}
+
+.score-status {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 999px;
+  color: #9a3412;
+  display: inline-block;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  padding: 0.15rem 0.5rem;
+  vertical-align: middle;
+}
+
+.score-status-approved {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.score-row-top {
+  background: #fbfdff;
+}
+
+.score-table {
+  background: #fff;
+}
+
+.score-table thead th {
+  border-top: 0;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .score-hero,
+  .score-summary-grid,
+  .score-podium {
+    grid-template-columns: 1fr;
+  }
+}

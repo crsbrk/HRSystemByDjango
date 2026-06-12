@@ -1,20 +1,19 @@
 from django.db import models
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
-from templates.constant_files import WORKERS_NAMES
 # Create your models here.
 class Bonuses(models.Model):
 
     #title is bonus name
     title = models.CharField('加分项目名称',max_length=200)
     pj_score = models.IntegerField('项目加分',default=0)
-    pj_leader = models.CharField('完成人员1',choices=WORKERS_NAMES,max_length=200)
+    pj_leader = models.CharField('完成人员1',max_length=200)
     workload_allot = models.FloatField('比例1', validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
-    pj_participant1 = models.CharField('完成人员2',choices=WORKERS_NAMES,max_length=200, blank=True)
+    pj_participant1 = models.CharField('完成人员2',max_length=200, blank=True)
     workload_allot1 = models.FloatField('比例2',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
-    pj_participant2 = models.CharField('完成人员3',choices=WORKERS_NAMES,max_length=200, blank=True)
+    pj_participant2 = models.CharField('完成人员3',max_length=200, blank=True)
     workload_allot2= models.FloatField('比例3',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
-    pj_participant3 = models.CharField('完成人员4',choices=WORKERS_NAMES,max_length=200,blank=True)
+    pj_participant3 = models.CharField('完成人员4',max_length=200,blank=True)
     workload_allot3 = models.FloatField('比例4',validators=[MinValueValidator(0.0), MaxValueValidator(1)],default=0)
 
 
