@@ -10,6 +10,7 @@ from routine.models import Routine
 from faulty.models import Faulty
 from templates.constant_files import *#scoreOfAllWorkers,POST_SCORE_FLAG,CUTOVER_SCORE_FLAG,ORDERS_SCORE_FLAG,BONUSES_SCORE_FLAG,FAULTY_SCORE_FLAG,ROUTINE_SCORE_FLAG
 from accounts.workers import worker_display_name, get_worker_names
+from scores.services.formulas import generate_ranking_snapshots, get_policy_for_period
 import math
 import datetime
 from django.db.models import Avg, Q
@@ -220,25 +221,28 @@ def index(request):
     # print(scoreOfAllWorkers)
     # print(sumScores)
 
-    jixiao_scores = getJixiaoByItemsLimit(worker_names, thisYear, lastMonth)
-    getDemocacyScore(thisSeasonStr, jixiao_scores)
-    sortedPerformance = sorted(jixiao_scores.items(), key=lambda x: x[1][2], reverse=True)
+    formula_policy = get_policy_for_period(thisYear, lastMonth)
+    generate_ranking_snapshots(thisYear, lastMonth, worker_names)
+    ranking_snapshots = ScoreRankingSnapshot.objects.filter(
+        score_year=thisYear,
+        score_month=lastMonth,
+        worker_name__in=worker_names,
+    ).order_by('rank', 'worker_name')
 
     rankingRows = []
-    for rank, item in enumerate(sortedPerformance, start=1):
-        worker_name = item[0]
-        values = item[1]
+    for snapshot in ranking_snapshots:
+        worker_name = snapshot.worker_name
         meta = worker_meta(worker_name, worker_profiles)
         rankingRows.append({
-            'rank': rank,
+            'rank': snapshot.rank,
             'name': worker_name,
             'avatar_url': meta['avatar_url'],
             'initials': meta['initials'],
             'role': meta['role'],
             'is_approved': meta['is_approved'],
-            'attitude_score': round(values[0], 2),
-            'work_score': round(values[1], 2),
-            'total_score': round(values[2], 2),
+            'attitude_score': round(snapshot.democracy_score, 2),
+            'work_score': round(snapshot.work_score, 2),
+            'total_score': round(snapshot.total_score, 2),
         })
 
     visitorIp = visitor_ip_address(request)
@@ -251,6 +255,7 @@ def index(request):
         'topPerformance': rankingRows[:3],
         'visitorIp':visitorIp,
         'thisSeasonStr':thisSeasonStr,
+        'formulaPolicy': formula_policy,
 
     }
     

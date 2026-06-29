@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 from django.utils import timezone
 
+from .duplicates import approval_requires_duplicate_override, update_duplicate_status
 from .models import HomeSlide, SiteSetting, UserProfileInfo, User, WorkApplication
 from .services import (
     delete_application_work_item,
@@ -58,10 +59,13 @@ class HomeSlideAdmin(admin.ModelAdmin):
 
 @admin.register(WorkApplication)
 class WorkApplicationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'applicant', 'work_type', 'score', 'status', 'reviewer', 'created_at')
-    list_filter = ('status', 'work_type', 'created_at')
-    search_fields = ('title', 'applicant__username', 'description')
-    readonly_fields = ('created_at', 'reviewed_at', 'materialized_model', 'materialized_object_id')
+    list_display = ('title', 'applicant', 'work_type', 'score', 'status', 'duplicate_status', 'reviewer', 'created_at')
+    list_filter = ('status', 'duplicate_status', 'work_type', 'created_at')
+    search_fields = ('title', 'work_num', 'applicant__username', 'description')
+    readonly_fields = (
+        'created_at', 'reviewed_at', 'materialized_model', 'materialized_object_id',
+        'duplicate_checked_at', 'duplicate_signature', 'duplicate_override_by',
+    )
     actions = ('approve_applications', 'reject_applications')
 
     def save_model(self, request, obj, form, change):
@@ -76,6 +80,21 @@ class WorkApplicationAdmin(admin.ModelAdmin):
             if not obj.reviewed_at:
                 obj.reviewed_at = timezone.now()
         super().save_model(request, obj, form, change)
+        if obj.status == 'pending':
+            update_duplicate_status(obj)
+        if obj.status == 'approved':
+            if obj.duplicate_status == 'none':
+                update_duplicate_status(obj)
+            if approval_requires_duplicate_override(obj):
+                if not obj.duplicate_override_reason.strip():
+                    obj.status = 'pending'
+                    obj.reviewed_at = None
+                    obj.save(update_fields=['status', 'reviewed_at'])
+                    self.message_user(request, '该申请疑似重复，必须填写重复审批确认原因后才能通过。')
+                    return
+                obj.duplicate_status = 'overridden'
+                obj.duplicate_override_by = request.user
+                obj.save(update_fields=['duplicate_status', 'duplicate_override_by'])
 
         if previous_application and previous_application.status == 'approved':
             delete_application_work_item(previous_application)
@@ -86,7 +105,12 @@ class WorkApplicationAdmin(admin.ModelAdmin):
 
     def approve_applications(self, request, queryset):
         updated = 0
+        skipped = 0
         for application in queryset.select_related('applicant'):
+            update_duplicate_status(application)
+            if approval_requires_duplicate_override(application):
+                skipped += 1
+                continue
             application.status = 'approved'
             application.reviewer = request.user
             application.reviewed_at = timezone.now()
@@ -94,7 +118,10 @@ class WorkApplicationAdmin(admin.ModelAdmin):
             sync_application_work_item(application)
             refresh_scores_for_application(application)
             updated += 1
-        self.message_user(request, '已审批通过 %s 条申请，并刷新对应月份积分。' % updated)
+        message = '已审批通过 %s 条申请，并刷新对应月份积分。' % updated
+        if skipped:
+            message += ' %s 条疑似重复申请已跳过，请人工确认后再通过。' % skipped
+        self.message_user(request, message)
 
     approve_applications.short_description = '审批通过选中的申请'
 

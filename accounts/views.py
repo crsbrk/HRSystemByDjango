@@ -3,6 +3,10 @@ from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from django.utils import timezone
 from .account_forms import UserForm, UserProfileInfoForm, WorkApplicationForm
+from .duplicates import (
+  approval_requires_duplicate_override,
+  update_duplicate_status,
+)
 from .services import (
   delete_application_work_item,
   refresh_scores_for_application,
@@ -179,29 +183,32 @@ def build_dashboard_rank(worker_name):
   from scores.views import (
     collect_worker_names,
     current_period,
-    getJixiaoByItemsLimit,
-    getDemocacyScore,
     get_season_str,
     get_worker_profiles,
     updateScoreOfWorkers,
   )
+  from scores.models import ScoreRankingSnapshot
+  from scores.services.formulas import generate_ranking_snapshots
 
   period_year, period_month = current_period()
   period = get_season_str(period_year, period_month)
   worker_profiles = get_worker_profiles()
   worker_names = collect_worker_names(worker_profiles)
   updateScoreOfWorkers(period_year, period_month, worker_names)
-  ranking_scores = getJixiaoByItemsLimit(worker_names, period_year, period_month)
-  getDemocacyScore(period, ranking_scores)
-  sorted_scores = sorted(ranking_scores.items(), key=lambda item: item[1][2], reverse=True)
+  generate_ranking_snapshots(period_year, period_month, worker_names)
+  sorted_scores = ScoreRankingSnapshot.objects.filter(
+    score_year=period_year,
+    score_month=period_month,
+    worker_name__in=worker_names,
+  ).order_by('rank', 'worker_name')
 
-  for index, item in enumerate(sorted_scores, start=1):
-    if item[0] == worker_name:
+  for item in sorted_scores:
+    if item.worker_name == worker_name:
       return {
-        'rank': index,
+        'rank': item.rank,
         'rank_total': len(sorted_scores),
         'period': period,
-        'period_score': round(item[1][2], 2),
+        'period_score': round(item.total_score, 2),
       }
 
   return {
@@ -384,7 +391,11 @@ def create_work_application(request):
       application = form.save(commit=False)
       application.applicant = request.user
       application.save()
-      messages.success(request, '工作量申请已提交，等待审批人审批。')
+      duplicate_candidates = update_duplicate_status(application)
+      if duplicate_candidates:
+        messages.warning(request, '工作量申请已提交，但系统发现疑似重复记录，审批人通过时需要确认。')
+      else:
+        messages.success(request, '工作量申请已提交，等待审批人审批。')
     else:
       messages.error(request, form.errors)
     return redirect('work_applications')
@@ -414,6 +425,19 @@ def approve_work_application(request, pk):
       messages.error(request, '你不是该申请的审批人，无法操作。')
       return redirect('approvals')
     if request.method == 'POST':
+      if application.duplicate_status == 'none':
+        update_duplicate_status(application)
+
+      if approval_requires_duplicate_override(application):
+        duplicate_confirmed = request.POST.get('duplicate_confirmed') == 'on'
+        duplicate_reason = request.POST.get('duplicate_override_reason', '').strip()
+        if not duplicate_confirmed or not duplicate_reason:
+          messages.error(request, '该申请疑似重复，审批通过前必须勾选确认并填写原因。')
+          return redirect('approvals')
+        application.duplicate_status = 'overridden'
+        application.duplicate_override_reason = duplicate_reason
+        application.duplicate_override_by = request.user
+
       application.status = 'approved'
       application.review_comment = request.POST.get('review_comment', '')
       application.reviewed_at = timezone.now()
@@ -457,6 +481,7 @@ def edit_work_application(request, pk):
         app.review_comment = ''
         app.reviewed_at = None
         app.save()
+        update_duplicate_status(app)
         messages.success(request, '已重新提交，等待审批人审批。')
         return redirect('work_applications')
       else:

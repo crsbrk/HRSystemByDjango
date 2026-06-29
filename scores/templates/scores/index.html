@@ -122,7 +122,7 @@
     .score-hero-head .score-muted { margin: 0; max-width: 760px; color: var(--c-muted) !important; }
     .score-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
     }
     .score-stat {
@@ -304,6 +304,13 @@
           <div>
             <span>全年记录</span>
             <strong>{{scoreRecordCount}}</strong>
+          </div>
+        </div>
+        <div class="score-stat">
+          <span class="score-stat-icon"><i class="fas fa-sliders-h"></i></span>
+          <div>
+            <span>当前公式</span>
+            <strong>{{formulaPolicy.name}}</strong>
           </div>
         </div>
       </div>

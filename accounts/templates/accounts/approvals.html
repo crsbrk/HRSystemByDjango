@@ -35,6 +35,16 @@
             <form method="post" action="{% url 'approve_work_application' app.pk %}" class="mb-2">
               {% csrf_token %}
               <input type="text" name="review_comment" class="form-control form-control-sm mb-1" placeholder="审批意见(可选)">
+              {% if app.duplicate_status == 'suspected' %}
+              <div class="alert alert-warning py-2 px-3 mb-2">
+                <strong>疑似重复：</strong>{{ app.duplicate_signature|default:"系统发现相似记录" }}
+                <div class="custom-control custom-checkbox mt-2">
+                  <input type="checkbox" class="custom-control-input" id="duplicate_confirmed_{{ app.pk }}" name="duplicate_confirmed">
+                  <label class="custom-control-label" for="duplicate_confirmed_{{ app.pk }}">确认不是重复提交，允许通过</label>
+                </div>
+                <textarea name="duplicate_override_reason" class="form-control form-control-sm mt-2" rows="2" placeholder="填写确认通过原因"></textarea>
+              </div>
+              {% endif %}
               <button type="submit" class="btn btn-success btn-sm">审批通过</button>
               <button type="submit" class="btn btn-danger btn-sm" formaction="{% url 'reject_work_application' app.pk %}">驳回</button>
             </form>

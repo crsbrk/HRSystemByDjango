@@ -25,6 +25,13 @@ WORK_APPLICATION_STATUS = (
     ('rejected', '已驳回'),
 )
 
+WORK_APPLICATION_DUPLICATE_STATUS = (
+    ('none', '未发现重复'),
+    ('suspected', '疑似重复'),
+    ('confirmed_duplicate', '确认重复'),
+    ('overridden', '已确认通过'),
+)
+
 
 # Create your models here.
 class UserProfileInfo(models.Model):
@@ -129,6 +136,23 @@ class WorkApplication(models.Model):
     workload_allot3 = models.FloatField(
         "比例4", validators=[MinValueValidator(0.0), MaxValueValidator(1.0)], default=0)
     status = models.CharField("状态", choices=WORK_APPLICATION_STATUS, max_length=20, default='pending')
+    duplicate_status = models.CharField(
+        "重复状态",
+        choices=WORK_APPLICATION_DUPLICATE_STATUS,
+        max_length=30,
+        default='none',
+    )
+    duplicate_checked_at = models.DateTimeField("重复检查时间", null=True, blank=True)
+    duplicate_signature = models.CharField("重复识别签名", max_length=255, default='', blank=True)
+    duplicate_override_reason = models.TextField("重复审批确认原因", default='', blank=True)
+    duplicate_override_by = models.ForeignKey(
+        User,
+        verbose_name="重复确认人",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='duplicate_overridden_work_applications',
+    )
     reviewer = models.ForeignKey(User, verbose_name="审批人", on_delete=models.SET_NULL, null=True, blank=True, related_name='reviewed_work_applications')
     review_comment = models.TextField("审批意见", default='', blank=True)
     created_at = models.DateTimeField("提交时间", auto_now_add=True)
